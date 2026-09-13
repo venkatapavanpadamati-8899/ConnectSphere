@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications | ConnectSphere</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- Ambient Grid Pattern Overlay -->
+  <div class="background-grid-pattern"></div>
+
+  <div class="app-container">
+
+    <!-- Left Navigation Sidebar -->
+    <div id="standard-navigation-container"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-header">
+        <h2>Notifications</h2>
+        <div style="display: flex; gap: 10px;">
+          <button class="icon-btn-round theme-toggle-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Notifications List -->
+      <section style="padding: 20px 30px;">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          
+          <div class="post-card" style="border-radius: var(--radius-md); padding: 18px 24px; border: var(--border-glass);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <i class="fa-solid fa-heart" style="color: var(--danger); font-size: 22px;"></i>
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" class="avatar" alt="User">
+              <div style="flex: 1;">
+                <span style="font-weight: 700;">Elena Rostova</span> liked your post <span style="color: var(--text-dim);">"Exploring cyberpunk neon architecture..."</span>
+                <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">10 minutes ago</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-card" style="border-radius: var(--radius-md); padding: 18px 24px; border: var(--border-glass);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <i class="fa-solid fa-user-plus" style="color: var(--primary); font-size: 22px;"></i>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="avatar" alt="User">
+              <div style="flex: 1;">
+                <span style="font-weight: 700;">Marcus Vance</span> started following you.
+                <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">1 hour ago</div>
+              </div>
+              <button class="btn-follow">Follow Back</button>
+            </div>
+          </div>
+
+          <div class="post-card" style="border-radius: var(--radius-md); padding: 18px 24px; border: var(--border-glass);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <i class="fa-solid fa-comment" style="color: var(--accent); font-size: 22px;"></i>
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" class="avatar" alt="User">
+              <div style="flex: 1;">
+                <span style="font-weight: 700;">Sophia Lin</span> commented: <em>"This interface looks futuristic!"</em>
+                <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">3 hours ago</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-card" style="border-radius: var(--radius-md); padding: 18px 24px; border: var(--border-glass);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--secondary); font-size: 22px;"></i>
+              <div class="brand-icon-wrapper pulse-badge" style="width: 36px; height: 36px; font-size: 18px;">
+                <i class="fa-solid fa-atom"></i>
+              </div>
+              <div style="flex: 1;">
+                <span style="font-weight: 700;">ConnectSphere AI System</span> featured your post on the global explore feed! 🎉
+                <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;">Yesterday</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <aside class="sidebar-right">
+      <div class="widget-card">
+        <div class="widget-title"><span>Activity Summary</span></div>
+        <div style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6;">
+          <p>❤️ 1,420 total likes this week</p>
+          <p>👥 340 new followers</p>
+          <p>💬 184 comments received</p>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Mobile Navigation -->
+  
+
+  <!-- Modular Scripts -->
+  <script src="../js/navigation.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/effects.js"></script>
+  <script src="../js/components/postActions.js"></script>
+  <script src="../js/app.js"></script>
+<script src="../js/components/navigationRenderer.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.NavigationRenderer) window.NavigationRenderer.init("notifications");
+    });
+  </script>
+</body>
+</html>

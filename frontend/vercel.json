@@ -1,0 +1,22 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/login", "destination": "/pages/login.html" },
+    { "source": "/login.html", "destination": "/pages/login.html" },
+    { "source": "/signup", "destination": "/pages/signup.html" },
+    { "source": "/signup.html", "destination": "/pages/signup.html" },
+    { "source": "/dashboard", "destination": "/pages/dashboard.html" },
+    { "source": "/dashboard.html", "destination": "/pages/dashboard.html" },
+    { "source": "/explore", "destination": "/pages/explore.html" },
+    { "source": "/explore.html", "destination": "/pages/explore.html" },
+    { "source": "/messages", "destination": "/pages/messages.html" },
+    { "source": "/messages.html", "destination": "/pages/messages.html" },
+    { "source": "/notifications", "destination": "/pages/notifications.html" },
+    { "source": "/notifications.html", "destination": "/pages/notifications.html" },
+    { "source": "/profile", "destination": "/pages/profile.html" },
+    { "source": "/profile.html", "destination": "/pages/profile.html" },
+    { "source": "/settings", "destination": "/pages/settings.html" },
+    { "source": "/settings.html", "destination": "/pages/settings.html" }
+  ]
+}

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <circle cx="500" cy="500" r="450" fill="url(#centerGlow)" />
+  
+  <!-- Outer Concentric Rings -->
+  <circle cx="500" cy="500" r="380" stroke="rgba(99, 102, 241, 0.15)" stroke-width="1" fill="none" stroke-dasharray="8 8" />
+  <circle cx="500" cy="500" r="280" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1.5" fill="none" />
+  <circle cx="500" cy="500" r="180" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
+
+  <!-- Node Points -->
+  <circle cx="500" cy="120" r="6" fill="#06B6D4" />
+  <circle cx="770" cy="230" r="8" fill="#6366F1" />
+  <circle cx="880" cy="500" r="7" fill="#8B5CF6" />
+  <circle cx="770" cy="770" r="6" fill="#06B6D4" />
+  <circle cx="500" cy="880" r="8" fill="#6366F1" />
+  <circle cx="230" cy="770" r="7" fill="#8B5CF6" />
+  <circle cx="120" cy="500" r="6" fill="#06B6D4" />
+  <circle cx="230" cy="230" r="8" fill="#6366F1" />
+
+  <!-- Radiating Lines -->
+  <line x1="500" y1="500" x2="500" y2="120" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="770" y2="230" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="880" y2="500" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="770" y2="770" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="500" y2="880" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="230" y2="770" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="120" y2="500" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1" />
+  <line x1="500" y1="500" x2="230" y2="230" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />
+</svg>

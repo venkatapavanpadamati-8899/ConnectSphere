@@ -1,0 +1,193 @@
+/* ==========================================================================
+   ConnectSphere Design Tokens & Variables
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  /* ConnectSphere Master Brand Palette */
+  --bg-dark: #050816;
+  --bg-midnight: #050816;
+  --bg-navy: #081426;
+  --bg-void: #050816;
+  --bg-surface: #081426;
+  --bg-card: rgba(8, 20, 38, 0.72);
+  --bg-card-hover: rgba(14, 28, 52, 0.82);
+  --bg-glass-input: rgba(255, 255, 255, 0.04);
+
+  /* Primary Identity: Ocean Cyan + Royal Blue + Electric Teal */
+  --cyan: #00D9FF;
+  --teal: #00F5D4;
+  --royal-blue: #287BFF;
+  --violet: #7C5CFF;
+  --magenta: #D946EF;
+  --champagne: #F5C77A;
+
+  --primary: #00D9FF;
+  --primary-hover: #00C4E6;
+  --primary-light: #67E8F9;
+  --primary-glow: rgba(0, 217, 255, 0.35);
+
+  --secondary: #287BFF;
+  --secondary-glow: rgba(40, 123, 255, 0.3);
+
+  --accent: #00F5D4;
+  --accent-glow: rgba(0, 245, 212, 0.3);
+
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+
+  --success: #10B981;
+  --success-glow: rgba(16, 185, 129, 0.3);
+  --warning: #F5C77A;
+  --danger: #EF4444;
+  --danger-glow: rgba(239, 68, 68, 0.35);
+
+  /* Precision Glass Highlights & Specular Borders */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(0, 217, 255, 0.45);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.09);
+  --border-glass-highlight: 1px solid rgba(255, 255, 255, 0.16);
+  --border-glass-cyan: 1px solid rgba(0, 217, 255, 0.28);
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-tech: 'Space Grotesk', sans-serif;
+
+  /* Border Radii */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 32px;
+
+  /* Luxury Glassmorphism */
+  --glass-bg: rgba(8, 20, 38, 0.75);
+  --glass-bg-card: rgba(8, 20, 38, 0.72);
+  --glass-blur: blur(28px);
+  --glass-blur-lg: blur(40px);
+  --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+  --shadow-glow: 0 12px 35px rgba(0, 217, 255, 0.3);
+  --shadow-glow-blue: 0 12px 35px rgba(40, 123, 255, 0.3);
+
+  /* Master Gradients */
+  --gradient-brand: linear-gradient(135deg, #00D9FF 0%, #287BFF 50%, #00F5D4 100%);
+  --gradient-card: linear-gradient(145deg, rgba(8, 20, 38, 0.8) 0%, rgba(5, 12, 24, 0.9) 100%);
+
+
+
+  /* 60 FPS Transition Curves */
+  --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --bounce-transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==========================================================================
+   Page Identities: Three Completely Distinct Worlds
+   ========================================================================== */
+
+/* Page 1: Index — Global Digital Connection Sphere */
+body[data-page="index"] {
+  --page-bg-base: #050713;
+  --page-dominant: #7357FF; /* Electric Violet */
+  --page-secondary: #16D9FF; /* Cyan */
+  --page-accent: #00E6C3; /* Teal */
+  --page-support: #20235C; /* Indigo */
+  --page-card-bg: rgba(14, 18, 42, 0.72);
+  --page-card-border: rgba(115, 87, 255, 0.35);
+  --page-card-glow: 0 24px 60px rgba(5, 7, 19, 0.8), 0 0 40px rgba(115, 87, 255, 0.2);
+  --btn-primary-grad: linear-gradient(135deg, #7357FF 0%, #16D9FF 50%, #00E6C3 100%);
+  --btn-primary-glow: rgba(115, 87, 255, 0.4);
+  --btn-secondary-bg: rgba(15, 20, 48, 0.65);
+  --btn-secondary-border: 1px solid rgba(22, 217, 255, 0.4);
+  --page-glow: rgba(115, 87, 255, 0.35);
+}
+
+/* Page 2: Login — Secure Digital Gateway (Charcoal + Graphite + Royal Violet) */
+body[data-page="login"] {
+  --page-bg-base: #0B0D14;
+  --page-dominant: #6D4AFF; /* Royal Violet */
+  --page-secondary: #171A24; /* Graphite */
+  --page-accent: #00D8FF; /* Electric Cyan */
+  --page-support: #94A3B8; /* Silver */
+  --page-card-bg: rgba(23, 26, 36, 0.82);
+  --page-card-border: rgba(109, 74, 255, 0.38);
+  --page-card-glow: 0 24px 60px rgba(11, 13, 20, 0.85), 0 0 35px rgba(109, 74, 255, 0.22);
+  --btn-primary-grad: linear-gradient(135deg, #6D4AFF 0%, #8B5CF6 100%);
+  --btn-primary-glow: rgba(109, 74, 255, 0.45);
+  --btn-secondary-bg: rgba(26, 30, 44, 0.7);
+  --btn-secondary-border: 1px solid rgba(0, 216, 255, 0.35);
+  --page-glow: rgba(109, 74, 255, 0.38);
+}
+
+/* Page 3: Signup — Global Human Community (Deep Emerald + Teal + Turquoise + Warm Gold) */
+body[data-page="signup"] {
+  --page-bg-base: #062B2A;
+  --page-dominant: #00D5B5; /* Teal */
+  --page-secondary: #19D9E6; /* Turquoise */
+  --page-accent: #F2B95E; /* Warm Gold */
+  --page-support: #FF7B7B; /* Soft Coral */
+  --page-card-bg: rgba(6, 43, 42, 0.82);
+  --page-card-border: rgba(242, 185, 94, 0.32);
+  --page-card-glow: 0 24px 60px rgba(4, 28, 27, 0.85), 0 0 35px rgba(0, 213, 181, 0.2);
+  --btn-primary-grad: linear-gradient(135deg, #00D5B5 0%, #19D9E6 100%);
+  --btn-primary-glow: rgba(0, 213, 181, 0.45);
+  --btn-gold-grad: linear-gradient(135deg, #F2B95E 0%, #E69D28 100%);
+  --btn-gold-glow: rgba(242, 185, 94, 0.4);
+  --btn-secondary-bg: rgba(10, 52, 50, 0.7);
+  --btn-secondary-border: 1px solid rgba(242, 185, 94, 0.38);
+  --page-glow: rgba(0, 213, 181, 0.35);
+}
+
+/* Page 4: Dashboard — Content-First Dark Neutral Foundation */
+body[data-page="dashboard"] {
+  --page-bg-base: #080B11;
+  --dash-bg-void: #06080E;
+  --dash-bg-surface: #0E121B;
+  --dash-bg-subtle: #121722;
+  --dash-card-surface: rgba(16, 21, 33, 0.78);
+  --dash-card-surface-elevated: rgba(22, 28, 44, 0.92);
+  --dash-card-border: rgba(255, 255, 255, 0.07);
+  --dash-card-border-hover: rgba(255, 255, 255, 0.16);
+  --dash-card-border-active: rgba(0, 210, 255, 0.4);
+
+  /* Restrained Accent System */
+  --accent-cyan: #00D2FF;
+  --accent-violet: #8B5CF6;
+  --accent-magenta: #EC4899;
+  --accent-emerald: #10B981;
+  --accent-gold: #F59E0B;
+
+  --accent-home: #00D2FF;
+  --accent-home-grad: linear-gradient(135deg, rgba(0, 210, 255, 0.18) 0%, rgba(139, 92, 246, 0.08) 100%);
+  --accent-explore: #8B5CF6;
+  --accent-messages: #10B981;
+  --accent-stories: #EC4899;
+  --accent-reels: #F43F5E;
+  --accent-communities: #06B6D4;
+  --accent-notifications: #F59E0B;
+  --accent-profile: #A78BFA;
+  --accent-ai: #00D2FF;
+
+  /* Restrained Shadows & Elevation */
+  --shadow-depth-1: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-depth-2: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  --shadow-depth-3: 0 20px 48px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+/* Light Theme Support */
+[data-theme="light"] {
+  --bg-dark: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: #F1F5F9;
+  --bg-glass-input: rgba(0, 0, 0, 0.04);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --text-dim: #94A3B8;
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="ConnectSphere — Connect. Share. Discover. The premier next-generation social ecosystem for verified creators.">
+  <title>ConnectSphere | Connect. Share. Discover.</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css?v=10.0">
+  <link rel="stylesheet" href="../css/animations.css?v=10.0">
+  <link rel="stylesheet" href="../css/responsive.css?v=10.0">
+  <link rel="stylesheet" href="../css/main.css?v=10.0">
+</head>
+<body data-page="index" style="margin: 0; padding: 0; min-height: 100vh; width: 100%; display: grid; place-items: center; background-color: #050713; color: #F8FAFC; overflow-x: hidden; position: relative;">
+
+  <!-- Viewport Framing Top Bar -->
+  <header class="connectsphere-top-bar">
+    <a href="index.html" class="top-bar-brand">
+      <div class="top-bar-logo-orb">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+          <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#7357FF" stroke-width="3" transform="rotate(32 50 50)" class="spin-orbit-cw"/>
+          <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#16D9FF" stroke-width="3" transform="rotate(-32 50 50)" class="spin-orbit-ccw"/>
+          <circle cx="50" cy="50" r="9" fill="#00E6C3" class="core-orb-pulse"/>
+        </svg>
+      </div>
+      <span class="top-bar-title">Connect<span>Sphere</span></span>
+    </a>
+    <div class="top-bar-status-capsule">
+      <span class="top-bar-status-dot"></span>
+      <span>Global Connection &bull; Active</span>
+    </div>
+  </header>
+
+  <!-- Cinematic Background Layer (Global Digital Connection Sphere) -->
+  <div class="cinematic-backdrop-layer" style="background-image: url('../assets/images/index_hero_bg.jpg');"></div>
+
+  <!-- Delicate Indigo Edge Vignette Overlay (Artwork Remains 100% Crisp & Visible) -->
+  <div class="cinematic-vignette-overlay"></div>
+
+  <!-- Interactive Constellation Network Particles Canvas -->
+  <canvas id="particle-bg-canvas"></canvas>
+
+  <!-- Perfectly Centered Hero Portal -->
+  <main class="portal-screen">
+    
+    <div class="portal-hero-card page-entrance gentle-drift" style="max-width: 460px; padding: 44px 36px;">
+      
+      <!-- Central Global Digital Sphere Emblem: Violet + Cyan + Teal -->
+      <div class="portal-emblem-wrapper stagger-item stagger-1" style="width: 155px; height: 155px; margin: 0 auto 20px auto; position: relative;">
+        <div class="portal-emblem-halo" style="background: radial-gradient(circle, rgba(115, 87, 255, 0.55) 0%, rgba(22, 217, 255, 0.3) 50%, transparent 70%);"></div>
+        <svg class="portal-svg-emblem" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="indexOrbitGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7357FF"/>
+              <stop offset="50%" stop-color="#16D9FF"/>
+              <stop offset="100%" stop-color="#00E6C3"/>
+            </linearGradient>
+            <linearGradient id="indexOrbitGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00E6C3"/>
+              <stop offset="60%" stop-color="#7357FF"/>
+              <stop offset="100%" stop-color="#16D9FF"/>
+            </linearGradient>
+            <radialGradient id="indexSphereGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="35%" stop-color="#A5F3FC"/>
+              <stop offset="70%" stop-color="#16D9FF"/>
+              <stop offset="90%" stop-color="#7357FF"/>
+              <stop offset="100%" stop-color="#050713"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Outer Track Ring -->
+          <circle cx="100" cy="100" r="88" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.2" stroke-dasharray="3 7"/>
+
+          <!-- Orbit 1: Clockwise Violet-Cyan Orbital Path -->
+          <g class="spin-orbit-cw">
+            <ellipse cx="100" cy="100" rx="80" ry="28" stroke="url(#indexOrbitGrad1)" stroke-width="2.8" transform="rotate(32 100 100)"/>
+            <circle cx="160" cy="62" r="5" fill="#16D9FF" filter="drop-shadow(0 0 10px #16D9FF)"/>
+            <circle cx="40" cy="138" r="4" fill="#00E6C3"/>
+          </g>
+
+          <!-- Orbit 2: Counter-Clockwise Teal-Violet Orbital Path -->
+          <g class="spin-orbit-ccw">
+            <ellipse cx="100" cy="100" rx="80" ry="28" stroke="url(#indexOrbitGrad2)" stroke-width="2.8" transform="rotate(-36 100 100)"/>
+            <circle cx="40" cy="62" r="5" fill="#00E6C3" filter="drop-shadow(0 0 10px #00E6C3)"/>
+            <circle cx="160" cy="138" r="4" fill="#7357FF"/>
+          </g>
+
+          <!-- Wireframe Globe Lines -->
+          <circle cx="100" cy="100" r="38" stroke="rgba(22, 217, 255, 0.3)" stroke-width="1.5"/>
+          <ellipse cx="100" cy="100" rx="38" ry="14" stroke="rgba(0, 230, 195, 0.25)" stroke-width="1"/>
+          <ellipse cx="100" cy="100" rx="14" ry="38" stroke="rgba(115, 87, 255, 0.28)" stroke-width="1"/>
+
+          <!-- Pulsing Network Nodes -->
+          <circle cx="82" cy="85" r="3.5" fill="#16D9FF" class="pulse-node-1"/>
+          <circle cx="118" cy="115" r="3.5" fill="#00E6C3" class="pulse-node-2"/>
+          <circle cx="112" cy="78" r="3" fill="#7357FF" class="pulse-node-3"/>
+
+          <!-- Central Core -->
+          <g class="core-orb-pulse">
+            <circle cx="100" cy="100" r="17" fill="url(#indexSphereGrad)"/>
+            <circle cx="100" cy="100" r="7" fill="#FFFFFF" opacity="0.95"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Brand Title -->
+      <h1 class="portal-brand-title stagger-item stagger-2" style="font-size: clamp(38px, 5.5vw, 52px); margin-bottom: 12px;">
+        Connect<span class="portal-brand-gradient">Sphere</span>
+      </h1>
+
+      <!-- Small Brand Tagline Capsule -->
+      <div class="portal-tagline-capsule stagger-item stagger-3" style="margin-bottom: 32px; border-color: rgba(22, 217, 255, 0.35); background: rgba(5, 7, 19, 0.6); box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 16px rgba(22, 217, 255, 0.15);">
+        <span style="color: #F8FAFC;">Connect</span>
+        <span class="portal-tagline-dot" style="background: #16D9FF; box-shadow: 0 0 8px #16D9FF;"></span>
+        <span style="color: #F8FAFC;">Share</span>
+        <span class="portal-tagline-dot" style="background: #00E6C3; box-shadow: 0 0 8px #00E6C3;"></span>
+        <span style="color: #F8FAFC;">Discover</span>
+      </div>
+
+      <!-- Two Balanced Action Buttons Only -->
+      <div class="portal-action-group stagger-item stagger-4" style="gap: 14px;">
+        <!-- Primary Button: Violet -> Cyan -> Teal Gradient -->
+        <a href="signup.html" class="btn-portal btn-portal-primary btn-shimmer-sweep" id="btn-portal-signup" style="height: 52px;">
+          <span>Create Account</span>
+          <i class="fa-solid fa-arrow-right" style="font-size: 14px;"></i>
+        </a>
+        <!-- Secondary Button: Transparent Dark Glass + Thin Border -->
+        <a href="login.html" class="btn-portal btn-portal-secondary" id="btn-portal-login" style="height: 52px;">
+          <i class="fa-solid fa-arrow-right-to-bracket" style="font-size: 14px;"></i>
+          <span>Sign In</span>
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Viewport Framing Bottom Bar -->
+  <footer class="connectsphere-bottom-bar">
+    <div class="bottom-bar-tagline">Connect &bull; Share &bull; Discover</div>
+    <a href="signup.html" class="bottom-bar-indicator" title="Enter ConnectSphere">
+      <span>&bull;&bull;&bull; Enter</span>
+    </a>
+    <div class="bottom-bar-metrics">
+      <span><i class="fa-solid fa-shield-halved" style="color: #7357FF; margin-right: 5px;"></i>Quantum Encrypted</span>
+    </div>
+  </footer>
+
+  <!-- Interactive Modular Scripts -->
+  <script src="../js/navigation.js?v=10.0"></script>
+  <script src="../js/animations.js?v=10.0"></script>
+  <script src="../js/effects.js?v=10.0"></script>
+  <script src="../js/app.js?v=10.0"></script>
+</body>
+</html>

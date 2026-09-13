@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Discovery | ConnectSphere</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- Ambient Grid Pattern Overlay -->
+  <div class="background-grid-pattern"></div>
+
+  <div class="app-container">
+
+    <!-- Left Navigation Sidebar -->
+    <div id="standard-navigation-container"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-header">
+        <h2>Explore Discovery</h2>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass" style="color: var(--text-dim);"></i>
+          <input type="text" id="main-search-input" placeholder="Explore trending tags, photos & reels...">
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="icon-btn-round theme-toggle-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Category Filter Chips -->
+      <div style="display: flex; gap: 12px; padding: 20px 30px; overflow-x: auto; scrollbar-width: none;">
+        <button class="btn-follow" style="background: var(--primary); color: white;">🔥 For You</button>
+        <button class="btn-follow">📷 Photography</button>
+        <button class="btn-follow">🎥 Reels</button>
+        <button class="btn-follow">💻 Coding</button>
+        <button class="btn-follow">🎨 UI/UX Design</button>
+        <button class="btn-follow">🤖 AI Innovation</button>
+      </div>
+
+      <!-- Explore Media Grid -->
+      <div class="explore-grid">
+        <div class="explore-item floating-element">
+          <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&auto=format&fit=crop&q=80" alt="Explore">
+          <div class="explore-overlay">
+            <span><i class="fa-solid fa-heart"></i> 2.4K</span>
+            <span><i class="fa-solid fa-comment"></i> 180</span>
+          </div>
+        </div>
+
+        <div class="explore-item">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80" alt="Explore">
+          <div class="explore-overlay">
+            <span><i class="fa-solid fa-heart"></i> 1.9K</span>
+            <span><i class="fa-solid fa-comment"></i> 94</span>
+          </div>
+        </div>
+
+        <div class="explore-item floating-element">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80" alt="Explore">
+          <div class="explore-overlay">
+            <span><i class="fa-solid fa-heart"></i> 4.1K</span>
+            <span><i class="fa-solid fa-comment"></i> 320</span>
+          </div>
+        </div>
+
+        <div class="explore-item">
+          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Explore">
+          <div class="explore-overlay">
+            <span><i class="fa-solid fa-heart"></i> 3.8K</span>
+            <span><i class="fa-solid fa-comment"></i> 210</span>
+          </div>
+        </div>
+
+        <div class="explore-item floating-element">
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80" alt="Explore">
+          <div class="explore-overlay">
+            <span><i class="fa-solid fa-heart"></i> 1.2K</span>
+            <span><i class="fa-solid fa-comment"></i> 88</span>
+          </div>
+        </div>
+
+        <div class="explore-item">
+          <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&auto=format&fit=crop&q=80" alt="Explore">
+          <div class="explore-overlay">
+            <span><i class="fa-solid fa-heart"></i> 5.6K</span>
+            <span><i class="fa-solid fa-comment"></i> 412</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar-right">
+      <div class="widget-card">
+        <div class="widget-title"><span>Popular Tags</span></div>
+        <div class="trending-item"><div class="trending-topic">#Glassmorphism</div><div class="trending-count">24.5K posts</div></div>
+        <div class="trending-item"><div class="trending-topic">#FrontendArchitecture</div><div class="trending-count">19.2K posts</div></div>
+        <div class="trending-item"><div class="trending-topic">#AIComponents</div><div class="trending-count">12.1K posts</div></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Mobile Navigation -->
+  
+
+  <!-- Modular Scripts -->
+  <script src="../js/navigation.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/effects.js"></script>
+  <script src="../js/components/postActions.js"></script>
+  <script src="../js/app.js"></script>
+<script src="../js/components/navigationRenderer.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.NavigationRenderer) window.NavigationRenderer.init("explore");
+    });
+  </script>
+</body>
+</html>

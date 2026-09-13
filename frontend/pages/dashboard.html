@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="ConnectSphere Dashboard — The premier next-generation social ecosystem for verified creators.">
+  <title>Dashboard | ConnectSphere</title>
+
+  <!-- FontAwesome 6.4.0 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans, Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css?v=11.0">
+  <link rel="stylesheet" href="../css/animations.css?v=11.0">
+  <link rel="stylesheet" href="../css/main.css?v=11.0">
+  <link rel="stylesheet" href="../css/responsive.css?v=11.0">
+</head>
+<body data-page="dashboard" class="dashboard-body">
+
+  <!-- Ambient Backdrop Glow Layer -->
+  <div class="dashboard-ambient-glow"></div>
+
+  <!-- Mobile Slide-Down Search Overlay -->
+  <div class="mobile-search-overlay" id="mobile-search-overlay">
+    <div class="mobile-search-input-wrap">
+      <i class="fa-solid fa-magnifying-glass" style="color: #16D9FF;"></i>
+      <input type="text" id="mobile-search-input" placeholder="Search ConnectSphere mesh...">
+    </div>
+    <button type="button" class="btn-close-mobile-search" id="btn-close-mobile-search" aria-label="Close search">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Top Header Bar (Visible on Mobile < 768px only) -->
+  <header class="mobile-top-header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button type="button" class="mobile-action-btn" id="btn-mobile-menu" aria-label="Open navigation menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="dashboard.html" class="mobile-brand-link">
+        <div class="mobile-logo-orb">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+            <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#7357FF" stroke-width="3" transform="rotate(32 50 50)"/>
+            <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#16D9FF" stroke-width="3" transform="rotate(-32 50 50)"/>
+            <circle cx="50" cy="50" r="9" fill="#00E6C3"/>
+          </svg>
+        </div>
+        <span class="mobile-brand-text">Connect<span>Sphere</span></span>
+      </a>
+    </div>
+    <div class="mobile-header-actions">
+      <button type="button" class="mobile-action-btn" id="btn-mobile-search" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button type="button" class="mobile-action-btn" id="btn-mobile-notifications" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge-dot"></span>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- Dashboard Masterpiece Outer Glass Window -->
+  <div class="dashboard-outer-window">
+
+    <!-- Masterpiece Top Header (Matching Reference Image Header Bar) -->
+    <header class="masterpiece-top-header">
+      <!-- Left: Brand Logo & Tagline -->
+      <a href="dashboard.html" class="masterpiece-brand-block">
+        <div class="masterpiece-brand-icon pulse-badge">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+            <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#7357FF" stroke-width="3.5" transform="rotate(32 50 50)"/>
+            <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#16D9FF" stroke-width="3.5" transform="rotate(-32 50 50)"/>
+            <circle cx="50" cy="50" r="10" fill="#00E6C3"/>
+          </svg>
+        </div>
+        <div class="masterpiece-brand-text">
+          <span class="title">Connect<span>Sphere</span></span>
+          <span class="tagline">Connect &bull; Share &bull; Belong</span>
+        </div>
+      </a>
+
+      <!-- Center: Search Pill with Ctrl K Shortcut -->
+      <div class="masterpiece-top-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="masterpiece-top-search-input" placeholder="Search people, topics, communities...">
+        <span class="search-shortcut-pill">Ctrl K</span>
+      </div>
+
+      <!-- Right: Action Icons & User Capsule -->
+      <div class="masterpiece-top-actions">
+        <button type="button" class="btn-header-plus btn-open-create-modal" title="Create New Post">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button type="button" class="header-action-icon-btn" id="btn-desktop-notifications-toggle" title="Notifications">
+          <i class="fa-regular fa-bell"></i>
+          <span class="red-notification-badge">3</span>
+        </button>
+        <button type="button" class="header-action-icon-btn" id="btn-header-messages-toggle" title="Messages">
+          <i class="fa-regular fa-message"></i>
+        </button>
+        <div class="header-user-capsule" id="header-user-capsule">
+          <div class="avatar-wrapper">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Alex Johnson">
+            <span class="status-online-dot"></span>
+          </div>
+          <div class="user-meta">
+            <span class="name">Alex Johnson</span>
+            <span class="handle">@alexjohnson</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main 3-Column Responsive Grid Container -->
+    <div class="app-container dashboard-layout">
+
+      <!-- ====================================================================
+           COLUMN 1: Left Navigation Sidebar
+           ==================================================================== -->
+      <aside class="sidebar-left dashboard-sidebar">
+        <!-- Main Navigation Menu -->
+        <nav class="nav-menu masterpiece-nav-list">
+          <a href="dashboard.html" class="nav-item active" id="nav-item-home" title="Home Feed">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </a>
+          <a href="explore.html" class="nav-item" id="nav-item-explore" title="Explore">
+            <i class="fa-regular fa-compass"></i>
+            <span>Explore</span>
+          </a>
+          <a href="#stories" class="nav-item" id="sidebar-link-stories" title="Stories">
+            <i class="fa-regular fa-circle-play"></i>
+            <span>Stories</span>
+          </a>
+          <a href="#reels" class="nav-item" id="sidebar-link-reels" title="Reels">
+            <i class="fa-solid fa-film"></i>
+            <span>Reels</span>
+          </a>
+          <a href="messages.html" class="nav-item" id="sidebar-link-messages" title="Messages">
+            <i class="fa-regular fa-message"></i>
+            <span>Messages</span>
+            <span class="nav-pill-badge-red">2</span>
+          </a>
+          <a href="explore.html#communities" class="nav-item" id="sidebar-link-communities" title="Communities">
+            <i class="fa-solid fa-users"></i>
+            <span>Communities</span>
+          </a>
+          <a href="#live" class="nav-item" id="sidebar-link-live" title="Live Streams">
+            <i class="fa-solid fa-tower-broadcast"></i>
+            <span>Live</span>
+            <span class="badge-live-red" style="font-size: 8px; padding: 1px 4px; margin-left: auto;">LIVE</span>
+          </a>
+          <a href="notifications.html" class="nav-item" id="sidebar-link-notifications" title="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span>Notifications</span>
+            <span class="nav-pill-badge-red">3</span>
+          </a>
+          <a href="profile.html" class="nav-item" id="sidebar-link-profile" title="Profile">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+          </a>
+          <a href="settings.html" class="nav-item" id="sidebar-link-settings" title="Settings">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+
+        <!-- + Create Post Primary Button -->
+        <button type="button" class="btn-sidebar-create-masterpiece btn-open-create-modal" id="btn-open-create-modal" title="Create New Post">
+          <i class="fa-solid fa-plus"></i>
+          <span>Create Post</span>
+        </button>
+
+        <!-- VIP Upgrade Card -->
+        <div class="vip-upgrade-card">
+          <div class="vip-card-header">
+            <div class="crown-icon-wrap">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <div>
+              <div class="vip-label">Upgrade to</div>
+              <div class="vip-brand-name">ConnectSphere+</div>
+            </div>
+          </div>
+          <ul class="vip-perks-list">
+            <li><i class="fa-solid fa-check"></i> Unlock 3D Spaces</li>
+            <li><i class="fa-solid fa-check"></i> AI Creator Tools</li>
+            <li><i class="fa-solid fa-check"></i> Higher Upload Limits</li>
+            <li><i class="fa-solid fa-check"></i> Exclusive Communities</li>
+          </ul>
+          <button type="button" class="btn-vip-learn-more" id="btn-vip-learn-more">Learn More</button>
+        </div>
+
+        <!-- User Profile Card Widget -->
+        <div class="sidebar-user-card-v3" id="sidebar-user-widget">
+          <div class="sidebar-user-top">
+            <div class="avatar-wrapper">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Alex Johnson">
+              <span class="status-online-dot"></span>
+            </div>
+            <div class="user-info">
+              <div class="name">
+                <span>Alex Johnson</span>
+              </div>
+              <div class="username">@alexjohnson</div>
+            </div>
+            <a href="login.html" class="btn-sidebar-logout" title="Sign Out" style="margin-left: auto; color: rgba(255,255,255,0.4); font-size: 13px;">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+          </div>
+          <div class="user-stats-bar">
+            <div class="stat-col"><span class="stat-num">248</span><span class="stat-lbl">Posts</span></div>
+            <div class="stat-col"><span class="stat-num">12.4K</span><span class="stat-lbl">Followers</span></div>
+            <div class="stat-col"><span class="stat-num">896</span><span class="stat-lbl">Following</span></div>
+          </div>
+          <div class="sidebar-motto-footer">
+            <div>Connect People</div>
+            <div>&mdash; Create Opportunities</div>
+            <div>&mdash; Belong Anywhere</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ====================================================================
+           COLUMN 2: Center Main Feed & Story Ecosystem
+           ==================================================================== -->
+      <main class="main-content dashboard-feed">
+        
+        <!-- Top Category Tabs Bar -->
+        <div class="feed-category-tabs-bar">
+          <div class="tabs-group-left">
+            <button type="button" class="feed-tab-pill feed-tab-btn active" data-tab="for-you">For You</button>
+            <button type="button" class="feed-tab-pill feed-tab-btn" data-tab="following">Following</button>
+            <button type="button" class="feed-tab-pill feed-tab-btn" data-tab="latest">Latest</button>
+            <button type="button" class="feed-tab-pill feed-tab-btn" data-tab="communities">Communities</button>
+            <button type="button" class="feed-tab-pill feed-tab-btn" data-tab="spatial">Spatial</button>
+          </div>
+          <div class="tabs-group-right">
+            <button type="button" class="feed-tab-pill feed-tab-btn global-pill" data-tab="global">
+              <i class="fa-solid fa-globe"></i>
+              <span>Global</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Stories Carousel Row -->
+        <section class="stories-container masterpiece-stories" id="dashboard-stories-container">
+          <!-- Hidden Story Upload File Input -->
+          <input type="file" id="story-upload-file-input" accept="image/*" style="display:none;">
+          
+          <!-- Current User: Your Story -->
+          <div class="story-card my-story" id="add-story-trigger" data-testid="story-trigger" title="Upload New Story">
+            <div class="story-ring-wrapper">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Your Story">
+              <div class="add-story-badge"><i class="fa-solid fa-plus"></i></div>
+            </div>
+            <span class="story-name">Your Story</span>
+          </div>
+
+          <!-- Creator 1: Elena Rostova -->
+          <div class="story-card" data-creator="Elena Rostova">
+            <div class="story-ring-wrapper unread ring-gradient-pink">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Elena Rostova">
+            </div>
+            <span class="story-name">Elena R.</span>
+          </div>
+
+          <!-- Creator 2: Marcus Vance -->
+          <div class="story-card" data-creator="Marcus Vance">
+            <div class="story-ring-wrapper unread ring-gradient-purple">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Marcus Vance">
+            </div>
+            <span class="story-name">Marcus V.</span>
+          </div>
+
+          <!-- Creator 3: Sofia Chen -->
+          <div class="story-card" data-creator="Sofia Chen">
+            <div class="story-ring-wrapper unread ring-gradient-cyan">
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Sofia Chen">
+            </div>
+            <span class="story-name">Sofia C.</span>
+          </div>
+
+          <!-- Creator 4: David Kim -->
+          <div class="story-card" data-creator="David Kim">
+            <div class="story-ring-wrapper unread ring-gradient-blue">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80" class="avatar" alt="David Kim">
+            </div>
+            <span class="story-name">David K.</span>
+          </div>
+
+          <!-- Creator 5: Maya Lin -->
+          <div class="story-card" data-creator="Maya Lin">
+            <div class="story-ring-wrapper unread ring-gradient-amber">
+              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Maya Lin">
+            </div>
+            <span class="story-name">Maya L.</span>
+          </div>
+
+          <!-- Creator 6: Chris Taylor -->
+          <div class="story-card" data-creator="Chris Taylor">
+            <div class="story-ring-wrapper unread ring-gradient-teal">
+              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Chris Taylor">
+            </div>
+            <span class="story-name">Chris T.</span>
+          </div>
+
+          <!-- Creator 7: Priya Sharma -->
+          <div class="story-card" data-creator="Priya Sharma">
+            <div class="story-ring-wrapper unread ring-gradient-rose">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" class="avatar" alt="Priya Sharma">
+            </div>
+            <span class="story-name">Priya S.</span>
+          </div>
+
+          <!-- Right Chevron Scroll Button -->
+          <button type="button" class="btn-stories-scroll-right" aria-label="Next stories">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </section>
+
+        <!-- Inline Create Post Composer Box -->
+        <section class="create-post-box dashboard-composer composer-masterpiece">
+          <div class="composer-top-row">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar composer-avatar-circle" id="composer-user-avatar" alt="Alex Johnson">
+            <input type="text" id="composer-post-text" placeholder="What's on your mind, Alex?">
+            <div class="audience-selector-chip" id="composer-audience-select" title="Change Audience Visibility">
+              <i class="fa-solid fa-globe"></i>
+              <span id="composer-audience-label">Public</span>
+              <i class="fa-solid fa-chevron-down" style="font-size: 10px; opacity: 0.7;"></i>
+            </div>
+          </div>
+
+          <!-- Composer Media Attachment Preview -->
+          <div class="composer-preview-box" id="composer-media-preview">
+            <img id="composer-preview-img" src="" alt="Media Preview">
+            <button type="button" class="btn-remove-preview" id="btn-remove-composer-media" title="Remove attachment"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+
+          <!-- Hidden Photo Input -->
+          <input type="file" id="composer-photo-input" accept="image/*" style="display:none;">
+
+          <!-- Inline Poll Builder -->
+          <div class="poll-builder-container" id="composer-poll-builder">
+            <div class="poll-builder-title">
+              <span><i class="fa-solid fa-square-poll-vertical"></i> Community Consensus Poll</span>
+              <button type="button" class="btn-modal-close-custom" id="btn-close-poll-builder" style="width:22px; height:22px; font-size:10px;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <input type="text" class="poll-builder-input" id="poll-option-1" placeholder="Choice 1 (e.g. Yes, absolutely 🚀)">
+            <input type="text" class="poll-builder-input" id="poll-option-2" placeholder="Choice 2 (e.g. Needs refinement ⚡)">
+          </div>
+
+          <div class="composer-bottom-row">
+            <div class="composer-media-tools">
+              <button type="button" class="media-tool-pill" id="btn-media-photo" title="Add Photo">
+                <i class="fa-regular fa-image" style="color: #38BDF8;"></i>
+                <span>Photo</span>
+              </button>
+              <button type="button" class="media-tool-pill" id="btn-media-video" title="Add Video">
+                <i class="fa-solid fa-film" style="color: #A855F7;"></i>
+                <span>Video</span>
+              </button>
+              <button type="button" class="media-tool-pill" id="btn-media-poll" title="Create Poll">
+                <i class="fa-solid fa-square-poll-vertical" style="color: #10B981;"></i>
+                <span>Poll</span>
+              </button>
+              <button type="button" class="media-tool-pill" id="btn-media-ai" title="AI Assistant">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color: #F472B6;"></i>
+                <span>AI Sparkle</span>
+              </button>
+              <button type="button" class="media-tool-pill" id="btn-media-location" title="Add Location">
+                <i class="fa-solid fa-location-dot" style="color: #C084FC;"></i>
+                <span>Location</span>
+              </button>
+              <button type="button" class="media-tool-pill" title="More Options">
+                <i class="fa-solid fa-ellipsis"></i>
+                <span>More</span>
+              </button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="composer-char-indicator" style="display: none;"><span id="composer-char-count">0</span>/500</span>
+              <button type="button" class="btn-submit-post-masterpiece" id="btn-publish-inline-post">
+                <span>Post</span>
+                <i class="fa-solid fa-paper-plane" style="font-size: 12px; margin-left: 5px;"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Active Filter Banner -->
+        <div class="active-filter-banner" id="active-filter-banner">
+          <div class="active-filter-info">
+            <i class="fa-solid fa-filter" style="color: #16D9FF;"></i>
+            <span>Filtered by:</span>
+            <span id="active-filter-text">#SpatialAudio</span>
+          </div>
+          <button type="button" class="btn-clear-filter" id="btn-clear-feed-filter">Clear Filter ✕</button>
+        </div>
+
+        <!-- Dynamic Feed Container (5 Distinct Post Types) -->
+        <div id="feed-list" class="posts-feed-container">
+          
+          <!-- ====================================================================
+               POST 1: Sofia Chen (Decentralized Identity & Creator Sovereignty)
+               ==================================================================== -->
+          <article class="post-card post-card-masterpiece" data-post-id="post-1" data-category="for-you" data-creator="Sofia Chen">
+            <div class="post-header">
+              <div class="post-user-details">
+                <div class="avatar-ring-cyan">
+                  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Sofia Chen">
+                </div>
+                <div>
+                  <div class="post-user-name">
+                    <span>Sofia Chen</span>
+                    <i class="fa-solid fa-circle-check badge-verified"></i>
+                    <span class="post-creator-tag-cyan">AI Systems Researcher</span>
+                  </div>
+                  <div class="post-time">10 minutes ago &bull; Singapore AI Lab</div>
+                </div>
+              </div>
+              <button class="action-btn-icon" title="Post Options"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+
+            <div class="post-caption" style="font-size: 0.88rem; line-height: 1.48; color: #FFFFFF;">
+              Decentralized identity guarantees that your audience belongs to YOU. No shadow-bans, no algorithmic black-boxes, and no closed-door de-platforming. Just direct, cryptographic creator sovereignty built on open zero-knowledge proofs. If you build it here, you own your social graph forever. 🌐✨ <span class="post-hashtag">#WebInnovation</span> <span class="post-hashtag">#ZeroKnowledge</span> <span class="post-hashtag">#CreatorEconomy</span>
+            </div>
+
+            <!-- Monument Banner Image with Overlay Typography -->
+            <div class="post-banner-masterpiece">
+              <div class="banner-image-stage">
+                <img src="../assets/backgrounds/connectsphere_2035_masterpiece.jpg" class="banner-bg-img" alt="A More Connected Tomorrow">
+                <div class="banner-gradient-overlay"></div>
+                <div class="banner-content-overlay">
+                  <div class="banner-headline">
+                    <span>A More</span>
+                    <span>Connected</span>
+                    <span>Tomorrow</span>
+                  </div>
+                  <div class="banner-brand-chip">
+                    <svg width="20" height="20" viewBox="0 0 100 100" fill="none">
+                      <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                      <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#7357FF" stroke-width="4" transform="rotate(32 50 50)"/>
+                      <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#16D9FF" stroke-width="4" transform="rotate(-32 50 50)"/>
+                      <circle cx="50" cy="50" r="11" fill="#00E6C3"/>
+                    </svg>
+                    <span>ConnectSphere</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-actions masterpiece-post-actions">
+              <button class="action-btn btn-like liked" data-likes="564" title="Like">
+                <i class="fa-solid fa-heart" style="color: #FF4757;"></i>
+                <span class="like-count">564</span>
+              </button>
+              <button class="action-btn btn-comment-toggle" title="Comment">
+                <i class="fa-regular fa-comment"></i>
+                <span class="comment-count">19</span>
+              </button>
+              <button class="action-btn btn-repost-post" data-reposts="48" title="Repost">
+                <i class="fa-solid fa-retweet"></i>
+                <span class="repost-count">48</span>
+              </button>
+              <button class="action-btn btn-share-post" title="Share">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>180</span>
+              </button>
+              <button class="action-btn btn-bookmark-post" title="Bookmark">
+                <i class="fa-regular fa-bookmark"></i>
+              </button>
+            </div>
+
+            <!-- Expandable Comments Section -->
+            <div class="comment-section">
+              <div class="comment-list">
+                <div class="comment-item">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="comment-avatar" alt="Marcus">
+                  <div class="comment-content">
+                    <div class="comment-author">Marcus Vance <span class="comment-time">6m ago</span></div>
+                    <div class="comment-text">This is exactly why ConnectSphere is so radically liberating. True ownership changes the entire creator calculus!</div>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-input-row">
+                <input type="text" class="comment-input" placeholder="Write a thoughtful comment...">
+                <button class="btn-send-comment"><i class="fa-solid fa-arrow-up"></i></button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ====================================================================
+               POST 2: Elena Rostova (Spatial 3D Audio Session Tokyo)
+               ==================================================================== -->
+          <article class="post-card post-card-masterpiece" data-post-id="post-2" data-category="spatial" data-creator="Elena Rostova">
+            <div class="post-header">
+              <div class="post-user-details">
+                <div class="avatar-ring-pink">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Elena Rostova">
+                </div>
+                <div>
+                  <div class="post-user-name">
+                    <span>Elena Rostova</span>
+                    <i class="fa-solid fa-circle-check badge-verified"></i>
+                    <span class="post-creator-tag-cyan">Audio Architect</span>
+                  </div>
+                  <div class="post-time">45 minutes ago &bull; Spatial Node Tokyo</div>
+                </div>
+              </div>
+              <button class="action-btn-icon" title="Post Options"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+
+            <div class="post-caption" style="font-size: 0.88rem; line-height: 1.48; color: #FFFFFF;">
+              Spatial 3D Audio changes everything. It's not just about hearing, it's about feeling presence. Here's a short preview from our latest session in Tokyo.
+            </div>
+
+            <!-- Video Player Card with Circular Play Button and 0:45 Badge -->
+            <div class="post-video-player-container masterpiece-video-stage" id="video-post-player-1">
+              <video class="post-video-element" playsinline loop muted poster="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=1000&auto=format&fit=crop&q=80" style="display:none;">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+              </video>
+              <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=1000&auto=format&fit=crop&q=80" class="video-poster-img" alt="Spatial Audio Session Preview">
+              <div class="video-center-glow-play">
+                <button type="button" class="video-play-overlay-btn btn-masterpiece-play" aria-label="Play video">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+              </div>
+              <span class="video-duration-pill">0:45</span>
+            </div>
+
+            <div class="post-actions masterpiece-post-actions">
+              <button class="action-btn btn-like" data-likes="342" title="Like">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">342</span>
+              </button>
+              <button class="action-btn btn-comment-toggle" title="Comment">
+                <i class="fa-regular fa-comment"></i>
+                <span class="comment-count">28</span>
+              </button>
+              <button class="action-btn btn-repost-post" data-reposts="31" title="Repost">
+                <i class="fa-solid fa-retweet"></i>
+                <span class="repost-count">31</span>
+              </button>
+              <button class="action-btn btn-share-post" title="Share">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>112</span>
+              </button>
+              <button class="action-btn btn-bookmark-post" title="Bookmark">
+                <i class="fa-regular fa-bookmark"></i>
+              </button>
+            </div>
+
+            <!-- Expandable Comments Section -->
+            <div class="comment-section">
+              <div class="comment-list">
+                <div class="comment-item">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="comment-avatar" alt="Marcus">
+                  <div class="comment-content">
+                    <div class="comment-author">Marcus Vance <span class="comment-time">8m ago</span></div>
+                    <div class="comment-text">The depth perception on this new spatial layer is surreal! Incredible work Elena.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="comment-input-row">
+                <input type="text" class="comment-input" placeholder="Write a thoughtful comment...">
+                <button class="btn-send-comment"><i class="fa-solid fa-arrow-up"></i></button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ====================================================================
+               POST TYPE 3: Video Post (Marcus Vance - WebGL Shader Physics)
+               ==================================================================== -->
+          <article class="post-card post-card-masterpiece" data-post-id="post-3" data-category="for-you" data-creator="Marcus Vance">
+            <div class="post-header">
+              <div class="post-user-details">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Marcus Vance">
+                <div>
+                  <div class="post-user-name">
+                    <span>Marcus Vance</span>
+                    <i class="fa-solid fa-circle-check badge-verified"></i>
+                    <span class="post-creator-tag-cyan">Creative Technologist</span>
+                  </div>
+                  <div class="post-time">45 minutes ago &bull; Berlin Creative Hub</div>
+                </div>
+              </div>
+              <button class="action-btn-icon" title="Post Options"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+
+            <div class="post-caption">
+              Running 120fps fluid glassmorphic UI calculations with dynamic pointer light refraction in WebGL. Hit play to view the realtime fluid motion in action! 🎥⚡ <span class="post-hashtag">#DesignSystem</span> <span class="post-hashtag">#Frontend</span> <span class="post-hashtag">#QuantumNetwork</span>
+            </div>
+
+            <div class="post-video-player-container" id="video-post-player-2">
+              <video class="post-video-element" playsinline loop muted poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1000&auto=format&fit=crop&q=80">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="video-play-overlay-btn" aria-label="Play video">
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+
+            <div class="post-actions masterpiece-post-actions">
+              <button class="action-btn btn-like" data-likes="819" title="Like">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">819</span>
+              </button>
+              <button class="action-btn btn-comment-toggle" title="Comment">
+                <i class="fa-regular fa-comment"></i>
+                <span class="comment-count">47</span>
+              </button>
+              <button class="action-btn btn-repost-post" data-reposts="89" title="Repost">
+                <i class="fa-solid fa-retweet"></i>
+                <span class="repost-count">89</span>
+              </button>
+              <button class="action-btn btn-share-post" title="Share">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>240</span>
+              </button>
+              <button class="action-btn btn-bookmark-post" title="Bookmark">
+                <i class="fa-regular fa-bookmark"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- ====================================================================
+               POST TYPE 4: Interactive Consensus Poll Post (David Kim)
+               ==================================================================== -->
+          <article class="post-card post-card-masterpiece" data-post-id="post-4" data-category="spatial" data-creator="David Kim">
+            <div class="post-header">
+              <div class="post-user-details">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" class="avatar" alt="David Kim">
+                <div>
+                  <div class="post-user-name">
+                    <span>David Kim</span>
+                    <i class="fa-solid fa-circle-check badge-verified"></i>
+                    <span class="post-creator-tag-cyan">Core Protocol Lead</span>
+                  </div>
+                  <div class="post-time">2 hours ago &bull; Seoul Nexus</div>
+                </div>
+              </div>
+              <button class="action-btn-icon" title="Post Options"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+
+            <div class="post-caption">
+              Should we deploy our next quantum-resistant Kyber-1024 encryption upgrade across the Tokyo mesh or European clusters first? Cast your vote on the decentralized ledger! 🗳️⚡ <span class="post-hashtag">#QuantumNetwork</span> <span class="post-hashtag">#CreatorEconomy</span>
+            </div>
+
+            <div class="feed-poll-widget" data-total-votes="842">
+              <button type="button" class="poll-option-btn" data-votes="528" data-percent="63">
+                <span class="poll-text-content">Tokyo Spatial Mesh Hub 🇯🇵</span>
+                <span class="poll-percent-tag">63%</span>
+                <div class="poll-fill-bar" style="width: 63%;"></div>
+              </button>
+              <button type="button" class="poll-option-btn" data-votes="314" data-percent="37">
+                <span class="poll-text-content">European Distributed Cluster 🇪🇺</span>
+                <span class="poll-percent-tag">37%</span>
+                <div class="poll-fill-bar" style="width: 37%;"></div>
+              </button>
+              <div class="poll-meta-row">
+                <span class="poll-total-count"><i class="fa-solid fa-chart-simple"></i> 842 verified creator votes</span>
+                <span class="poll-time-left">18 hours left</span>
+              </div>
+            </div>
+
+            <div class="post-actions masterpiece-post-actions">
+              <button class="action-btn btn-like" data-likes="420" title="Like">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">420</span>
+              </button>
+              <button class="action-btn btn-comment-toggle" title="Comment">
+                <i class="fa-regular fa-comment"></i>
+                <span class="comment-count">36</span>
+              </button>
+              <button class="action-btn btn-repost-post" data-reposts="54" title="Repost">
+                <i class="fa-solid fa-retweet"></i>
+                <span class="repost-count">54</span>
+              </button>
+              <button class="action-btn btn-share-post" title="Share">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>95</span>
+              </button>
+              <button class="action-btn btn-bookmark-post" title="Bookmark">
+                <i class="fa-regular fa-bookmark"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- ====================================================================
+               POST TYPE 5: Multi-Image Carousel Post (Maya Lin)
+               ==================================================================== -->
+          <article class="post-card post-card-masterpiece" data-post-id="post-5" data-category="spatial" data-creator="Maya Lin">
+            <div class="post-header">
+              <div class="post-user-details">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Maya Lin">
+                <div>
+                  <div class="post-user-name">
+                    <span>Maya Lin</span>
+                    <i class="fa-solid fa-circle-check badge-verified"></i>
+                    <span class="post-creator-tag-cyan">Spatial Generative Artist</span>
+                  </div>
+                  <div class="post-time">3 hours ago &bull; Kyoto Studio</div>
+                </div>
+              </div>
+              <button class="action-btn-icon" title="Post Options"><i class="fa-solid fa-ellipsis"></i></button>
+            </div>
+
+            <div class="post-caption">
+              Unveiling my 3-piece series: <em>"Kyoto Biophilic Cyber-Pavilion"</em>. Swipe through to view the daylight parametric glass, dusk photonics, and midnight quantum aurora. Built with generative procedural mathematics. 🏛️✨ <span class="post-hashtag">#SpatialAudio</span> <span class="post-hashtag">#DesignSystem</span>
+            </div>
+
+            <div class="post-carousel-container" id="carousel-post-1" data-current-slide="0" data-total-slides="3">
+              <div class="carousel-slides-track">
+                <div class="carousel-slide-item active">
+                  <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=1000&auto=format&fit=crop&q=80" alt="Biophilic Cyber Pavilion - Daytime">
+                  <div class="media-tag-badge"><i class="fa-solid fa-layer-group"></i> 1: Parametric Daylight</div>
+                </div>
+                <div class="carousel-slide-item">
+                  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&auto=format&fit=crop&q=80" alt="Biophilic Cyber Pavilion - Dusk">
+                  <div class="media-tag-badge"><i class="fa-solid fa-layer-group"></i> 2: Photonic Dusk</div>
+                </div>
+                <div class="carousel-slide-item">
+                  <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1000&auto=format&fit=crop&q=80" alt="Biophilic Cyber Pavilion - Midnight Aurora">
+                  <div class="media-tag-badge"><i class="fa-solid fa-layer-group"></i> 3: Quantum Aurora</div>
+                </div>
+              </div>
+
+              <button type="button" class="carousel-nav-btn prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+              <button type="button" class="carousel-nav-btn next" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+              <span class="carousel-counter-badge">1 / 3</span>
+            </div>
+
+            <div class="post-actions masterpiece-post-actions">
+              <button class="action-btn btn-like" data-likes="938" title="Like">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">938</span>
+              </button>
+              <button class="action-btn btn-comment-toggle" title="Comment">
+                <i class="fa-regular fa-comment"></i>
+                <span class="comment-count">62</span>
+              </button>
+              <button class="action-btn btn-repost-post" data-reposts="114" title="Repost">
+                <i class="fa-solid fa-retweet"></i>
+                <span class="repost-count">114</span>
+              </button>
+              <button class="action-btn btn-share-post" title="Share">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>320</span>
+              </button>
+              <button class="action-btn btn-bookmark-post" title="Bookmark">
+                <i class="fa-regular fa-bookmark"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- Empty State Container -->
+          <div class="feed-empty-state" id="feed-empty-state">
+            <div class="empty-state-orb"><i class="fa-solid fa-satellite-dish"></i></div>
+            <div class="empty-state-title">No Discoveries Found</div>
+            <div class="empty-state-desc">No posts matched your current feed filter or search terms. Try exploring other topics or resetting the stream.</div>
+            <button type="button" class="btn-clear-filter" id="btn-empty-reset" style="padding: 8px 22px; font-size: 13.5px; border-radius: 50px;">Reset Stream ⚡</button>
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- ====================================================================
+           COLUMN 3: Right Sidebar (Desktop Masterpiece Widgets)
+           ==================================================================== -->
+      <aside class="sidebar-right dashboard-widgets">
+        
+        <!-- Search Bar -->
+        <div class="masterpiece-right-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="widget-search-input" placeholder="Search ConnectSphere...">
+        </div>
+
+        <!-- 1. Sphere Connect AI Card -->
+        <div class="widget-card sphere-ai-masterpiece-card expanded-ai-panel" id="sphere-ai-widget">
+          <div class="ai-card-content-row">
+            <div class="ai-robot-avatar">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <div class="ai-text-details">
+              <div class="ai-card-title">
+                <span>Sphere Connect AI</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 11px; opacity: 0.7;"></i>
+              </div>
+              <div class="ai-card-subtitle">Intelligent Network Companion</div>
+              <div class="ai-card-desc">Discover people, ideas and communities that match your interests.</div>
+            </div>
+          </div>
+
+          <!-- AI Actions Row -->
+          <div class="ai-action-buttons-row">
+            <button type="button" class="btn-ai-sub-action" id="btn-ai-discover-people" title="Discover People">
+              <i class="fa-solid fa-user-plus" style="margin-right: 4px; color: #00D2FF;"></i> Discover
+            </button>
+            <button type="button" class="btn-ai-sub-action" id="btn-ai-explore-topics" title="Explore Topics">
+              <i class="fa-solid fa-compass" style="margin-right: 4px; color: #8B5CF6;"></i> Topics
+            </button>
+          </div>
+
+          <!-- AI Affinity Bar Track & Hidden Targets for Compatibility -->
+          <div class="ai-affinity-container" style="display:none;">
+            <div class="ai-affinity-header">
+              <span>Neural Graph Alignment</span>
+              <span class="ai-affinity-pct">94.8% Match</span>
+            </div>
+            <div class="ai-affinity-bar-track">
+              <div class="ai-affinity-bar-fill"></div>
+            </div>
+          </div>
+          <div style="display:none;" id="ai-recs-text">Based on your interest in #SpatialAudio...</div>
+          <div style="display:none;">
+            <button type="button" id="btn-ai-action-explore"></button>
+            <button type="button" id="btn-ai-action-sparkle"></button>
+          </div>
+
+          <button type="button" class="btn-ask-sphere-ai" id="btn-refresh-ai-recs" title="Ask Sphere AI">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>Ask Sphere AI</span>
+            <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i>
+          </button>
+        </div>
+
+        <!-- 2. Trending Now Card -->
+        <div class="widget-card trending-now-masterpiece">
+          <div class="widget-card-header">
+            <div class="header-left">
+              <i class="fa-solid fa-fire" style="color: #F59E0B;"></i>
+              <span>Trending Now</span>
+            </div>
+            <span class="badge-live-red"><i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 3px;"></i> Live</span>
+          </div>
+
+          <div class="trending-masterpiece-list">
+            <!-- 01 #QuantumNetwork -->
+            <div class="trending-row">
+              <span class="trending-rank">01</span>
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100&auto=format&fit=crop&q=80" class="trend-thumb" alt="#QuantumNetwork">
+              <div class="trend-info">
+                <div class="trend-tag">#QuantumNetwork</div>
+                <div class="trend-count">Technology &bull; 48.2K posts</div>
+              </div>
+            </div>
+
+            <!-- 02 #SpatialAudio -->
+            <div class="trending-row">
+              <span class="trending-rank">02</span>
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=100&auto=format&fit=crop&q=80" class="trend-thumb" alt="#SpatialAudio">
+              <div class="trend-info">
+                <div class="trend-tag">#SpatialAudio</div>
+                <div class="trend-count">Audio Innovation &bull; 31.6K posts</div>
+              </div>
+            </div>
+
+            <!-- 03 #ZeroKnowledge -->
+            <div class="trending-row">
+              <span class="trending-rank">03</span>
+              <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=100&auto=format&fit=crop&q=80" class="trend-thumb" alt="#ZeroKnowledge">
+              <div class="trend-info">
+                <div class="trend-tag">#ZeroKnowledge</div>
+                <div class="trend-count">Cryptography &bull; 24.1K posts</div>
+              </div>
+            </div>
+
+            <!-- 04 #CreatorEconomy -->
+            <div class="trending-row">
+              <span class="trending-rank">04</span>
+              <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&auto=format&fit=crop&q=80" class="trend-thumb" alt="#CreatorEconomy">
+              <div class="trend-info">
+                <div class="trend-tag">#CreatorEconomy</div>
+                <div class="trend-count">Business &bull; 19.8K posts</div>
+              </div>
+            </div>
+
+            <!-- 05 #Web3Innovation -->
+            <div class="trending-row">
+              <span class="trending-rank">05</span>
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100&auto=format&fit=crop&q=80" class="trend-thumb" alt="#Web3Innovation">
+              <div class="trend-info">
+                <div class="trend-tag">#Web3Innovation</div>
+                <div class="trend-count">Ecosystem &bull; 16.4K posts</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="explore.html" class="widget-footer-link">
+            <span>View More Trends</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- 3. People You May Connect With Card -->
+        <div class="widget-card connect-people-masterpiece">
+          <div class="widget-card-header">
+            <div class="header-left">
+              <i class="fa-solid fa-user-group" style="color: #00D2FF;"></i>
+              <span>People You May Connect With</span>
+            </div>
+          </div>
+
+          <div class="connect-people-list">
+            <!-- Person 1 -->
+            <div class="connect-person-row">
+              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=80&auto=format&fit=crop&q=80" class="avatar" alt="Liam Vance">
+              <div class="person-meta">
+                <div class="person-name">Liam Vance</div>
+                <div class="person-mutual">3 mutual connections &bull; Cybernetics</div>
+              </div>
+              <button type="button" class="btn-connect-pill btn-follow-toggle" data-following="false">Connect</button>
+            </div>
+
+            <!-- Person 2 -->
+            <div class="connect-person-row">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" class="avatar" alt="Priya Sharma">
+              <div class="person-meta">
+                <div class="person-name">Priya Sharma</div>
+                <div class="person-mutual">AI Systems &bull; 8 mutual connections</div>
+              </div>
+              <button type="button" class="btn-connect-pill btn-follow-toggle" data-following="false">Connect</button>
+            </div>
+
+            <!-- Person 3 -->
+            <div class="connect-person-row">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="avatar" alt="Kenji Tanaka">
+              <div class="person-meta">
+                <div class="person-name">Kenji Tanaka</div>
+                <div class="person-mutual">Spatial Audio Architect &bull; Tokyo</div>
+              </div>
+              <button type="button" class="btn-connect-pill btn-follow-toggle" data-following="false">Connect</button>
+            </div>
+          </div>
+
+          <a href="explore.html" class="widget-footer-link">
+            <span>Discover More Creators</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- 4. Live Now Card -->
+        <div class="widget-card live-now-masterpiece">
+          <div class="widget-card-header">
+            <div class="header-left">
+              <span class="live-dot-pulse"></span>
+              <span>Live Now</span>
+            </div>
+            <a href="explore.html" class="header-link-see-all">See All</a>
+          </div>
+
+          <div class="live-streams-list">
+            <!-- Stream 1 -->
+            <div class="live-stream-item btn-open-theater-modal" data-title="Tokyo Spatial Meetup" data-creator="Elena Rostova" title="Watch Live Stream">
+              <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop&q=80" class="stream-thumb" alt="Tokyo Spatial Meetup">
+              <div class="stream-info">
+                <div class="stream-title">Tokyo Spatial Meetup</div>
+                <div class="stream-viewers"><i class="fa-regular fa-eye"></i> 1.2K watching &bull; Elena Rostova</div>
+              </div>
+              <span class="badge-live-tag">LIVE</span>
+            </div>
+
+            <!-- Stream 2 -->
+            <div class="live-stream-item btn-open-theater-modal" data-title="AI Creators Lounge" data-creator="David Kim" title="Watch Live Stream">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=100&auto=format&fit=crop&q=80" class="stream-thumb" alt="AI Creators Lounge">
+              <div class="stream-info">
+                <div class="stream-title">AI Creators Lounge</div>
+                <div class="stream-viewers"><i class="fa-regular fa-eye"></i> 856 watching &bull; David Kim</div>
+              </div>
+              <span class="badge-live-tag">LIVE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Suggested Communities Card -->
+        <div class="widget-card suggested-communities-card" id="suggested-communities-widget">
+          <div class="widget-card-header">
+            <div class="header-left">
+              <i class="fa-solid fa-users-viewfinder" style="color: #10B981;"></i>
+              <span>Suggested Communities</span>
+            </div>
+            <a href="explore.html#communities" class="header-link-see-all">Explore</a>
+          </div>
+
+          <div class="communities-list">
+            <!-- Community 1 -->
+            <div class="community-row-item">
+              <div class="community-icon-box" style="color: #00D2FF; background: rgba(0, 210, 255, 0.1);">
+                <i class="fa-solid fa-cube"></i>
+              </div>
+              <div class="community-meta">
+                <div class="community-name">Spatial Architects</div>
+                <div class="community-desc">14.8K members &bull; 3D & VR Audio</div>
+              </div>
+              <button type="button" class="btn-join-community btn-join-hub">Join</button>
+            </div>
+
+            <!-- Community 2 -->
+            <div class="community-row-item">
+              <div class="community-icon-box" style="color: #8B5CF6; background: rgba(139, 92, 246, 0.1);">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div class="community-meta">
+                <div class="community-name">Quantum Cryptography</div>
+                <div class="community-desc">9.2K members &bull; Security & ZK</div>
+              </div>
+              <button type="button" class="btn-join-community btn-join-hub">Join</button>
+            </div>
+
+            <!-- Community 3 -->
+            <div class="community-row-item">
+              <div class="community-icon-box" style="color: #EC4899; background: rgba(236, 72, 153, 0.1);">
+                <i class="fa-solid fa-palette"></i>
+              </div>
+              <div class="community-meta">
+                <div class="community-name">Generative Art Collective</div>
+                <div class="community-desc">21.5K members &bull; Creative AI</div>
+              </div>
+              <button type="button" class="btn-join-community btn-join-hub">Join</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden Compatibility Anchors -->
+        <div style="display:none;">
+          <div id="widget-reels-teaser"></div>
+          <div id="widget-messages-preview"></div>
+          <div id="widget-voice-video-room"><button id="btn-join-voice-room"></button></div>
+          <div id="widget-community-hubs"><button class="btn-join-hub"></button></div>
+        </div>
+
+      </aside>
+
+    </div> <!-- /.dashboard-layout -->
+
+  </div> <!-- /.dashboard-outer-window -->
+
+
+  <!-- ====================================================================
+       Floating Action: Real-Time Quick Chat Trigger & Drawer
+       ==================================================================== -->
+  <div class="floating-chat-container">
+    
+    <!-- Floating Launcher Button -->
+    <button type="button" class="btn-floating-chat" id="btn-toggle-floating-chat" aria-label="Open Real-time Chat">
+      <i class="fa-solid fa-comments"></i>
+      <span class="chat-status-pulse"></span>
+    </button>
+
+    <!-- Slide-Up Floating Chat Drawer -->
+    <div class="floating-chat-drawer" id="floating-chat-drawer">
+      <div class="chat-drawer-header">
+        <div class="chat-drawer-user">
+          <div class="avatar-wrapper">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" class="avatar-xs" alt="Elena">
+            <span class="status-online-dot"></span>
+          </div>
+          <div>
+            <div style="font-weight: 700; font-size: 13.5px; color: #FFFFFF;">Elena Rostova</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <button type="button" class="btn-drawer-action" id="btn-drawer-voice-call" title="Encrypted Voice Call" aria-label="Start Voice Call" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #00E6C3; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px;"><i class="fa-solid fa-phone"></i></button>
+          <button type="button" class="btn-drawer-action" id="btn-drawer-video-call" title="Secure Video Transmission" aria-label="Start Video Call" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #16D9FF; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px;"><i class="fa-solid fa-video"></i></button>
+          <button type="button" class="btn-close-chat" id="btn-close-floating-chat" aria-label="Close Chat"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+
+      <div class="chat-drawer-messages" id="chat-drawer-messages">
+        <div class="chat-bubble incoming">
+          Hey Alex! Did you get a chance to test the new spatial nodes? 🎧
+        </div>
+        <div class="chat-bubble outgoing">
+          Yes Elena! Latency dropped under 4ms across our European test clusters. Super smooth! 🚀
+        </div>
+      </div>
+
+      <form class="chat-drawer-input-row" id="floating-chat-form">
+        <input type="text" id="floating-chat-input" placeholder="Type encrypted message..." autocomplete="off">
+        <button type="submit" class="btn-chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- ====================================================================
+       Mobile Native Bottom Navigation Bar (Fixed on Mobile < 768px)
+       ==================================================================== -->
+  <nav class="mobile-nav-bar" id="mobile-nav-bar">
+    <a href="dashboard.html" class="mobile-nav-item active" title="Home Feed">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="mobile-nav-item" title="Explore">
+      <i class="fa-solid fa-compass"></i>
+      <span>Explore</span>
+    </a>
+    <button type="button" class="mobile-nav-item mobile-create-cta" id="btn-mobile-create-post" title="Create Post">
+      <div class="mobile-create-icon-pill">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+    </button>
+    <a href="explore.html#reels" class="mobile-nav-item" title="Reels">
+      <i class="fa-solid fa-film"></i>
+      <span>Reels</span>
+    </a>
+    <a href="profile.html" class="mobile-nav-item" title="Profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- ====================================================================
+       Create Post Modal Dialog (Full Interactive Creator Suite)
+       ==================================================================== -->
+  <div class="modal-overlay" id="create-post-modal">
+    <div class="create-post-modal-box">
+      <div class="modal-header-custom">
+        <div class="modal-title-custom">
+          <i class="fa-solid fa-pen-nib" style="color: #16D9FF;"></i>
+          <span>Create New Publication</span>
+        </div>
+        <button type="button" class="btn-modal-close-custom" id="btn-close-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-author-row">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar" id="modal-user-avatar" alt="Alex Johnson">
+        <div>
+          <div class="author-name">
+            <span id="modal-author-name">Alex Johnson</span>
+            <i class="fa-solid fa-circle-check badge-verified"></i>
+          </div>
+          <span class="modal-audience-pill"><i class="fa-solid fa-globe"></i> Public &bull; Neural Mesh Active</span>
+        </div>
+      </div>
+
+      <textarea class="modal-post-textarea" id="modal-post-text" placeholder="What innovative discoveries or spatial protocols are you sharing with ConnectSphere?..."></textarea>
+
+      <!-- Modal Media Attachment Preview -->
+      <div class="composer-preview-box" id="modal-media-preview">
+        <img id="modal-preview-img" src="" alt="Modal Media Preview">
+        <video id="modal-preview-video" controls style="display:none; width: 100%; border-radius: 8px; margin-top: 10px;"></video>
+        <button type="button" class="btn-remove-preview" id="btn-remove-modal-media" title="Remove attachment"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Hidden Modal File Input -->
+      <input type="file" id="modal-photo-input" accept="image/*,video/*" style="display:none;">
+
+      <div class="create-post-actions" style="margin-top: 18px;">
+        <div class="post-media-options">
+          <button type="button" class="media-option" id="btn-modal-media-photo" title="Attach Photo/Video">
+            <i class="fa-regular fa-image" style="color: #16D9FF;"></i>
+            <span>Media</span>
+          </button>
+          <button type="button" class="media-option" id="btn-modal-media-spatial" title="Tag as Spatial 3D">
+            <i class="fa-solid fa-cube" style="color: #7357FF;"></i>
+            <span>Spatial 3D</span>
+          </button>
+          <button type="button" class="media-option" id="btn-generate-ai-caption" title="AI Sparkle Assistant">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: #F2B95E;"></i>
+            <span>AI Sparkle</span>
+          </button>
+        </div>
+        <button type="button" class="btn-submit-post btn-shimmer-sweep" id="btn-submit-modal-post">
+          <span>Publish Post</span>
+          <i class="fa-solid fa-paper-plane" style="font-size: 12px; margin-left: 6px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       Spatial Story Viewer Modal (Ultra-Modern Immersive Viewer)
+       ==================================================================== -->
+  <div class="story-modal-overlay" id="story-modal">
+    <div class="story-viewer-stage">
+      <!-- Story Progress Bar -->
+      <div class="story-progress-container">
+      </div>
+
+      <!-- Story Header -->
+      <div class="story-viewer-header">
+        <div class="story-author-info">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80" class="avatar" id="story-viewer-avatar" alt="Creator">
+          <div class="story-author-meta">
+            <div class="name" id="story-viewer-name">Elena Rostova</div>
+            <div class="time" id="story-viewer-time">Active &bull; Tokyo Mesh Node</div>
+          </div>
+        </div>
+        <button type="button" class="btn-close-story" id="btn-close-story-modal" aria-label="Close Story">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Story Media Image / Backdrop -->
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=80" class="story-media-view" id="story-viewer-media" alt="Story Visual">
+
+      <!-- Story Caption -->
+      <div class="story-caption-overlay" id="story-viewer-caption">
+        Live from the Tokyo Spatial Audio Lab! Zero-latency binaural mesh nodes active. 🎧✨
+      </div>
+
+      <!-- Quick Direct Reply & Emoji Reactions -->
+      <div class="story-bottom-reply">
+        <input type="text" class="story-reply-input" id="story-reply-input" placeholder="Send a direct transmission...">
+        <button type="button" class="story-reaction-btn" data-emoji="❤️" title="Love">❤️</button>
+        <button type="button" class="story-reaction-btn" data-emoji="🔥" title="Fire">🔥</button>
+        <button type="button" class="story-reaction-btn" data-emoji="🚀" title="Rocket">🚀</button>
+        <button type="button" class="story-reaction-btn" data-emoji="💎" title="Gem">💎</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       Global Post Options Dropdown Menu
+       ==================================================================== -->
+  <div class="post-options-menu" id="post-options-dropdown-global">
+    <div class="post-options-item" id="opt-copy-link">
+      <i class="fa-solid fa-link" style="color: #16D9FF;"></i>
+      <span>Copy Post Link</span>
+    </div>
+    <div class="post-options-item" id="opt-save-bookmark">
+      <i class="fa-regular fa-bookmark" style="color: #7357FF;"></i>
+      <span>Bookmark Post</span>
+    </div>
+    <div class="post-options-item" id="opt-mute-author">
+      <i class="fa-solid fa-bell-slash" style="color: #F2B95E;"></i>
+      <span>Mute Creator</span>
+    </div>
+    <div class="post-options-item danger" id="opt-report-post">
+      <i class="fa-solid fa-flag" style="color: #FF4757;"></i>
+      <span>Report Content</span>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       Notifications Interactive Dropdown Menu
+       ==================================================================== -->
+  <div class="notifications-dropdown-menu" id="notifications-dropdown-menu">
+    <div class="notif-dropdown-header">
+      <div class="notif-dropdown-title">
+        <i class="fa-solid fa-bell" style="color: #16D9FF;"></i>
+        <span>Notifications</span>
+        <span class="unread-pill">3 New</span>
+      </div>
+      <button type="button" class="btn-mark-all-read" id="btn-mark-all-read">Mark all as read</button>
+    </div>
+    <div class="notif-dropdown-list" id="notif-dropdown-list">
+      <div class="notif-dropdown-item unread">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" class="notif-avatar" alt="Elena">
+        <div class="notif-details">
+          <div class="notif-text"><strong>Elena Rostova</strong> liked your quantum spatial audio post.</div>
+          <div class="notif-time">5m ago</div>
+        </div>
+        <span class="notif-indicator"></span>
+      </div>
+      <div class="notif-dropdown-item unread">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="notif-avatar" alt="Marcus">
+        <div class="notif-details">
+          <div class="notif-text"><strong>Marcus Vance</strong> reposted your glassmorphic design update.</div>
+          <div class="notif-time">18m ago</div>
+        </div>
+        <span class="notif-indicator"></span>
+      </div>
+      <div class="notif-dropdown-item unread">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&auto=format&fit=crop&q=80" class="notif-avatar" alt="Sofia">
+        <div class="notif-details">
+          <div class="notif-text"><strong>Sofia Chen</strong> started following you in Neural Mesh.</div>
+          <div class="notif-time">1h ago</div>
+        </div>
+        <span class="notif-indicator"></span>
+      </div>
+      <div class="notif-dropdown-item">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" class="notif-avatar" alt="David">
+        <div class="notif-details">
+          <div class="notif-text"><strong>David Kim</strong> invited you to European Consensus Cluster.</div>
+          <div class="notif-time">3h ago</div>
+        </div>
+      </div>
+    </div>
+    <a href="notifications.html" class="notif-dropdown-footer">
+      <span>View all notifications</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <!-- ====================================================================
+       Mobile Slide-Out Navigation Drawer & Backdrop
+       ==================================================================== -->
+  <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-drawer-header">
+      <div class="brand-logo" style="padding: 0;">
+        <div class="brand-icon-wrapper" style="width: 32px; height: 32px;">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+            <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#7357FF" stroke-width="3.5" transform="rotate(32 50 50)"/>
+            <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#16D9FF" stroke-width="3.5" transform="rotate(-32 50 50)"/>
+            <circle cx="50" cy="50" r="10" fill="#00E6C3"/>
+          </svg>
+        </div>
+        <span class="brand-title" style="font-size: 1.15rem;">Connect<span class="animated-gradient-text">Sphere</span></span>
+      </div>
+      <button type="button" class="btn-close-mobile-drawer" id="btn-close-mobile-drawer" aria-label="Close navigation drawer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-profile">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Alex Johnson">
+      <div class="mobile-drawer-profile-info">
+        <div class="name">Alex Johnson <i class="fa-solid fa-circle-check badge-verified"></i></div>
+        <div class="handle">@alexjohnson</div>
+      </div>
+    </div>
+
+    <nav class="mobile-drawer-nav">
+      <a href="dashboard.html" class="drawer-nav-item active">
+        <i class="fa-solid fa-house"></i>
+        <span>Home Feed</span>
+      </a>
+      <a href="explore.html" class="drawer-nav-item">
+        <i class="fa-solid fa-compass"></i>
+        <span>Explore</span>
+      </a>
+      <a href="explore.html#stories" class="drawer-nav-item" id="drawer-link-stories">
+        <i class="fa-solid fa-circle-notch"></i>
+        <span>Stories</span>
+      </a>
+      <a href="explore.html#reels" class="drawer-nav-item">
+        <i class="fa-solid fa-film"></i>
+        <span>Reels</span>
+      </a>
+      <a href="explore.html#communities" class="drawer-nav-item">
+        <i class="fa-solid fa-users"></i>
+        <span>Communities</span>
+      </a>
+      <a href="messages.html" class="drawer-nav-item">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Messages</span>
+        <span class="nav-count-badge">2</span>
+      </a>
+      <a href="notifications.html" class="drawer-nav-item">
+        <i class="fa-solid fa-bell"></i>
+        <span>Notifications</span>
+        <span class="nav-count-badge">3</span>
+      </a>
+      <a href="profile.html" class="drawer-nav-item">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </a>
+      <a href="settings.html" class="drawer-nav-item">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="mobile-drawer-footer">
+      <a href="login.html" class="drawer-logout-btn">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Sign Out</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ====================================================================
+       Next-Gen Interactive Experience Suite Modals
+       ==================================================================== -->
+
+  <!-- 1. Dedicated Reels Short Video Experience Modal -->
+  <div class="cs-modal-backdrop" id="reels-modal" role="dialog" aria-modal="true" aria-label="Reels Short Video Experience">
+    <div class="reels-modal-stage">
+      <div class="reels-video-container">
+        <!-- Video Stream or High-Quality Animated Media -->
+        <video class="reels-video-element" id="reel-active-video" loop playsinline autoplay muted src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-with-flying-cars-and-skyscrapers-41551-large.mp4" poster="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80"></video>
+        
+        <div class="reels-top-bar">
+          <div class="reels-header-title">
+            <i class="fa-solid fa-film" style="color: #00D2FF;"></i>
+            <span>Sphere Reels</span>
+          </div>
+          <button type="button" class="reels-close-btn" id="btn-close-reels-modal" aria-label="Close Reels">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="reels-right-actions">
+          <button type="button" class="reel-action-btn" id="btn-reel-like" title="Like">
+            <i class="fa-solid fa-heart" id="reel-like-icon"></i>
+            <span id="reel-likes-count">84.2K</span>
+          </button>
+          <button type="button" class="reel-action-btn" id="btn-reel-comment" title="Comments">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>1,420</span>
+          </button>
+          <button type="button" class="reel-action-btn" id="btn-reel-share" title="Share Reel">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>Share</span>
+          </button>
+          <button type="button" class="reel-action-btn" id="btn-reel-remix" title="Remix/Spatial Layer">
+            <i class="fa-solid fa-layer-group" style="color: #00D2FF;"></i>
+            <span>Remix</span>
+          </button>
+          <button type="button" class="reel-action-btn" id="btn-reel-audio-toggle" title="Toggle Audio">
+            <i class="fa-solid fa-volume-xmark" id="reel-volume-icon"></i>
+            <span>Sound</span>
+          </button>
+        </div>
+
+        <div class="reels-bottom-info">
+          <div class="reels-creator-row">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="reels-creator-avatar" id="reel-creator-avatar" alt="Aria Vance">
+            <span class="reels-creator-name" id="reel-creator-name">@aria_vance</span>
+            <button type="button" class="btn-reels-follow" id="btn-reel-follow">+ Follow</button>
+          </div>
+          <p class="reels-caption" id="reel-caption">Rendering live volumetric holograms inside the Tokyo spatial engine! 🌐✨ What do you think of this framerate? #Spatial3D #ConnectSphere</p>
+          <div class="reels-sound-row">
+            <i class="fa-solid fa-music"></i>
+            <span id="reel-sound-track">Original Audio &bull; Binaural Synthesizer Tokyo (0:30)</span>
+          </div>
+        </div>
+
+        <div class="reels-progress-track">
+          <div class="reels-progress-bar" id="reels-progress-indicator"></div>
+        </div>
+      </div>
+
+      <!-- Reels Navigation Arrows -->
+      <button type="button" class="reels-nav-arrow prev" id="btn-reel-prev" aria-label="Previous Reel">
+        <i class="fa-solid fa-chevron-up"></i>
+      </button>
+      <button type="button" class="reels-nav-arrow next" id="btn-reel-next" aria-label="Next Reel">
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. Long-Form Video Theater Experience Modal (ConnectSphere Stream) -->
+  <div class="cs-modal-backdrop" id="video-theater-modal" role="dialog" aria-modal="true" aria-label="Video Theater">
+    <div class="video-theater-stage">
+      <div class="theater-player-frame">
+        <video id="theater-active-video" controls playsinline poster="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1000&auto=format&fit=crop&q=80" src="https://assets.mixkit.co/videos/preview/mixkit-curved-futuristic-tunnel-with-lights-41554-large.mp4"></video>
+        <button type="button" class="reels-close-btn" id="btn-close-theater-modal" style="position: absolute; top: 14px; right: 14px; z-index: 10;" aria-label="Close Theater">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="theater-content-body">
+        <div class="theater-title-row">
+          <div>
+            <h3 class="theater-title" id="theater-title">Designing the Spatial Web: Zero-Latency Binaural Audio & Decentralized Media</h3>
+            <div style="font-size: 0.76rem; color: rgba(255,255,255,0.5); margin-top: 4px;">
+              <span id="theater-views">241.5K views</span> &bull; <span>Streamed 2 days ago</span> &bull; <span style="color: #00D2FF;">#NextGenTech #ConnectSphere</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="theater-channel-row">
+          <div class="theater-channel-meta">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="theater-channel-avatar" id="theater-channel-avatar" alt="Dr. Julian Cross">
+            <div>
+              <div style="font-weight: 700; font-size: 0.88rem; color: #FFFFFF;" id="theater-channel-name">Dr. Julian Cross <i class="fa-solid fa-circle-check badge-verified"></i></div>
+              <div style="font-size: 0.70rem; color: rgba(255,255,255,0.5);" id="theater-channel-subs">182K subscribers</div>
+            </div>
+            <button type="button" class="btn-connect-pill active" style="margin-left: 10px;" id="btn-theater-subscribe">Subscribed</button>
+          </div>
+
+          <div class="theater-action-pills">
+            <button type="button" class="btn-theater-pill" id="btn-theater-like"><i class="fa-regular fa-thumbs-up"></i> <span id="theater-likes-count">19.4K</span></button>
+            <button type="button" class="btn-theater-pill" id="btn-theater-share"><i class="fa-solid fa-share"></i> Share</button>
+            <button type="button" class="btn-theater-pill" id="btn-theater-save"><i class="fa-regular fa-bookmark"></i> Save</button>
+          </div>
+        </div>
+
+        <!-- Mini Comments / Live Stream Discussion -->
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-size: 0.80rem; font-weight: 700; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between;">
+            <span>Live Stream Discussion &bull; 842 Comments</span>
+            <span style="font-size: 0.70rem; color: #00D2FF; cursor: pointer;">Sort by Top</span>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width: 26px; height: 26px; border-radius: 50%;" alt="Alex">
+            <input type="text" id="input-theater-comment" placeholder="Add a public comment to this session..." style="flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 6px 12px; color: #FFFFFF; font-size: 0.78rem; outline: none;">
+            <button type="button" class="btn-connect-pill" id="btn-theater-post-comment">Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Voice & Video Calling Screen Modal -->
+  <div class="cs-modal-backdrop" id="calling-modal" role="dialog" aria-modal="true" aria-label="Audio/Video Call">
+    <div class="calling-modal-stage">
+      <div class="call-avatar-wrapper">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" id="call-partner-avatar" alt="Elena Rostova">
+      </div>
+
+      <div>
+        <h3 class="call-user-name" id="call-partner-name">Elena Rostova</h3>
+        <div class="call-status-badge" id="call-status-text">
+          <span class="live-dot-pulse"></span>
+          <span>Encrypted Spatial Call Active &bull; <span id="call-timer">02:14</span></span>
+        </div>
+        <div style="font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-top: 4px;">Zero-Knowledge Neural Mesh Audio 48kHz</div>
+      </div>
+
+      <div class="call-controls-bar">
+        <button type="button" class="call-control-btn" id="btn-call-toggle-mic" title="Mute Microphone">
+          <i class="fa-solid fa-microphone" id="icon-call-mic"></i>
+        </button>
+        <button type="button" class="call-control-btn" id="btn-call-toggle-cam" title="Toggle Video Stream">
+          <i class="fa-solid fa-video" id="icon-call-cam"></i>
+        </button>
+        <button type="button" class="call-control-btn" id="btn-call-screenshare" title="Share Screen">
+          <i class="fa-solid fa-desktop"></i>
+        </button>
+        <button type="button" class="call-control-btn" id="btn-call-add-user" title="Add Participant">
+          <i class="fa-solid fa-user-plus"></i>
+        </button>
+        <button type="button" class="call-control-btn end-call" id="btn-call-end" title="End Transmission">
+          <i class="fa-solid fa-phone-slash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Snap-Style Temporary Disappearing Media Modal -->
+  <div class="cs-modal-backdrop" id="snap-media-modal" role="dialog" aria-modal="true" aria-label="Temporary Disappearing Transmission">
+    <div class="snap-media-stage">
+      <div class="snap-media-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&auto=format&fit=crop&q=80" style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #FFFFFF;" alt="Sofia">
+          <div>
+            <div style="font-size: 0.78rem; font-weight: 700; color: #FFFFFF;" id="snap-sender-name">Sofia Chen</div>
+            <div style="font-size: 0.64rem; color: rgba(255,255,255,0.6);">Disappearing Transmission</div>
+          </div>
+        </div>
+        <div class="snap-timer-pill" id="snap-countdown-timer">
+          <i class="fa-solid fa-stopwatch"></i>
+          <span id="snap-seconds-left">10s</span>
+        </div>
+      </div>
+
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=80" class="snap-media-view" id="snap-image-view" alt="Disappearing Media">
+
+      <div class="snap-security-warning">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>View Once Activated &bull; Screenshot detection armed</span>
+      </div>
+
+      <div class="snap-reply-row">
+        <input type="text" class="snap-reply-input" id="snap-quick-reply" placeholder="Send self-destructing reply...">
+        <button type="button" class="btn-connect-pill" id="btn-send-snap-reply"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Creator Studio & Analytics Dashboard Modal -->
+  <div class="cs-modal-backdrop" id="creator-studio-modal" role="dialog" aria-modal="true" aria-label="Creator Studio">
+    <div class="creator-studio-stage">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #00D2FF 0%, #8B5CF6 100%); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 16px;">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div>
+            <h3 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 1.1rem; font-weight: 800; color: #FFFFFF;">Creator Hub & Analytics</h3>
+            <div style="font-size: 0.70rem; color: rgba(255,255,255,0.5);">Performance metrics for Alex Johnson (@alexjohnson) &bull; Past 30 Days</div>
+          </div>
+        </div>
+        <button type="button" class="reels-close-btn" id="btn-close-creator-modal" aria-label="Close Studio">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="creator-metrics-grid">
+        <div class="metric-card">
+          <span class="metric-title">Total Network Reach</span>
+          <span class="metric-value">184.6K</span>
+          <span class="metric-delta"><i class="fa-solid fa-arrow-trend-up"></i> +24.8% vs last mo</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Profile Visits</span>
+          <span class="metric-value">42.1K</span>
+          <span class="metric-delta"><i class="fa-solid fa-arrow-trend-up"></i> +18.2%</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Engagement Rate</span>
+          <span class="metric-value">9.4%</span>
+          <span class="metric-delta"><i class="fa-solid fa-arrow-trend-up"></i> +2.1% benchmark</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Spatial Tokens (Revenue)</span>
+          <span class="metric-value">$4,280</span>
+          <span class="metric-delta"><i class="fa-solid fa-arrow-trend-up"></i> 14 Subscriptions</span>
+        </div>
+      </div>
+
+      <!-- Performance Breakdown Table -->
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Top Performing Publications</span>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-film" style="color: #00D2FF;"></i>
+              <span style="color: #FFFFFF; font-weight: 600;">Autonomous Neural Meshes in WebAssembly</span>
+            </div>
+            <div style="display: flex; gap: 18px; color: rgba(255,255,255,0.6);">
+              <span>98.4K Views</span>
+              <span>8.9K Likes</span>
+              <span style="color: #10B981;">+$620</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-cube" style="color: #8B5CF6;"></i>
+              <span style="color: #FFFFFF; font-weight: 600;">Interactive 3D Glassmorphic HUDs</span>
+            </div>
+            <div style="display: flex; gap: 18px; color: rgba(255,255,255,0.6);">
+              <span>42.1K Views</span>
+              <span>4.2K Likes</span>
+              <span style="color: #10B981;">+$290</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button type="button" class="btn-ai-sub-action" style="padding: 8px 16px;" id="btn-export-analytics"><i class="fa-solid fa-download"></i> Export Report</button>
+        <button type="button" class="btn-ask-sphere-ai" style="padding: 8px 18px;" id="btn-creator-tools"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Growth Insights</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Universal Search Modal (Ctrl+K or Header Input) -->
+  <div class="cs-modal-backdrop" id="universal-search-modal" role="dialog" aria-modal="true" aria-label="Universal Search">
+    <div class="universal-search-stage">
+      <div class="search-modal-header">
+        <i class="fa-solid fa-magnifying-glass" style="color: #00D2FF; font-size: 15px;"></i>
+        <input type="text" class="search-modal-input" id="universal-search-input" placeholder="Search people, posts, reels, videos, communities, topics...">
+        <button type="button" class="reels-close-btn" id="btn-close-search-modal" aria-label="Close search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="search-filter-tabs">
+        <button type="button" class="search-tab-pill active" data-filter="all">All</button>
+        <button type="button" class="search-tab-pill" data-filter="people">People</button>
+        <button type="button" class="search-tab-pill" data-filter="posts">Posts</button>
+        <button type="button" class="search-tab-pill" data-filter="reels">Reels</button>
+        <button type="button" class="search-tab-pill" data-filter="videos">Videos</button>
+        <button type="button" class="search-tab-pill" data-filter="communities">Communities</button>
+        <button type="button" class="search-tab-pill" data-filter="topics">Topics</button>
+      </div>
+
+      <div class="search-results-list" id="universal-search-results">
+        <!-- Default Suggestions -->
+        <div class="search-result-item" data-type="people">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;" alt="Elena">
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Elena Rostova <i class="fa-solid fa-circle-check badge-verified"></i></div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">@elena_rostova &bull; Spatial Audio Engineer &bull; 48.9K followers</div>
+          </div>
+          <button type="button" class="btn-connect-pill">Connect</button>
+        </div>
+        <div class="search-result-item" data-type="communities">
+          <div class="community-icon-box"><i class="fa-solid fa-cubes"></i></div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Spatial Architects Guild</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Community &bull; 48.2K members &bull; Architecture & 3D Spatial</div>
+          </div>
+          <button type="button" class="btn-join-community">Join</button>
+        </div>
+        <div class="search-result-item" data-type="topics">
+          <div class="community-icon-box"><i class="fa-solid fa-hashtag"></i></div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">#QuantumNetwork</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Technology Trend &bull; 48.2K posts today</div>
+          </div>
+          <i class="fa-solid fa-arrow-trend-up" style="color: #10B981; font-size: 13px;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. User Profile Quick-View Modal -->
+  <div class="cs-modal-backdrop" id="profile-modal" role="dialog" aria-modal="true" aria-label="Profile Quick View">
+    <div class="profile-modal-stage">
+      <div class="profile-cover-frame">
+        <button type="button" class="reels-close-btn" id="btn-close-profile-modal" style="position: absolute; top: 12px; right: 12px; z-index: 10;" aria-label="Close Profile">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="profile-body-content">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+          <div class="profile-avatar-anchor">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" id="profile-modal-avatar" alt="Alex Johnson">
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-connect-pill active" id="btn-profile-modal-connect"><i class="fa-solid fa-user-check"></i> Connected</button>
+            <button type="button" class="btn-connect-pill" id="btn-profile-modal-message"><i class="fa-regular fa-paper-plane"></i> Message</button>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 1.15rem; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 6px;">
+            <span id="profile-modal-name">Alex Johnson</span>
+            <i class="fa-solid fa-circle-check badge-verified"></i>
+          </h3>
+          <div style="font-size: 0.74rem; color: rgba(255,255,255,0.5);" id="profile-modal-handle">@alexjohnson</div>
+          <p style="font-size: 0.78rem; color: rgba(255,255,255,0.8); margin-top: 6px; line-height: 1.4;" id="profile-modal-bio">
+            Spatial Computing Architect & Digital Artist. Building decentralized mesh nodes and immersive interface systems on ConnectSphere.
+          </p>
+        </div>
+
+        <!-- Social Stats -->
+        <div style="display: flex; gap: 18px; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px;">
+          <div><strong style="color: #FFFFFF;" id="profile-modal-posts-count">142</strong> <span style="color: rgba(255,255,255,0.5);">Posts</span></div>
+          <div><strong style="color: #FFFFFF;" id="profile-modal-followers-count">12.4K</strong> <span style="color: rgba(255,255,255,0.5);">Followers</span></div>
+          <div><strong style="color: #FFFFFF;" id="profile-modal-following-count">489</strong> <span style="color: rgba(255,255,255,0.5);">Following</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modular Architecture: Security, State, Services & Components -->
+  <script src="../js/utils/security.js?v=12.0"></script>
+  <script src="../js/state/store.js?v=12.0"></script>
+
+  <!-- Supabase Production Backend & Client Platform -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config/env.js?v=13.0"></script>
+  <script src="../js/lib/supabaseClient.js?v=13.0"></script>
+  <script src="../js/lib/realtimeManager.js?v=13.0"></script>
+  <script src="../js/services/authService.js?v=13.0"></script>
+  <script src="../js/services/storageService.js?v=13.0"></script>
+  <script>
+    // =========================================================================
+    // ConnectSphere Application Bootstrap Sequence (Phase 5)
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('[Bootstrap] Starting application initialization sequence...');
+      
+      // 1. Core Dependencies Check
+      if (!window.SupabaseClient || !window.AuthService) {
+        console.error('[Bootstrap] CRITICAL: Core dependencies missing.');
+        return;
+      }
+
+      try {
+        // 2. Auth & Session Restoration
+        console.log('[Bootstrap] Phase 1: Restoring session & syncing user profile...');
+        const session = await window.AuthService.init();
+        
+        // 3. Protected Route Validation
+        const isProtected = ['dashboard.html', 'messages.html', 'profile.html', 'settings.html', 'notifications.html']
+          .some(page => window.location.pathname.includes(page));
+
+        if (!session && isProtected) {
+          console.warn('[Bootstrap] Protected route access denied. Redirecting to login.');
+          window.AuthService.requireAuth();
+          return;
+        }
+
+        // If authenticated, initialize domain services sequentially
+        if (session) {
+          console.log('[Bootstrap] Phase 2: Initializing domain services...');
+          
+          const services = [
+            window.PostService,
+            window.StoryService,
+            window.ReelService,
+            window.ChatService,
+            window.VideoService,
+            window.CommunityService,
+            window.NotificationService,
+            window.CreatorService,
+            window.CallingService
+          ];
+
+          for (const service of services) {
+            if (service && typeof service.init === 'function') {
+              try {
+                await service.init();
+              } catch (err) {
+                console.error(`[Bootstrap] Error initializing service:`, err);
+              }
+            }
+          }
+
+          // 4. Realtime Infrastructure
+          if (window.RealtimeManager && typeof window.RealtimeManager.init === 'function') {
+            console.log('[Bootstrap] Phase 3: Initializing Realtime Manager...');
+            await window.RealtimeManager.init();
+          }
+        }
+
+        // 5. UI Initialization
+        console.log('[Bootstrap] Phase 4: Initializing UI renderers...');
+        if (typeof window.initPlatformSuite === 'function') {
+          window.initPlatformSuite();
+        }
+
+        console.log('[Bootstrap] Application initialization complete. 🚀');
+      } catch (error) {
+        console.error('[Bootstrap] Initialization failed:', error);
+        if (window.location.pathname.includes('dashboard.html')) {
+          window.AuthService.requireAuth();
+        }
+      }
+    });
+  </script>
+
+  <!-- Domain Services -->
+  <script src="../js/services/postService.js?v=12.0"></script>
+  <script src="../js/services/storyService.js?v=12.0"></script>
+  <script src="../js/services/reelService.js?v=12.0"></script>
+  <script src="../js/services/chatService.js?v=12.0"></script>
+  <script src="../js/services/callingService.js?v=12.0"></script>
+  <script src="../js/services/snapService.js?v=12.0"></script>
+  <script src="../js/services/videoService.js?v=12.0"></script>
+  <script src="../js/services/aiService.js?v=12.0"></script>
+  <script src="../js/services/notificationService.js?v=12.0"></script>
+  <script src="../js/services/searchService.js?v=12.0"></script>
+  <script src="../js/services/communityService.js?v=12.0"></script>
+  <script src="../js/services/creatorService.js?v=12.0"></script>
+
+  <!-- Component Renderers -->
+  <script src="../js/components/feedRenderer.js?v=12.0"></script>
+  <script src="../js/components/storyRenderer.js?v=12.0"></script>
+  <script src="../js/components/reelsRenderer.js?v=12.0"></script>
+  <script src="../js/components/chatRenderer.js?v=12.0"></script>
+  <script src="../js/components/callingRenderer.js?v=12.0"></script>
+  <script src="../js/components/theaterRenderer.js?v=12.0"></script>
+  <script src="../js/components/searchRenderer.js?v=12.0"></script>
+  <script src="../js/components/creatorRenderer.js?v=12.0"></script>
+
+  <!-- Core Effects, Nav & Application Orchestrator -->
+  <script src="../js/navigation.js?v=12.0"></script>
+  <script src="../js/animations.js?v=12.0"></script>
+  <script src="../js/effects.js?v=12.0"></script>
+  <script src="../js/app.js?v=12.0"></script>
+</body>
+</html>

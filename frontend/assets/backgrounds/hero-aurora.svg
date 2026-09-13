@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="aurora1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#8B5CF6" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="aurora2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.5" />
+      <stop offset="50%" stop-color="#6366F1" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0" />
+    </linearGradient>
+    <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#0F172A" />
+
+  <!-- Aurora Glowing Waves -->
+  <path d="M-100 200 C300 100, 600 400, 1000 200 C1200 100, 1500 300, 1600 200 L1600 900 L-100 900 Z" fill="url(#aurora1)" />
+  <path d="M-100 400 C400 300, 800 600, 1200 350 C1400 200, 1500 500, 1600 400 L1600 900 L-100 900 Z" fill="url(#aurora2)" />
+
+  <!-- Abstract Network Nodes -->
+  <circle cx="200" cy="250" r="4" fill="#06B6D4" opacity="0.8" />
+  <circle cx="450" cy="180" r="6" fill="#8B5CF6" opacity="0.9" />
+  <circle cx="700" cy="320" r="5" fill="#6366F1" opacity="0.8" />
+  <circle cx="950" cy="220" r="7" fill="#06B6D4" opacity="0.9" />
+  <circle cx="1250" cy="280" r="4" fill="#8B5CF6" opacity="0.7" />
+
+  <!-- Connecting Lines -->
+  <line x1="200" y1="250" x2="450" y2="180" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1.5" />
+  <line x1="450" y1="180" x2="700" y2="320" stroke="rgba(139, 92, 246, 0.25)" stroke-width="1.5" />
+  <line x1="700" y1="320" x2="950" y2="220" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1.5" />
+  <line x1="950" y1="220" x2="1250" y2="280" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1.5" />
+</svg>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="Sign in to your ConnectSphere account. Secure, encrypted connection to the premier next-gen creator network.">
+  <title>Sign In | ConnectSphere</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css?v=10.0">
+  <link rel="stylesheet" href="../css/animations.css?v=10.0">
+  <link rel="stylesheet" href="../css/responsive.css?v=10.0">
+  <link rel="stylesheet" href="../css/main.css?v=10.0">
+</head>
+<body data-page="login" style="margin: 0; padding: 0; min-height: 100vh; width: 100%; display: grid; place-items: center; background-color: #0B0D14; color: #F8FAFC; overflow-x: hidden; position: relative;">
+
+  <!-- Viewport Framing Top Bar (Page-Specific Accent Lighting) -->
+  <header class="connectsphere-top-bar">
+    <a href="index.html" class="top-bar-brand">
+      <div class="top-bar-logo-orb">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+          <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#6D4AFF" stroke-width="3" transform="rotate(32 50 50)" class="spin-orbit-cw"/>
+          <ellipse cx="50" cy="50" rx="38" ry="14" stroke="#00D8FF" stroke-width="3" transform="rotate(-32 50 50)" class="spin-orbit-ccw"/>
+          <circle cx="50" cy="50" r="9" fill="#8B5CF6" class="core-orb-pulse"/>
+        </svg>
+      </div>
+      <span class="top-bar-title">Connect<span>Sphere</span></span>
+    </a>
+    <div class="top-bar-status-capsule">
+      <span class="top-bar-status-dot"></span>
+      <span>Secure Access &bull; Active</span>
+    </div>
+  </header>
+
+  <!-- Cinematic Background Layer (Futuristic Secure Digital Gateway) -->
+  <div class="cinematic-backdrop-layer" style="background-image: url('../assets/images/login_hero_bg.jpg');"></div>
+
+  <!-- Subtle Edge Vignette Overlay (Artwork Remains 100% Crisp & Visible) -->
+  <div class="cinematic-vignette-overlay"></div>
+
+  <!-- Interactive Constellation Network Particles Canvas -->
+  <canvas id="particle-bg-canvas"></canvas>
+
+  <!-- Perfectly Centered Single Luxury Glass Card -->
+  <main class="auth-container">
+    
+    <!-- Dark Graphite Glass Card (Width: 440px, Subtle Violet Rim Lighting) -->
+    <div class="auth-card page-entrance" style="max-width: 440px;">
+      
+      <!-- Back to Home Link -->
+      <div class="stagger-item stagger-1" style="display: flex; justify-content: flex-start; margin-bottom: 14px;">
+        <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s ease;">
+          <i class="fa-solid fa-arrow-left"></i> <span>Back to Home</span>
+        </a>
+      </div>
+
+      <!-- Page-Specific Emblem: Secure Shield Sphere (Part 26: Violet + Cyan + Silver) -->
+      <div class="auth-header stagger-item stagger-2">
+        <a href="index.html" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; margin-bottom: 12px;">
+          <div style="width: 68px; height: 68px; position: relative; display: flex; align-items: center; justify-content: center;" class="security-emblem-glow">
+            <div style="position: absolute; inset: -8px; background: radial-gradient(circle, rgba(109, 74, 255, 0.45) 0%, rgba(0, 216, 255, 0.2) 55%, transparent 70%); border-radius: 50%; filter: blur(14px);"></div>
+            <svg width="56" height="56" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="loginShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#8B5CF6"/>
+                  <stop offset="50%" stop-color="#6D4AFF"/>
+                  <stop offset="100%" stop-color="#00D8FF"/>
+                </linearGradient>
+                <linearGradient id="loginLockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="100%" stop-color="#C4B5FD"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Outer Security Calibration Ring -->
+              <circle cx="50" cy="50" r="44" stroke="rgba(109, 74, 255, 0.4)" stroke-width="1.8" stroke-dasharray="6 5"/>
+              <circle cx="50" cy="6" r="3" fill="#00D8FF" filter="drop-shadow(0 0 6px #00D8FF)"/>
+              <circle cx="50" cy="94" r="3" fill="#8B5CF6"/>
+
+              <!-- Inner Hexagonal Security Shield Boundary -->
+              <polygon points="50,14 82,30 82,70 50,86 18,70 18,30" stroke="url(#loginShieldGrad)" stroke-width="2" fill="rgba(23, 26, 36, 0.85)"/>
+
+              <!-- Central Protected Connection Node & Lock Glyph -->
+              <circle cx="50" cy="50" r="14" fill="#6D4AFF" opacity="0.9" filter="drop-shadow(0 0 10px #6D4AFF)"/>
+              
+              <!-- Shackle & Body Lock Vector -->
+              <path d="M46 45 V41 C46 38.8 47.8 37 50 37 C52.2 37 54 38.8 54 41 V45 M43 45 H57 V56 H43 Z" stroke="url(#loginLockGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+        </a>
+        <h1 style="font-family: var(--font-heading); font-size: 27px; font-weight: 800; margin: 0 0 6px 0; color: #FFFFFF; letter-spacing: -0.5px;">Welcome Back</h1>
+        <p style="color: var(--text-muted); font-size: 13.5px; margin: 0;">Sign in to your ConnectSphere account</p>
+      </div>
+
+      <!-- Authentication Form (Preserving all API-hook IDs) -->
+      <form class="auth-form-submit" style="margin-top: 22px;">
+        
+        <!-- Floating Label: Username or Email (Soft Violet Icon) -->
+        <div class="floating-group stagger-item stagger-3">
+          <input 
+            type="text" 
+            id="login-identifier" 
+            class="floating-input" 
+            placeholder=" " 
+            required 
+            autocomplete="username"
+          >
+          <i class="fa-solid fa-user floating-icon"></i>
+          <label for="login-identifier" class="floating-label">Username or Email</label>
+        </div>
+
+        <!-- Floating Label: Password with Visibility Toggle (Soft Cyan Icon) -->
+        <div class="floating-group floating-group-password stagger-item stagger-3">
+          <input 
+            type="password" 
+            id="login-password" 
+            class="floating-input floating-input-password" 
+            placeholder=" " 
+            required 
+            autocomplete="current-password"
+          >
+          <i class="fa-solid fa-lock floating-icon"></i>
+          <label for="login-password" class="floating-label">Password</label>
+          <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+
+        <!-- Remember Me & Dedicated Forgot Password Trigger -->
+        <div class="stagger-item stagger-3" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; font-size: 13px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-muted); user-select: none;">
+            <input type="checkbox" checked style="accent-color: #6D4AFF; width: 16px; height: 16px; cursor: pointer; border-radius: 4px;"> 
+            <span>Remember me</span>
+          </label>
+          <button type="button" id="forgot-password-trigger" style="background: none; border: none; padding: 0; color: #A78BFA; font-weight: 600; font-size: 13px; cursor: pointer; transition: color 0.2s ease;">Forgot Password?</button>
+        </div>
+
+        <!-- Submit Button: Royal Violet -> Electric Violet Gradient (PART 13) -->
+        <button type="submit" class="btn-portal btn-portal-primary btn-shimmer-sweep stagger-item stagger-4" style="width: 100%; border-radius: 50px; height: 52px;">
+          <span>Sign In</span>
+          <i class="fa-solid fa-arrow-right-to-bracket" style="margin-left: 6px;"></i>
+        </button>
+
+        <!-- Minimalist Divider -->
+        <div class="stagger-item stagger-4" style="text-align: center; margin: 20px 0 16px 0; color: var(--text-dim); font-size: 12.5px; position: relative;">
+          <div style="height: 1px; background: rgba(255, 255, 255, 0.08); position: absolute; top: 50%; left: 0; right: 0; z-index: 1;"></div>
+          <span style="position: relative; z-index: 2; background: #171A24; padding: 0 14px; border-radius: 4px; font-weight: 500;">or access via</span>
+        </div>
+
+        <!-- Original Quick-Auth Options -->
+        <div class="stagger-item stagger-4" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <button type="button" class="btn-social" onclick="showToast('Passkey authentication initiated 🔑');" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; font-size: 13px; border-radius: 12px; color: #F8FAFC; cursor: pointer; transition: all 0.25s ease;">
+            <i class="fa-solid fa-key" style="color: #00D8FF;"></i> Passkey
+          </button>
+          <button type="button" class="btn-social" onclick="showToast('Decentralized ID connecting 🛡️');" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; font-size: 13px; border-radius: 12px; color: #F8FAFC; cursor: pointer; transition: all 0.25s ease;">
+            <i class="fa-solid fa-shield-halved" style="color: #A78BFA;"></i> Secure ID
+          </button>
+        </div>
+
+        <!-- Switch to Signup Link -->
+        <p class="stagger-item stagger-4" style="text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 13.5px; margin-bottom: 0;">
+          New to ConnectSphere? <a href="signup.html" style="color: #00D8FF; font-weight: 700; text-decoration: none; transition: color 0.2s ease;">Create Account</a>
+        </p>
+
+      </form>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       DEDICATED FORGOT PASSWORD RECOVERY MODAL (PARTS 22 & 23)
+       ========================================================================= -->
+  <div id="forgot-password-modal" class="cs-modal-backdrop" aria-hidden="true">
+    <div class="recovery-card">
+      <button type="button" class="recovery-close-btn" id="close-recovery-modal" aria-label="Close recovery modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- STEP 1: Enter Identifier -->
+      <div id="recovery-step-1" class="recovery-step active">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(109, 74, 255, 0.18); border: 1px solid rgba(109, 74, 255, 0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; color: #A78BFA; font-size: 22px;">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0;">Account Recovery</h2>
+          <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Enter your registered Email or Mobile Number</p>
+        </div>
+
+        <form id="recovery-form-1" onsubmit="event.preventDefault();">
+          <div class="floating-group">
+            <input type="text" id="recovery-identifier" class="floating-input" placeholder=" " required>
+            <i class="fa-solid fa-envelope floating-icon" style="color: #A78BFA;"></i>
+            <label for="recovery-identifier" class="floating-label">Email or Mobile Number</label>
+          </div>
+
+          <button type="button" id="btn-recovery-step1" class="btn-portal btn-portal-primary" style="width: 100%; border-radius: 50px; height: 50px; margin-top: 10px;">
+            <span>Continue</span>
+            <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- STEP 2: OTP Verification -->
+      <div id="recovery-step-2" class="recovery-step">
+        <div style="text-align: center; margin-bottom: 16px;">
+          <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(0, 216, 255, 0.15); border: 1px solid rgba(0, 216, 255, 0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; color: #00D8FF; font-size: 22px;">
+            <i class="fa-solid fa-key"></i>
+          </div>
+          <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0;">Verify Identity</h2>
+          <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Enter the 6-digit verification code</p>
+        </div>
+
+        <!-- Clearly Labeled Development Demo OTP Mechanism -->
+        <div class="demo-otp-banner" style="background: rgba(109, 74, 255, 0.12); border-color: rgba(109, 74, 255, 0.4); color: #C4B5FD;">
+          <span><i class="fa-solid fa-flask" style="margin-right: 6px;"></i>Development Mode</span>
+          <span class="demo-otp-badge" style="background: rgba(109, 74, 255, 0.25); color: #FFFFFF;">Demo OTP: 123456</span>
+        </div>
+
+        <div class="otp-inputs-grid" id="rec-otp-grid">
+          <input type="text" maxlength="1" class="otp-box rec-otp" id="rec-otp-1" inputmode="numeric">
+          <input type="text" maxlength="1" class="otp-box rec-otp" id="rec-otp-2" inputmode="numeric">
+          <input type="text" maxlength="1" class="otp-box rec-otp" id="rec-otp-3" inputmode="numeric">
+          <input type="text" maxlength="1" class="otp-box rec-otp" id="rec-otp-4" inputmode="numeric">
+          <input type="text" maxlength="1" class="otp-box rec-otp" id="rec-otp-5" inputmode="numeric">
+          <input type="text" maxlength="1" class="otp-box rec-otp" id="rec-otp-6" inputmode="numeric">
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: var(--text-muted); margin-bottom: 20px;">
+          <span>Resend code in <strong id="rec-countdown" style="color: #00D8FF;">45s</strong></span>
+          <button type="button" id="btn-rec-resend" style="background: none; border: none; color: #A78BFA; font-weight: 600; cursor: pointer; padding: 0;">Resend OTP</button>
+        </div>
+
+        <button type="button" id="btn-recovery-verify" class="btn-portal btn-portal-primary" style="width: 100%; border-radius: 50px; height: 50px;">
+          <span>Verify OTP</span>
+          <i class="fa-solid fa-check" style="margin-left: 6px;"></i>
+        </button>
+      </div>
+
+      <!-- STEP 3: Create New Password -->
+      <div id="recovery-step-3" class="recovery-step">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(139, 92, 246, 0.18); border: 1px solid rgba(139, 92, 246, 0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; color: #C4B5FD; font-size: 22px;">
+            <i class="fa-solid fa-lock-open"></i>
+          </div>
+          <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0;">New Password</h2>
+          <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Create a strong, secure replacement</p>
+        </div>
+
+        <form id="recovery-form-3" onsubmit="event.preventDefault();">
+          <div class="floating-group">
+            <input type="password" id="recovery-new-password" class="floating-input" placeholder=" " required>
+            <i class="fa-solid fa-lock floating-icon" style="color: #38BDF8;"></i>
+            <label for="recovery-new-password" class="floating-label">New Password</label>
+          </div>
+
+          <div class="floating-group">
+            <input type="password" id="recovery-confirm-password" class="floating-input" placeholder=" " required>
+            <i class="fa-solid fa-circle-check floating-icon" style="color: #A78BFA;"></i>
+            <label for="recovery-confirm-password" class="floating-label">Confirm Password</label>
+          </div>
+
+          <button type="button" id="btn-recovery-reset" class="btn-portal btn-portal-primary" style="width: 100%; border-radius: 50px; height: 50px; margin-top: 10px;">
+            <span>Reset Password</span>
+            <i class="fa-solid fa-rotate" style="margin-left: 6px;"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- STEP 4: Success State -->
+      <div id="recovery-step-4" class="recovery-step" style="text-align: center; padding: 10px 0;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.5); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; color: #10B981; font-size: 28px;">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h2 style="font-family: var(--font-heading); font-size: 24px; font-weight: 800; color: #FFFFFF; margin: 0 0 8px 0;">Password Updated</h2>
+        <p style="color: var(--text-muted); font-size: 13.5px; line-height: 1.5; margin: 0 0 24px 0;">Your security credentials have been refreshed with zero downtime. You may now authenticate.</p>
+
+        <button type="button" id="btn-recovery-done" class="btn-portal btn-portal-primary" style="width: 100%; border-radius: 50px; height: 50px;">
+          <span>Return to Sign In</span>
+          <i class="fa-solid fa-arrow-right-to-bracket" style="margin-left: 6px;"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Viewport Framing Bottom Bar -->
+  <footer class="connectsphere-bottom-bar">
+    <div class="bottom-bar-tagline">Connect &bull; Share &bull; Discover</div>
+    <a href="index.html" class="bottom-bar-indicator" title="Home">
+      <span>&bull;&bull;&bull; Home</span>
+    </a>
+    <div class="bottom-bar-metrics">
+      <span><i class="fa-solid fa-lock" style="color: #6D4AFF; margin-right: 5px;"></i>End-to-End Encrypted</span>
+    </div>
+  </footer>
+
+  <!-- Supabase Production Backend & Auth SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config/env.js?v=13.0"></script>
+  <script src="../js/lib/supabaseClient.js?v=13.0"></script>
+  <script src="../js/lib/realtimeManager.js?v=13.0"></script>
+  <script src="../js/services/authService.js?v=13.0"></script>
+  <script src="../js/services/storageService.js?v=13.0"></script>
+
+  <!-- Modular Scripts -->
+  <script src="../js/navigation.js?v=10.0"></script>
+  <script src="../js/animations.js?v=10.0"></script>
+  <script src="../js/effects.js?v=10.0"></script>
+  <script src="../js/app.js?v=10.0"></script>
+</body>
+</html>

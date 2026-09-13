@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | ConnectSphere</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- Ambient Grid Pattern Overlay -->
+  <div class="background-grid-pattern"></div>
+
+  <div class="app-container">
+
+    <!-- Left Navigation Sidebar -->
+    <div id="standard-navigation-container"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content" style="padding-bottom: 0;">
+      <header class="top-header">
+        <h2>Direct Messages</h2>
+        <div style="display: flex; gap: 10px;">
+          <button class="icon-btn-round theme-toggle-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Split Container -->
+      <div class="chat-container">
+        <!-- Left Conversations List -->
+        <div class="conversations-list" id="conversations-list-container">
+          <!-- Dynamic Conversations -->
+        </div>
+
+        <!-- Right Active Chat Window -->
+        <div class="chat-box" id="active-chat-box">
+          <div class="chat-messages" id="chat-messages-container">
+            <!-- Dynamic Messages -->
+          </div>
+
+          <div class="chat-input-bar" id="chat-input-form">
+            <button class="icon-btn-round btn-play-voice"><i class="fa-solid fa-microphone"></i></button>
+            <input type="text" id="chat-input-field" placeholder="Type a message...">
+            <button class="icon-btn-round" id="btn-send-message" style="background: var(--primary); color: white;"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar-right">
+      <div class="widget-card">
+        <div class="widget-title"><span>Chat Info</span></div>
+        <div style="text-align: center; padding: 10px 0;" id="chat-info-sidebar">
+          <!-- Dynamic Info -->
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Mobile Navigation -->
+  
+
+  <!-- Modular Scripts -->
+  <script src="../js/utils/security.js?v=13.0"></script>
+  <script src="../js/state/store.js?v=13.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config/env.js?v=13.0"></script>
+  <script src="../js/lib/supabaseClient.js?v=13.0"></script>
+  <script src="../js/lib/realtimeManager.js?v=13.0"></script>
+  <script src="../js/services/authService.js?v=13.0"></script>
+  <script src="../js/services/chatService.js?v=13.0"></script>
+
+  <script src="../js/navigation.js?v=13.0"></script>
+  <script src="../js/animations.js?v=13.0"></script>
+  <script src="../js/effects.js?v=13.0"></script>
+  <script src="../js/components/postActions.js?v=13.0"></script>
+  <script src="../js/app.js?v=13.0"></script>
+  <script src="../js/components/navigationRenderer.js?v=13.0"></script>
+  <script src="../js/components/messagesPageRenderer.js?v=13.0"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (window.NavigationRenderer) window.NavigationRenderer.init("messages");
+      
+      const isAuthenticated = await AuthService.checkSession();
+      if (!isAuthenticated) return;
+      
+      ChatService.init();
+      if (window.MessagesPageRenderer) window.MessagesPageRenderer.init();
+    });
+  </script>
+</body>
+</html>

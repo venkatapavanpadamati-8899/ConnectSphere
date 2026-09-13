@@ -1,0 +1,465 @@
+/* ==========================================================================
+   ConnectSphere Responsive Layout & Mobile Styles
+   ========================================================================== */
+
+/* Mobile Bottom Navigation Bar */
+.mobile-nav-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 66px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border-color);
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  padding: 0 10px;
+}
+
+.mobile-nav-item {
+  color: var(--text-muted);
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  transition: var(--transition);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.mobile-nav-item span {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.mobile-nav-item.active {
+  color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+/* Laptop / Medium Desktop Layout (1081px to 1279px) */
+@media (min-width: 1081px) and (max-width: 1279px) {
+  body .app-container,
+  body .dashboard-layout {
+    grid-template-columns: 205px minmax(0, 1fr) 290px;
+    gap: 16px;
+    padding: 16px 18px;
+  }
+  
+  body .sidebar-right,
+  body .dashboard-widgets {
+    display: flex;
+  }
+}
+
+/* Tablet Layout (768px to 1080px) */
+@media (min-width: 768px) and (max-width: 1080px) {
+  body .app-container,
+  body .dashboard-layout {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  body .sidebar-right,
+  body .dashboard-widgets {
+    display: none;
+  }
+  
+  body .brand-title, 
+  body .masterpiece-brand-text,
+  body .nav-item span, 
+  body .nav-count-badge,
+  body .btn-create-post span, 
+  body .btn-sidebar-create span,
+  body .btn-sidebar-create-masterpiece span,
+  body .vip-upgrade-card,
+  body .sidebar-user-card-v3,
+  body .user-info {
+    display: none;
+  }
+
+  body .brand-logo,
+  body .masterpiece-brand-block {
+    justify-content: center;
+    padding: 8px 0;
+  }
+
+  body .nav-item {
+    justify-content: center;
+    padding: 14px 0;
+  }
+
+  body .nav-item i {
+    font-size: 20px;
+    margin: 0;
+  }
+
+  body .btn-sidebar-create-masterpiece {
+    padding: 0;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    margin: 12px auto;
+  }
+}
+
+/* Mobile Layout (< 768px) */
+@media (max-width: 767px) {
+  body .app-container,
+  body .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  body .sidebar-left,
+  body .dashboard-sidebar,
+  body .sidebar-right,
+  body .dashboard-widgets {
+    display: none;
+  }
+
+  body .mobile-top-header {
+    display: flex;
+  }
+
+  body .mobile-nav-bar {
+    display: flex;
+    height: 68px;
+    background: rgba(5, 7, 19, 0.88);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  body .mobile-create-icon-pill {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7357FF, #16D9FF);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 16px rgba(115, 87, 255, 0.5);
+    margin-top: -14px;
+    border: 3px solid #050713;
+  }
+
+  body .floating-chat-container {
+    bottom: 80px;
+    right: 18px;
+  }
+
+  body .floating-chat-drawer {
+    width: calc(100vw - 36px);
+    right: -4px;
+    height: 380px;
+  }
+
+  body .top-header {
+    padding: 14px 18px;
+  }
+
+  body .top-header h2 {
+    font-size: 20px;
+  }
+
+  body .search-box {
+    width: 160px;
+    padding: 8px 14px;
+  }
+
+  .search-box:focus-within {
+    width: 190px;
+  }
+
+  body .stories-container {
+    padding: 16px 18px;
+  }
+
+  body .story-ring-wrapper .avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  body .create-post-box {
+    padding: 18px;
+  }
+
+  body .post-card {
+    padding: 18px;
+  }
+
+  body .explore-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    padding: 10px;
+  }
+
+  body .chat-container {
+    grid-template-columns: 1fr;
+  }
+
+  body .conversations-list.hide-mobile {
+    display: none;
+  }
+
+  body .chat-box.hide-mobile {
+    display: none;
+  }
+
+  body .profile-avatar-row {
+    padding: 0 18px;
+    margin-top: -45px;
+  }
+
+  body .profile-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  body .profile-details {
+    padding: 0 18px 20px 18px;
+  }
+
+  body .profile-stats {
+    gap: 18px;
+  }
+
+  body .modal-box {
+    padding: 20px;
+    width: 95%;
+  }
+
+  body .auth-card {
+    padding: 30px 22px;
+  }
+
+  /* Landing Page Mobile Responsive Rules */
+  body .landing-nav {
+    padding: 10px 18px;
+  }
+
+  body .landing-nav-links {
+    display: none;
+  }
+
+  body .hero-visual-showcase {
+    height: 320px;
+    margin: 30px auto 10px auto;
+  }
+
+  body .hero-visual-showcase svg.hero-center-orb {
+    width: 200px;
+    height: 200px;
+  }
+
+  body .floating-stat-badge {
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+
+  body .floating-stat-badge.badge-top-left {
+    top: 5px;
+    left: -5px;
+  }
+
+  body .floating-stat-badge.badge-mid-right {
+    top: 60px;
+    right: -10px;
+  }
+
+  body .floating-stat-badge.badge-bottom-right {
+    bottom: 10px;
+    right: -5px;
+  }
+
+  body .stats-banner {
+    padding: 30px 20px;
+    gap: 20px;
+  }
+
+  body .feature-grid, body .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  body .faq-question {
+    padding: 18px 20px;
+    font-size: 16px;
+  }
+
+  body .faq-answer {
+    padding: 0 20px;
+  }
+
+  body .faq-item.active .faq-answer {
+    padding: 0 20px 20px 20px;
+  }
+
+  body .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  body .footer-bottom-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  /* Portal & Auth Mobile Adjustments */
+  body .portal-screen, body .auth-container {
+    padding: 68px 16px 58px 16px;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  body .connectsphere-top-bar {
+    padding: 0 16px;
+    height: 52px;
+  }
+
+  body .top-bar-title {
+    font-size: 16px;
+  }
+
+  body .top-bar-status-capsule {
+    padding: 4px 10px;
+    font-size: 10.5px;
+  }
+
+  body .connectsphere-bottom-bar {
+    padding: 0 16px;
+    height: 44px;
+  }
+
+  body .bottom-bar-metrics {
+    display: none;
+  }
+
+  body .portal-hero-card {
+    padding: 28px 20px;
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  body .feature-icon-row {
+    gap: 12px;
+    margin: 16px 0 22px 0;
+  }
+
+  body .feature-icon-pill {
+    width: 42px;
+    height: 42px;
+    font-size: 15px;
+  }
+
+  body .auth-card {
+    padding: 30px 20px;
+    max-width: 100%;
+    border-radius: 24px;
+    margin: 0 auto;
+  }
+
+  body .portal-emblem-wrapper {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 14px;
+  }
+
+  body .portal-tagline-capsule {
+    padding: 6px 16px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  body .portal-action-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  body .btn-portal {
+    width: 100%;
+    min-width: unset;
+    height: 50px;
+  }
+
+  body .strength-requirements-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet (<= 1024px): Reduce secondary floating UI, keep primary ambient badges */
+@media (max-width: 1024px) {
+  body .holo-item:nth-child(2),
+  body .holo-item:nth-child(4),
+  body .holo-item:nth-child(5) {
+    display: none;
+  }
+  body .holo-item {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+/* Mobile (<= 768px): Keep 1-2 ambient depth elements, ensure unobstructed centered card */
+@media (max-width: 768px) {
+  body .holo-item:not(.holo-distant):not(:first-child) {
+    display: none;
+  }
+  .holo-item:first-child {
+    top: 10%;
+    left: 4%;
+    transform: scale(0.78);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+/* Ultra-Compact Mobile (<= 480px) */
+@media (max-width: 480px) {
+  body .otp-inputs-grid {
+    gap: 6px;
+  }
+
+  body .otp-box {
+    width: 38px;
+    height: 48px;
+    font-size: 18px;
+    border-radius: 9px;
+  }
+
+  body .step-indicator {
+    font-size: 9px;
+    gap: 4px;
+    letter-spacing: 0px;
+  }
+
+  body .step-indicator .step-num {
+    width: 17px;
+    height: 17px;
+    font-size: 8.5px;
+  }
+
+  body .step-divider-line {
+    margin: 0 4px;
+  }
+
+  body .recovery-card {
+    padding: 24px 16px;
+    border-radius: 20px;
+  }
+}
