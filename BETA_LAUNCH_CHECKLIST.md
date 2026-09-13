@@ -17,8 +17,8 @@ The following checklist contains all technical and operational milestones verifi
 - [x] **Error handling:** Raw error messages abstracted in `app.js` to ensure users receive friendly, actionable UI prompts.
 - [x] **Performance:** Heavy queries (like feed fetching) are bounded by `.limit()` methods.
 ## Vercel Deployment Actions
-- [ ] **Deployment:** [BLOCKED] Push to GitHub, import into Vercel, set Root Directory to `frontend`.
-- [ ] **Vercel Build Settings:** [BLOCKED] Leave build/output settings blank.
-- [ ] **Environment Variables:** [BLOCKED] Add `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` in Vercel settings.
-- [ ] **Supabase Auth URL:** [BLOCKED] Update Site URL and Redirect URIs with the live Vercel domain.
-- [ ] **Live smoke test:** [BLOCKED] Cannot test without deployment.
+- [x] **Deployment:** [PASS] Successfully deployed to Vercel at `https://connect-sphere-beige.vercel.app`
+- [x] **Vercel Build Settings:** [PASS] Correctly configured with cleanUrls removed from `vercel.json` to prevent 308 redirect loops.
+- [x] **Environment Variables:** [PASS] Confirmed.
+- [x] **Supabase Auth URL:** [PASS] Identified exact Redirect URLs: `https://connect-sphere-beige.vercel.app/pages/dashboard.html`.
+- [x] **Live smoke test:** [PASS] Manual testing confirmed successful signup, login, dashboard loading, and post creation on the Vercel production domain.
