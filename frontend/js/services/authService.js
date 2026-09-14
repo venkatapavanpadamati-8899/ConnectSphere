@@ -252,7 +252,8 @@ const AuthService = {
     const session = await this.getSession();
     if (!session) {
       console.warn('[AuthService] No active Supabase session. Redirecting to login.');
-      window.location.href = redirectTo;
+      const isCleanRoute = !window.location.pathname.includes('.html') && window.location.pathname !== '/';
+      window.location.href = isCleanRoute ? `/${redirectTo.replace('.html', '')}` : redirectTo;
       return false;
     }
     return true;

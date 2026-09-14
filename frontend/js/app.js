@@ -90,7 +90,8 @@ function initAuthForms() {
             const res = await window.AuthService.signUp({ email, password, username, fullName: name });
             if (res && (res.user || res.session)) {
               if (typeof showToast === 'function') showToast('Account created successfully! 🚀');
-              setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+              const target = window.location.pathname.includes('/pages/') ? 'dashboard.html' : '/dashboard';
+              setTimeout(() => { window.location.href = target; }, 600);
               return;
             }
           } catch (err) {
@@ -103,7 +104,8 @@ function initAuthForms() {
 
         // Demo fallback if Supabase not configured
         if (typeof showToast === 'function') showToast('Account created! Welcome to ConnectSphere 🚀');
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+        const target = window.location.pathname.includes('/pages/') ? 'dashboard.html' : '/dashboard';
+        setTimeout(() => { window.location.href = target; }, 800);
       }
     } else {
       if (inputs.length >= 2) {
@@ -117,7 +119,8 @@ function initAuthForms() {
             const res = await window.AuthService.signIn({ email: emailOrUsername, password });
             if (res && (res.user || res.session)) {
               if (typeof showToast === 'function') showToast('Login successful! 🚀');
-              setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+              const target = window.location.pathname.includes('/pages/') ? 'dashboard.html' : '/dashboard';
+              setTimeout(() => { window.location.href = target; }, 600);
               return;
             }
           } catch (err) {
@@ -130,7 +133,8 @@ function initAuthForms() {
 
         // Demo fallback
         if (typeof showToast === 'function') showToast('Welcome back! 🚀');
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+        const target = window.location.pathname.includes('/pages/') ? 'dashboard.html' : '/dashboard';
+        setTimeout(() => { window.location.href = target; }, 800);
       }
     }
   });
@@ -555,8 +559,9 @@ function initDashboardFeatures() {
       localStorage.removeItem('user');
       
       if (typeof showToast === 'function') showToast('Signed out of ConnectSphere! 👋');
+      const target = window.location.pathname.includes('/pages/') ? 'login.html' : '/login';
       setTimeout(() => {
-        window.location.href = 'login.html';
+        window.location.href = target;
       }, 500);
     });
   }

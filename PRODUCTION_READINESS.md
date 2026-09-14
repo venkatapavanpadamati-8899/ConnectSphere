@@ -57,8 +57,12 @@ ConnectSphere operates as a statically served Single Page Application (SPA) nati
 - **Routing:** No SPA fallback rewriting required as this uses multi-page HTML routing natively (`login.html`, `dashboard.html`).
 
 ## 11. Auth Redirect Requirements
-- **Site URL:** Update the Site URL in the Supabase Dashboard (Auth > URL Configuration) to the final deployed URL (e.g., `https://connectsphere.beta.com`).
-- **Redirect URIs:** Add `https://connectsphere.beta.com/frontend/pages/dashboard.html` and `https://connectsphere.beta.com/frontend/pages/login.html` to the allowed Redirect URLs to ensure OAuth and Password Recovery links flow smoothly.
+- **Production Domain:** `https://connectsphere2.vercel.app`
+- **Site URL:** Update the Site URL in the Supabase Dashboard (Authentication > URL Configuration) to `https://connectsphere2.vercel.app`.
+- **Redirect URIs:** Add:
+  - `https://connectsphere2.vercel.app/pages/login.html`
+  - `https://connectsphere2.vercel.app/pages/dashboard.html`
+- **Email Verification Note:** If "Confirm email" is enabled in Supabase, free-tier built-in SMTP enforces a strict limit (~3-4 emails/hour), which triggers `HTTP 429 over_email_send_rate_limit`. For Beta/testing, disable "Confirm email" in Supabase Dashboard (Auth > Providers > Email) or configure a custom SMTP provider (e.g., Resend, SendGrid).
 
 ## 12. Security Checklist
 - [x] Hardcoded secrets removed.
