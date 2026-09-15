@@ -87,19 +87,18 @@ async function runPhase2() {
     await pageB.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 });
     console.log('✅ User B signup successful');
 
-    // Get User B's UUID from localStorage
-    await delay(2000);
-    const userB_id = await pageB.evaluate(() => {
-      if (window.csStore && typeof window.csStore.getUser === 'function') {
-        const u = window.csStore.getUser();
-        if (u && u.id) return u.id;
-      }
-      return null;
-    });
-
-    if (!userB_id) {
-      throw new Error("Could not find User B ID from window.csStore");
+    // Get User B's UUID using Supabase Admin Client
+    const { createClient } = require('@supabase/supabase-js');
+    const supabaseUrl = 'https://lgsdihyrsbzebdfblpor.supabase.co';
+    const supabaseKey = 'sb_publishable_Ta6yhdk93Ege5oRO-v9IWg_gUnqEmbL';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    
+    // Query users table for User B's username
+    const { data: bData, error: bErr } = await supabase.from('profiles').select('id').eq('username', USERNAME_B).single();
+    if (bErr || !bData) {
+      throw new Error("Could not find User B in Supabase profiles table: " + (bErr ? bErr.message : 'No data'));
     }
+    const userB_id = bData.id;
     console.log(`User B UUID: ${userB_id}`);
 
     // -----------------------------------------------------
