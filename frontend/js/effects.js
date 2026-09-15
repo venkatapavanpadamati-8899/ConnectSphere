@@ -16,148 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Mouse-Reactive Interactive Canvas Particle Network Background Engine
 function initParticleCanvas() {
-  let canvas = document.getElementById('particle-bg-canvas');
-  if (!canvas) {
-    canvas = document.createElement('canvas');
-    canvas.id = 'particle-bg-canvas';
-    document.body.prepend(canvas);
-  }
-
-  // Always force fixed background positioning so it never interferes with flexbox layout
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '0';
-  canvas.style.opacity = '0.22';
-
-  const ctx = canvas.getContext('2d');
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
-
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-
-  const mouse = { x: null, y: null, radius: 150 };
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  const pageMode = document.body.getAttribute('data-page') || 
-                   (window.location.pathname.includes('login') ? 'login' : 
-                   (window.location.pathname.includes('signup') ? 'signup' : 
-                   (window.location.pathname.includes('dashboard') ? 'dashboard' : 'index')));
-
-  let colors = ['#7357FF', '#16D9FF', '#00E6C3', '#F7F8FC'];
-  let threadRgb = '115, 87, 255';
-  
-  if (pageMode === 'login') {
-    // Login: Secure Gateway (Royal Violet + Electric Cyan + Silver)
-    colors = ['#6D4AFF', '#8B5CF6', '#00D8FF', '#A78BFA', '#E2E8F0'];
-    threadRgb = '109, 74, 255';
-  } else if (pageMode === 'signup') {
-    // Signup: Human Community (Teal + Turquoise + Warm Gold + Soft Coral)
-    colors = ['#00D5B5', '#19D9E6', '#F2B95E', '#FF7B7B', '#FFF9F0'];
-    threadRgb = '0, 213, 181';
-  } else if (pageMode === 'dashboard') {
-    // Dashboard: Subtle, dark neutral, minimal particles
-    colors = ['rgba(148, 163, 184, 0.4)', 'rgba(0, 210, 255, 0.3)', 'rgba(139, 92, 246, 0.3)', 'rgba(255, 255, 255, 0.25)'];
-    threadRgb = '148, 163, 184';
-    canvas.style.opacity = '0.18';
-  }
-
-  const particlesCount = pageMode === 'dashboard' ? Math.min(Math.floor(width / 55), 24) : Math.min(Math.floor(width / 26), 50);
-  const particles = [];
-
-  class GlobalNode {
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      if (pageMode === 'login') {
-        // Subtle vertical signal flow for security gateway
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() * -0.5) - 0.15;
-      } else {
-        this.vx = (Math.random() - 0.5) * 0.45;
-        this.vy = (Math.random() - 0.5) * 0.45;
-      }
-      this.size = Math.random() * 2 + 1;
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-      this.pulsePhase = Math.random() * Math.PI * 2;
-    }
-
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 8;
-      ctx.fill();
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if (this.x < 0) this.x = width;
-      if (this.x > width) this.x = 0;
-      if (this.y < 0) this.y = height;
-      if (this.y > height) this.y = 0;
-
-      // Subtle mouse interaction - gentle curving
-      if (mouse.x != null && mouse.y != null) {
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < mouse.radius) {
-          const force = (mouse.radius - distance) / mouse.radius;
-          this.x -= (dx / distance) * force * 0.8;
-          this.y -= (dy / distance) * force * 0.8;
-        }
-      }
-    }
-  }
-
-  for (let i = 0; i < particlesCount; i++) {
-    particles.push(new GlobalNode());
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-
-    // Render delicate constellation/security threads
-    for (let a = 0; a < particles.length; a++) {
-      for (let b = a + 1; b < particles.length; b++) {
-        const dx = particles[a].x - particles[b].x;
-        const dy = particles[a].y - particles[b].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 135) {
-          const opacity = (1 - dist / 135) * 0.24;
-          ctx.beginPath();
-          ctx.moveTo(particles[a].x, particles[a].y);
-          ctx.lineTo(particles[b].x, particles[b].y);
-          ctx.strokeStyle = `rgba(${threadRgb}, ${opacity})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-    }
-
-    particles.forEach((p) => {
-      p.update();
-      p.draw();
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
+  // Disabled as per clean design requirements
 }
 
 
@@ -383,6 +242,9 @@ function showToast(message) {
   if (!toastContainer) {
     toastContainer = document.createElement('div');
     toastContainer.id = 'toast-container';
+    toastContainer.setAttribute('role', 'status');
+    toastContainer.setAttribute('aria-live', 'polite');
+    toastContainer.setAttribute('aria-atomic', 'true');
     toastContainer.style.cssText = `
       position: fixed;
       bottom: 24px;
@@ -409,7 +271,9 @@ function showToast(message) {
     backdrop-filter: blur(14px);
     animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   `;
-  toast.innerHTML = message;
+  // Toast content can originate from service responses. Render it as text so a
+  // status notification never becomes an HTML injection point.
+  toast.textContent = message;
   toastContainer.appendChild(toast);
 
   setTimeout(() => {

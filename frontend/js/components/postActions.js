@@ -122,6 +122,22 @@ function initCreatePostModal() {
   const previewVideo = document.getElementById('modal-preview-video');
   const removeMediaBtn = document.getElementById('btn-remove-modal-media');
   const spatialBtn = document.getElementById('btn-modal-media-spatial');
+  
+  const pollBtn = document.getElementById('btn-modal-media-poll');
+  const pollCreator = document.getElementById('modal-poll-creator');
+  const btnPollAdd = document.getElementById('btn-modal-poll-add');
+  const btnPollRemove = document.getElementById('btn-modal-poll-remove');
+  const pollExtraOptions = document.getElementById('modal-poll-extra-options');
+  
+  const voiceBtn = document.getElementById('btn-modal-media-voice');
+  const voiceCreator = document.getElementById('modal-voice-creator');
+  const voiceRecordBtn = document.getElementById('btn-modal-voice-record');
+  const voiceStopBtn = document.getElementById('btn-modal-voice-stop');
+  const voicePreview = document.getElementById('modal-voice-preview');
+  const voiceIndicator = document.getElementById('voice-recording-indicator');
+  const voiceTimer = document.getElementById('voice-timer');
+  const btnVoiceRemove = document.getElementById('btn-modal-voice-remove');
+  
   let attachedModalMedia = '';
   let isSpatialTagged = false;
 
@@ -208,88 +224,148 @@ function initCreatePostModal() {
     });
   }
 
+  // Poll Logic
+  if (pollBtn && pollCreator) {
+    pollBtn.addEventListener('click', () => {
+      pollCreator.style.display = 'block';
+      if (voiceCreator) voiceCreator.style.display = 'none';
+      if (previewBox) previewBox.classList.remove('active');
+    });
+    btnPollRemove.addEventListener('click', () => {
+      pollCreator.style.display = 'none';
+      if (pollExtraOptions) pollExtraOptions.innerHTML = '';
+      document.querySelectorAll('.modal-poll-input').forEach(i => i.value = '');
+    });
+    let extraPolls = 0;
+    btnPollAdd.addEventListener('click', () => {
+      if (extraPolls >= 4) {
+        if (typeof showToast === 'function') showToast('Maximum options reached.');
+        return;
+      }
+      extraPolls++;
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'modal-poll-input';
+      inp.placeholder = 'Option ' + (extraPolls + 2);
+      inp.style.cssText = 'width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; color:#fff; margin-bottom:10px;';
+      pollExtraOptions.appendChild(inp);
+    });
+  }
+
+  // Voice Note Logic (Recording)
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let recordInterval = null;
+  let recordSeconds = 0;
+
+  if (voiceBtn && voiceCreator) {
+    voiceBtn.addEventListener('click', () => {
+      voiceCreator.style.display = 'block';
+      if (pollCreator) pollCreator.style.display = 'none';
+      if (previewBox) previewBox.classList.remove('active');
+    });
+
+    btnVoiceRemove.addEventListener('click', () => {
+      voiceCreator.style.display = 'none';
+      attachedModalMedia = '';
+      if (voicePreview) {
+        voicePreview.src = '';
+        voicePreview.style.display = 'none';
+      }
+      if (voiceRecordBtn) voiceRecordBtn.style.display = 'inline-block';
+    });
+
+    voiceRecordBtn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        
+        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            attachedModalMedia = evt.target.result;
+            voicePreview.src = attachedModalMedia;
+            voicePreview.style.display = 'block';
+          };
+          reader.readAsDataURL(audioBlob);
+          stream.getTracks().forEach(track => track.stop());
+        };
+
+        mediaRecorder.start();
+        voiceRecordBtn.style.display = 'none';
+        voiceStopBtn.style.display = 'inline-block';
+        voiceIndicator.style.display = 'block';
+        
+        recordSeconds = 0;
+        voiceTimer.innerText = '0:00';
+        recordInterval = setInterval(() => {
+          recordSeconds++;
+          const m = Math.floor(recordSeconds / 60);
+          const s = (recordSeconds % 60).toString().padStart(2, '0');
+          voiceTimer.innerText = `${m}:${s}`;
+        }, 1000);
+      } catch (err) {
+        if (typeof showToast === 'function') showToast('Microphone access denied or unavailable.');
+        console.warn('Mic error', err);
+      }
+    });
+
+    voiceStopBtn.addEventListener('click', () => {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+      clearInterval(recordInterval);
+      voiceIndicator.style.display = 'none';
+      voiceStopBtn.style.display = 'none';
+    });
+  }
+
   if (submitBtn && textarea && modal) {
     submitBtn.addEventListener('click', async () => {
       const content = textarea.value.trim();
-      if (!content && !attachedModalMedia) {
+      let isPollActive = pollCreator && pollCreator.style.display === 'block';
+      let isVoiceActive = voiceCreator && voiceCreator.style.display === 'block';
+      
+      let pollData = null;
+      if (isPollActive) {
+        const inputs = Array.from(document.querySelectorAll('.modal-poll-input')).map(i => i.value.trim()).filter(v => v);
+        if (inputs.length < 2) {
+          if (typeof showToast === 'function') showToast('A poll must have at least 2 options.');
+          return;
+        }
+        pollData = { question: content || 'Consensus Poll:', options: inputs };
+      }
+
+      if (!content && !attachedModalMedia && !isPollActive) {
         textarea.focus();
         if (typeof showToast === 'function') showToast('Please enter your discovery before publishing! ✍️');
         return;
       }
 
-      // Attempt live Supabase API call
-      if (typeof window.PostService !== 'undefined') {
-        window.PostService.createPost({ text: content, caption: content, mediaData: attachedModalMedia }).catch(() => {});
+      let mediaType = 'text';
+      if (isPollActive) mediaType = 'poll';
+      else if (isVoiceActive && attachedModalMedia) mediaType = 'voice';
+      else if (attachedModalMedia) {
+        if (attachedModalMedia.startsWith('data:video')) mediaType = 'video';
+        else mediaType = 'image';
       }
 
-      // Prepend to DOM feed
-      const feedList = document.getElementById('feed-list');
-      if (feedList) {
-        const postCard = document.createElement('article');
-        postCard.className = 'post-card';
-        postCard.setAttribute('data-post-id', 'post-' + Date.now());
-        if (isSpatialTagged || content.toLowerCase().includes('spatial')) {
-          postCard.setAttribute('data-category', 'spatial');
-        } else {
-          postCard.setAttribute('data-category', 'for-you');
-        }
-        postCard.setAttribute('data-creator', 'Alex Johnson');
-        postCard.style.animation = 'fadeInStep 0.4s ease both';
-
-        const mediaHtml = attachedModalMedia ? `
-          <div class="post-media-container interactive-media">
-            ${attachedModalMedia.startsWith('data:video') ? `<video src="${attachedModalMedia}" controls style="width: 100%; max-height: 500px; border-radius: 12px;"></video>` : `<img src="${attachedModalMedia}" alt="User Media">`}
-            <div class="heart-burst-overlay"><i class="fa-solid fa-heart"></i></div>
-            ${isSpatialTagged ? '<div class="media-tag-badge"><i class="fa-solid fa-volume-high"></i> Spatial 3D Audio</div>' : ''}
-          </div>
-        ` : '';
-
-        postCard.innerHTML = `
-          <div class="post-header">
-            <div class="post-user-details">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Alex Johnson">
-              <div>
-                <div class="post-user-name">
-                  <span>Alex Johnson</span>
-                  <i class="fa-solid fa-circle-check badge-verified"></i>
-                  <span class="post-creator-tag">Verified Creator</span>
-                </div>
-                <div class="post-time">Just now &bull; Neural Mesh Active</div>
-              </div>
-            </div>
-            <button class="action-btn-icon" title="Post Options"><i class="fa-solid fa-ellipsis"></i></button>
-          </div>
-          <div class="post-caption">${highlightHashtags(escapeHTML(content))}</div>
-          ${mediaHtml}
-          <div class="post-actions">
-            <button class="action-btn btn-like" data-likes="1">
-              <i class="fa-solid fa-heart" style="color: #FF4757;"></i>
-              <span class="like-count">1</span>
-            </button>
-            <button class="action-btn btn-comment-toggle">
-              <i class="fa-regular fa-comment"></i>
-              <span class="comment-count">0</span>
-            </button>
-            <button class="action-btn btn-share-post" title="Share Post">
-              <i class="fa-regular fa-paper-plane"></i>
-              <span>0</span>
-            </button>
-            <button class="action-btn btn-bookmark-post" title="Bookmark">
-              <i class="fa-regular fa-bookmark"></i>
-            </button>
-          </div>
-          <div class="comment-section">
-            <div class="comment-list"></div>
-            <div class="comment-input-row">
-              <input type="text" class="comment-input" placeholder="Write a thoughtful comment...">
-              <button class="btn-send-comment"><i class="fa-solid fa-arrow-up"></i></button>
-            </div>
-          </div>
-        `;
-        feedList.prepend(postCard);
+      // Live Supabase API call
+      if (typeof window.PostService !== 'undefined') {
+        window.PostService.createPost({ 
+          text: content, 
+          caption: content, 
+          mediaType: mediaType, 
+          mediaData: attachedModalMedia, 
+          pollData: pollData 
+        }).catch(() => {});
       }
 
       // Reset modal fields
+      modal.classList.remove('active');
       textarea.value = '';
       attachedModalMedia = '';
       isSpatialTagged = false;
@@ -301,8 +377,16 @@ function initCreatePostModal() {
       if (previewImg) { previewImg.src = ''; previewImg.style.display = 'none'; }
       if (previewVideo) { previewVideo.src = ''; previewVideo.style.display = 'none'; }
       if (photoInput) photoInput.value = '';
-      modal.classList.remove('active');
-      if (typeof showToast === 'function') showToast('Publication broadcast to ConnectSphere! 🚀✨');
+      
+      if (pollCreator) pollCreator.style.display = 'none';
+      if (pollExtraOptions) pollExtraOptions.innerHTML = '';
+      document.querySelectorAll('.modal-poll-input').forEach(i => i.value = '');
+      
+      if (voiceCreator) voiceCreator.style.display = 'none';
+      if (voicePreview) { voicePreview.src = ''; voicePreview.style.display = 'none'; }
+      if (voiceRecordBtn) voiceRecordBtn.style.display = 'inline-block';
+      
+      if (typeof showToast === 'function') showToast('Publication broadcast to the mesh! 📡');
     });
   }
 }

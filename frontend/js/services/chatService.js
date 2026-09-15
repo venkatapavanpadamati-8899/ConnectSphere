@@ -25,7 +25,7 @@ const ChatService = {
         .select(`
           conversation_id, role, unread_count,
           conversations (
-            id, type, title, avatar_url, created_at, is_disappearing,
+            id, type, title, avatar_url, created_at,
             messages ( id, sender_id, text, is_disappearing, created_at ),
             conversation_members ( user_id, profiles ( id, full_name, username, avatar_url, is_verified ) )
           )

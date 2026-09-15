@@ -137,7 +137,19 @@ const FeedRenderer = {
         </div>
       `;
     }
-    // 5. Single uploaded photo
+    // 5. Voice Note / Audio
+    else if ((post.mediaType === 'audio' || post.mediaType === 'voice') && post.audioData) {
+      mediaHTML = `
+        <div class="post-audio-container" style="background: rgba(115, 87, 255, 0.1); border-radius: 12px; padding: 16px; margin: 12px 0; border: 1px solid rgba(115, 87, 255, 0.2);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <i class="fa-solid fa-microphone-lines" style="color: #7357FF; font-size: 20px;"></i>
+            <span style="color: #FFFFFF; font-weight: 600; font-size: 0.9rem;">Voice Note</span>
+          </div>
+          <audio controls style="width: 100%; border-radius: 20px;" src="${post.audioData.src}"></audio>
+        </div>
+      `;
+    }
+    // 6. Single uploaded photo
     else if (post.mediaImage) {
       mediaHTML = `
         <div class="post-single-image" style="border-radius: 16px; overflow: hidden; margin: 12px 0;">

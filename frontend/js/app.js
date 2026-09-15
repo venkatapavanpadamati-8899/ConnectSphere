@@ -4,6 +4,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Establish consistent keyboard navigation and semantic landmarks on every page.
+  if (typeof initAccessibilitySuite === 'function') initAccessibilitySuite();
+
   // Initialize Core Effects & UI Components
   if (typeof initScrollProgressBar === 'function') initScrollProgressBar();
   if (typeof initRippleEffects === 'function') initRippleEffects();
@@ -31,6 +34,53 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof initVideoPlayers === 'function') initVideoPlayers();
   if (typeof initNextGenExperienceSuite === 'function') initNextGenExperienceSuite();
 });
+
+/**
+ * Lightweight, dependency-free accessibility enhancements shared by every view.
+ * Pages in ConnectSphere are deliberately visual, so this keeps keyboard and
+ * screen-reader navigation just as clear as pointer navigation.
+ */
+function initAccessibilitySuite() {
+  const main = document.querySelector('main, [role="main"]');
+  if (main) {
+    main.id = main.id || 'main-content';
+    main.setAttribute('tabindex', '-1');
+
+    const skipLink = document.createElement('a');
+    skipLink.className = 'skip-to-content';
+    skipLink.href = `#${main.id}`;
+    skipLink.textContent = 'Skip to main content';
+    document.body.prepend(skipLink);
+  }
+
+  document.querySelectorAll('nav:not([aria-label])').forEach((nav, index) => {
+    nav.setAttribute('aria-label', index === 0 ? 'Primary navigation' : 'Page navigation');
+  });
+
+  document.querySelectorAll('button').forEach((button) => {
+    if (!button.getAttribute('aria-label') && !button.textContent.trim()) {
+      const title = button.getAttribute('title');
+      if (title) button.setAttribute('aria-label', title);
+    }
+  });
+
+  // Ensure the Escape key always offers a predictable way out of open dialogs.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const openModal = document.querySelector(
+      '[role="dialog"].active, [role="dialog"].is-open, .cs-modal-backdrop.active, .modal-overlay.active'
+    );
+    if (!openModal) return;
+
+    const closeButton = openModal.querySelector(
+      '[aria-label^="Close"], .btn-modal-close-custom, .reels-close-btn, .btn-close-chat'
+    );
+    if (closeButton) {
+      event.preventDefault();
+      closeButton.click();
+    }
+  });
+}
 
 // Follow / Unfollow Handler
 function initFollowButtons() {
@@ -97,7 +147,13 @@ function initAuthForms() {
           } catch (err) {
             console.warn('[Auth] SignUp error:', err);
             if (submitBtn) submitBtn.innerHTML = originalBtnText;
-            if (typeof showToast === 'function') showToast('Signup failed. Please check your details and try again.');
+            if (typeof showToast === 'function') {
+              if (err.status === 429 || (err.message && err.message.toLowerCase().includes('rate limit'))) {
+                showToast('Email sending rate limit reached (429). Please wait a moment and try again.');
+              } else {
+                showToast(err.message || 'Signup failed. Please check your details and try again.');
+              }
+            }
             return;
           }
         }
@@ -126,7 +182,13 @@ function initAuthForms() {
           } catch (err) {
             console.warn('[Auth] SignIn error:', err);
             if (submitBtn) submitBtn.innerHTML = originalBtnText;
-            if (typeof showToast === 'function') showToast('Login failed. Please check your credentials and try again.');
+            if (typeof showToast === 'function') {
+              if (err.status === 429 || (err.message && err.message.toLowerCase().includes('rate limit'))) {
+                showToast('Email rate limit reached (429). Please wait a moment and try again.');
+              } else {
+                showToast(err.message || 'Login failed. Please check your credentials and try again.');
+              }
+            }
             return;
           }
         }
@@ -2439,3 +2501,44 @@ function initPlatformSuite() {
   updateNotifBadges();
 }
 
+
+  // --- Feed Deep Interactions (Likes, Comments, Shares) ---
+  document.querySelectorAll('.cs-post-card .post-actions button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const icon = this.querySelector('i');
+      if (icon.classList.contains('fa-heart')) {
+        // Toggle Like
+        const countTextNode = Array.from(this.childNodes).find(node => node.nodeType === 3);
+        let count = parseInt((countTextNode.textContent || '0').replace(/[^0-9]/g, ''));
+        if (icon.classList.contains('fa-regular')) {
+          icon.classList.remove('fa-regular');
+          icon.classList.add('fa-solid');
+          icon.style.color = '#e0245e'; // Heart red
+          icon.style.transform = 'scale(1.2)';
+          setTimeout(() => icon.style.transform = 'scale(1)', 200);
+          count++;
+        } else {
+          icon.classList.remove('fa-solid');
+          icon.classList.add('fa-regular');
+          icon.style.color = '';
+          count--;
+        }
+        if(count > 0 && countTextNode) countTextNode.textContent = ' ' + count;
+      }
+      else if (icon.classList.contains('fa-retweet')) {
+        // Toggle Share/Retweet
+        const countTextNode = Array.from(this.childNodes).find(node => node.nodeType === 3);
+        let count = parseInt((countTextNode.textContent || '0').replace(/[^0-9]/g, ''));
+        if (this.style.color !== 'rgb(23, 191, 99)') { // Share green
+          this.style.color = 'rgb(23, 191, 99)';
+          icon.style.transform = 'scale(1.2)';
+          setTimeout(() => icon.style.transform = 'scale(1)', 200);
+          count++;
+        } else {
+          this.style.color = '';
+          count--;
+        }
+        if(count > 0 && countTextNode) countTextNode.textContent = ' ' + count;
+      }
+    });
+  });

@@ -90,7 +90,7 @@
     document.addEventListener("DOMContentLoaded", async () => {
       if (window.NavigationRenderer) window.NavigationRenderer.init("messages");
       
-      const isAuthenticated = await AuthService.checkSession();
+      const isAuthenticated = await AuthService.requireAuth();
       if (!isAuthenticated) return;
       
       ChatService.init();

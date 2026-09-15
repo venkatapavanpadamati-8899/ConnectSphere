@@ -1,6 +1,12 @@
 {
   "dependencies": {
-    "@supabase/supabase-js": "^2.116.0",
-    "puppeteer": "^25.10.0"
+    "@supabase/supabase-js": "^2.116.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.11.0",
+    "serve": "^14.2.6"
+  },
+  "scripts": {
+    "dev": "serve frontend -p 3000"
   }
 }

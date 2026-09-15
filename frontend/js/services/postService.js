@@ -116,6 +116,10 @@ const PostService = {
               poster: author.avatar_url,
               duration: '0:30'
             };
+          } else if ((postObj.mediaType === 'voice' || postObj.mediaType === 'audio') && media) {
+            postObj.audioData = {
+              src: media.media_url
+            };
           } else if (postObj.mediaType === 'poll' && poll) {
             const total = poll.total_votes || 0;
             postObj.pollData = {
@@ -285,6 +289,10 @@ const PostService = {
         src: mediaData.src || mediaData.url || mediaData,
         poster: mediaData.poster || user.avatar,
         duration: mediaData.duration || '0:30'
+      };
+    } else if ((mediaType === 'voice' || mediaType === 'audio') && mediaData) {
+      newPost.audioData = {
+        src: mediaData.src || mediaData.url || mediaData
       };
     } else if (mediaType === 'poll' && pollData) {
       newPost.pollData = {

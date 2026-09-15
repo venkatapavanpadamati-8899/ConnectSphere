@@ -23,7 +23,7 @@ const ReelService = {
         .select(`
           id, user_id, caption, sound_title,
           likes_count, comments_count, saves_count, views_count, created_at,
-          profiles ( id, full_name, username, avatar_url, is_verified ),
+          profiles!reels_user_id_fkey ( id, full_name, username, avatar_url, is_verified ),
           reel_media ( id, video_url, poster_url, duration_seconds )
         `)
         .order('created_at', { ascending: false })
