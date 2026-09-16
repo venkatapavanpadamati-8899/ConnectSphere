@@ -308,12 +308,14 @@
   </style>
 </head>
 <body>
-  
-  <div class="cs-premium-bg cs-bg-auth"></div>
+  <div class="cs-premium-bg cs-bg-auth cs-bg-login">
+    <div class="cs-bg-image"></div>
+  </div>
 
   <div class="cs-auth-split">
     <!-- Left Visual -->
     <div class="cs-auth-visual">
+      <img class="cs-brand-scene cs-auth-scene" src="../assets/backgrounds/bg_login.jpg" alt="">
       <div class="cs-floating-orb cs-orb-1"></div>
       <div class="cs-floating-orb cs-orb-2"></div>
       <div class="cs-auth-visual-content">
@@ -385,7 +387,7 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/vendor/supabase.js"></script>
   <script src="../js/config/env.js"></script>
   <script src="../js/lib/supabaseClient.js"></script>
   <script>

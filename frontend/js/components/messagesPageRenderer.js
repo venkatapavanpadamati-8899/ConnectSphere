@@ -13,6 +13,11 @@ const MessagesPageRenderer = {
     
     this.bindEvents();
     this.render();
+
+    // Force a fresh fetch when the messages page is opened
+    if (window.ChatService) {
+      window.ChatService.fetchConversationsFromSupabase().catch(console.error);
+    }
   },
 
   bindEvents() {
@@ -68,13 +73,13 @@ const MessagesPageRenderer = {
       return `
         <div class="conversation-item ${isActive ? 'active' : ''}" data-id="${c.id}">
           <div class="avatar-wrapper">
-            <img src="${ConnectSphereSecurity.escapeHTML(c.partner.avatar)}" class="avatar" alt="${ConnectSphereSecurity.escapeHTML(c.partner.name)}">
+            <img src="${ConnectSphereSecurity.sanitize(c.partner.avatar)}" class="avatar" alt="${ConnectSphereSecurity.sanitize(c.partner.name)}">
             ${c.partner.status === 'online' ? '<span class="status-online-dot"></span>' : ''}
           </div>
           <div>
-            <div style="font-weight: 700; font-size: 14.5px;">${ConnectSphereSecurity.escapeHTML(c.partner.name)}</div>
+            <div style="font-weight: 700; font-size: 14.5px;">${ConnectSphereSecurity.sanitize(c.partner.name)}</div>
             <div style="font-size: 12.5px; color: ${c.unreadCount > 0 ? 'var(--text-primary); font-weight: bold;' : 'var(--text-dim);'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;">
-              ${ConnectSphereSecurity.escapeHTML(lastMsg)}
+              ${ConnectSphereSecurity.sanitize(lastMsg)}
             </div>
           </div>
           ${c.unreadCount > 0 ? `<div style="background: var(--primary); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; margin-left: auto;">${c.unreadCount}</div>` : ''}
@@ -125,9 +130,9 @@ const MessagesPageRenderer = {
     }
 
     this.infoSidebar.innerHTML = `
-      <img src="${ConnectSphereSecurity.escapeHTML(conv.partner.avatar)}" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary);" class="floating-element" alt="${ConnectSphereSecurity.escapeHTML(conv.partner.name)}">
-      <h4 style="margin-top: 10px; font-size: 16px;">${ConnectSphereSecurity.escapeHTML(conv.partner.name)}</h4>
-      <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 5px;">${ConnectSphereSecurity.escapeHTML(conv.partner.handle)}</div>
+      <img src="${ConnectSphereSecurity.sanitize(conv.partner.avatar)}" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary);" class="floating-element" alt="${ConnectSphereSecurity.sanitize(conv.partner.name)}">
+      <h4 style="margin-top: 10px; font-size: 16px;">${ConnectSphereSecurity.sanitize(conv.partner.name)}</h4>
+      <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 5px;">${ConnectSphereSecurity.sanitize(conv.partner.handle)}</div>
       <span style="font-size: 12px; color: ${conv.partner.status === 'online' ? 'var(--success)' : 'var(--text-muted)'};">
         <i class="fa-solid fa-circle" style="font-size: 8px;"></i> ${conv.partner.status === 'online' ? 'Active Now' : 'Offline'}
       </span>

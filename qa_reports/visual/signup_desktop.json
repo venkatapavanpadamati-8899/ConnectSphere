@@ -1,0 +1,12 @@
+{
+  "route": "/signup.html",
+  "viewport": "desktop",
+  "status": 200,
+  "title": "Sign Up | ConnectSphere",
+  "finalPath": "/signup",
+  "overflow": false,
+  "main": false,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "networkErrors": []
+}

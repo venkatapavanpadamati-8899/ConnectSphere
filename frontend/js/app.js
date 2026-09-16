@@ -1437,19 +1437,31 @@ function initDashboardFeatures() {
       storyUploadInput.click();
     });
 
-    storyUploadInput.addEventListener('change', (e) => {
+    storyUploadInput.addEventListener('change', async (e) => {
       const file = e.target.files && e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          const uploadedUrl = evt.target.result;
-          storyData['Your Story'] = {
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
-            time: 'Just now &bull; Neural Mesh Active',
-            media: uploadedUrl,
-            caption: 'Broadcasting live creative telemetry to your sphere network! 🚀📸'
-          };
-
+        if (typeof showToast === 'function') showToast('Uploading story to sphere... 📸', 'info');
+        try {
+          let publicUrl = '';
+          if (window.StorageService) {
+             const result = await window.StorageService.uploadFile('story-media', file);
+             publicUrl = result.publicUrl;
+          } else {
+             // Fallback to FileReader if no backend
+             const reader = new FileReader();
+             publicUrl = await new Promise((resolve) => {
+               reader.onload = (evt) => resolve(evt.target.result);
+               reader.readAsDataURL(file);
+             });
+          }
+          
+          if (window.StoryService) {
+             await window.StoryService.createStory({
+               type: file.type.startsWith('video') ? 'video' : 'photo',
+               mediaUrl: publicUrl
+             });
+          }
+          
           const ring = addStoryBtn.querySelector('.story-ring-wrapper');
           if (ring) {
             ring.style.boxShadow = '0 0 16px #00E6C3';
@@ -1457,8 +1469,10 @@ function initDashboardFeatures() {
             if (badgeIcon) badgeIcon.className = 'fa-solid fa-check';
           }
           if (typeof showToast === 'function') showToast('New story published to your sphere! 📸✨');
-        };
-        reader.readAsDataURL(file);
+        } catch (err) {
+          console.error('UPLOAD ERROR:', err);
+          if (typeof showToast === 'function') showToast('Error uploading story.', 'error');
+        }
       }
     });
   }

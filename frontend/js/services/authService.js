@@ -256,6 +256,13 @@ const AuthService = {
       window.location.href = isCleanRoute ? `/${redirectTo.replace('.html', '')}` : redirectTo;
       return false;
     }
+
+    // Ensure the application state has the currentUser populated 
+    // (useful for headless E2E tests or direct page navigations without init())
+    if (window.csStore && !window.csStore.get('currentUser') && session.user) {
+      await this.syncUserProfile(session.user);
+    }
+
     return true;
   }
 };

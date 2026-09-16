@@ -23,7 +23,7 @@ const ChatService = {
       const { data: convMembers, error } = await client
         .from('conversation_members')
         .select(`
-          conversation_id, role, unread_count,
+          conversation_id, role,
           conversations (
             id, type, title, avatar_url, created_at,
             messages ( id, sender_id, text, is_disappearing, created_at ),
@@ -36,6 +36,7 @@ const ChatService = {
         console.warn('[ChatService] Supabase conversation fetch error:', error.message);
         return;
       }
+      console.log('[ChatService] Fetched convMembers:', JSON.stringify(convMembers));
 
       if (convMembers && convMembers.length > 0) {
         const formatted = convMembers.map(cm => {
@@ -194,21 +195,31 @@ const ChatService = {
       return existing;
     }
 
-    const { data: newConv, error: convError } = await client
-      .from('conversations')
-      .insert({ type: 'direct' })
-      .select()
-      .single();
+      const { data: newConv, error: convError } = await client
+        .from('conversations')
+        .insert({ type: 'direct', created_by: user.supabase_id })
+        .select()
+        .single();
 
     if (convError || !newConv) {
       console.warn('[ChatService] Error creating conversation:', convError);
       return null;
     }
 
-    await client.from('conversation_members').insert([
-      { conversation_id: newConv.id, user_id: user.supabase_id },
-      { conversation_id: newConv.id, user_id: partnerSupabaseId }
-    ]);
+        // Insert creator first as admin so they have permission to add others
+        const { error: adminErr } = await client.from('conversation_members').insert({ 
+          conversation_id: newConv.id, 
+          user_id: user.supabase_id,
+          role: 'admin'
+        });
+        if (adminErr) console.error('[ChatService] Error inserting admin:', adminErr);
+        
+        // Then insert partner
+        const { error: partnerErr } = await client.from('conversation_members').insert({ 
+          conversation_id: newConv.id, 
+          user_id: partnerSupabaseId 
+        });
+        if (partnerErr) console.error('[ChatService] Error inserting partner:', partnerErr);
 
     await this.fetchConversationsFromSupabase();
     const updatedConvs = this.getConversations();

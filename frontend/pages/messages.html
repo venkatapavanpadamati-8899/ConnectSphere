@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Messages | ConnectSphere</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Modular Stylesheets -->
@@ -11,19 +12,22 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/backgrounds.css">
+  <link rel="stylesheet" href="../css/premium.css">
 </head>
 <body>
 
-  <!-- Ambient Grid Pattern Overlay -->
-  <div class="background-grid-pattern"></div>
+  <div class="cs-premium-bg cs-bg-messages">
+    <div class="cs-bg-image"></div>
+  </div>
 
-  <div class="app-container">
+  <div class="cs-app-layout">
 
     <!-- Left Navigation Sidebar -->
     <div id="standard-navigation-container"></div>
 
     <!-- Main Content Area -->
-    <main class="main-content" style="padding-bottom: 0;">
+    <main class="cs-feed-center" style="padding-bottom: 0;">
       <header class="top-header">
         <h2>Direct Messages</h2>
         <div style="display: flex; gap: 10px;">
@@ -55,9 +59,9 @@
       </div>
     </main>
 
-    <aside class="sidebar-right">
-      <div class="widget-card">
-        <div class="widget-title"><span>Chat Info</span></div>
+    <aside class="cs-sidebar-right">
+      <div class="cs-module">
+        <h3 class="cs-module-title">Chat Info</h3>
         <div style="text-align: center; padding: 10px 0;" id="chat-info-sidebar">
           <!-- Dynamic Info -->
         </div>
@@ -72,7 +76,7 @@
   <!-- Modular Scripts -->
   <script src="../js/utils/security.js?v=13.0"></script>
   <script src="../js/state/store.js?v=13.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/vendor/supabase.js"></script>
   <script src="../js/config/env.js?v=13.0"></script>
   <script src="../js/lib/supabaseClient.js?v=13.0"></script>
   <script src="../js/lib/realtimeManager.js?v=13.0"></script>
@@ -95,6 +99,7 @@
       
       ChatService.init();
       if (window.MessagesPageRenderer) window.MessagesPageRenderer.init();
+      if (window.applyThemeEffects) window.applyThemeEffects();
     });
   </script>
 </body>

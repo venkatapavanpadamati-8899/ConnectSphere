@@ -1,0 +1,12 @@
+{
+  "route": "/login.html",
+  "viewport": "tablet",
+  "status": 304,
+  "title": "Login | ConnectSphere",
+  "finalPath": "/login",
+  "overflow": false,
+  "main": false,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "networkErrors": []
+}

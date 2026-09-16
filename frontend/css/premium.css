@@ -6,19 +6,27 @@
    GLOBAL LAYOUT & SURFACES
    -------------------------------------------------------------------------- */
 
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* App Container Layout - Redesigned for Premium Depth */
 .cs-app-layout {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-4);
-  max-width: 1440px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: var(--space-4) var(--space-2);
 }
 
 @media (min-width: 1024px) {
   .cs-app-layout {
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 240px 1fr;
     gap: var(--space-6);
     padding: var(--space-6) var(--space-4);
   }
@@ -26,8 +34,8 @@
 
 @media (min-width: 1200px) {
   .cs-app-layout {
-    grid-template-columns: 280px minmax(auto, var(--feed-max-width)) 320px;
-    gap: var(--space-6);
+    grid-template-columns: 260px minmax(auto, var(--feed-max-width)) 300px;
+    gap: var(--space-8);
     padding: var(--space-6) var(--space-5);
   }
 }
@@ -40,13 +48,13 @@
   top: var(--space-6);
   height: fit-content;
   max-height: calc(100vh - var(--space-12));
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-md);
-  padding: var(--space-4);
-  backdrop-filter: var(--glass-blur);
+  background: transparent;
+  padding: var(--space-2);
   overflow-y: auto;
+  scrollbar-width: none;
+}
+.cs-sidebar-nav::-webkit-scrollbar {
+  display: none;
 }
 
 /* Nav Logo */
@@ -57,10 +65,10 @@
   color: var(--text-main);
   padding: 0 var(--space-3) var(--space-5);
   margin-bottom: var(--space-4);
-  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  text-decoration: none;
 }
 .cs-sidebar-nav .cs-brand-logo i {
   color: var(--primary);
@@ -74,9 +82,9 @@
   gap: var(--space-4);
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-2);
-  border-radius: var(--radius-md);
-  color: var(--text-muted);
-  font-weight: 600;
+  border-radius: var(--radius-full);
+  color: var(--text-main);
+  font-weight: 500;
   font-size: 1.05rem;
   text-decoration: none;
   transition: var(--transition-fast);
@@ -89,25 +97,22 @@
   width: 24px;
   text-align: center;
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--text-main);
 }
 
 .cs-nav-link:hover {
   background: var(--bg-surface-elevated);
-  color: var(--text-main);
 }
 .cs-nav-link:hover i {
-  transform: scale(1.15);
-  color: var(--primary);
+  transform: scale(1.1);
 }
 
 /* Active Nav State */
 .cs-nav-link.active {
-  background: linear-gradient(90deg, rgba(37, 99, 235, 0.1), transparent);
-  color: var(--primary);
-  border-left: 3px solid var(--primary);
+  font-weight: 700;
 }
 .cs-nav-link.active i {
-  color: var(--primary);
+  color: var(--text-main);
 }
 .cs-nav-link.active::before {
   content: '';
@@ -116,7 +121,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(37, 99, 235, 0.05), transparent);
+  background: transparent;
   z-index: -1;
 }
 
@@ -126,36 +131,29 @@
 .cs-feed-center {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-4);
   width: 100%;
 }
 
 /* Generic Card Base */
-.cs-card, .cs-post, .cs-composer {
+.cs-card, .cs-post, .cs-composer, .cs-module {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: none;
   transition: var(--transition);
-}
-
-.cs-card:hover, .cs-post:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
 }
 
 /* Post specific overrides */
 .cs-post {
-  padding: var(--space-5);
+  padding: var(--space-4);
 }
 .cs-post-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 .cs-post-author {
   display: flex;
@@ -163,14 +161,14 @@
   gap: var(--space-3);
 }
 .cs-avatar {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 .cs-author-name {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-main);
   display: block;
 }
@@ -179,16 +177,17 @@
   color: var(--text-muted);
 }
 .cs-post-content {
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: var(--text-main);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 .cs-post-image {
   width: 100%;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   object-fit: cover;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border-color);
 }
 
 /* --------------------------------------------------------------------------
@@ -198,11 +197,11 @@
   display: flex;
   gap: var(--space-3);
   overflow-x: auto;
-  padding: var(--space-2) 0;
-  scrollbar-width: none; /* Firefox */
+  padding: 0;
+  scrollbar-width: none;
 }
 .cs-stories-tray::-webkit-scrollbar {
-  display: none; /* Chrome */
+  display: none;
 }
 
 .cs-story-item {
@@ -211,16 +210,20 @@
   align-items: center;
   gap: var(--space-2);
   cursor: pointer;
-  min-width: 80px;
+  min-width: 72px;
 }
 
 .cs-story-ring {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  padding: 3px;
-  background: linear-gradient(45deg, var(--primary), var(--accent-magenta));
+  padding: 2px;
+  background: var(--border-color); /* default unviewed could be primary, but let's stick to neutral */
   transition: transform 0.2s;
+}
+
+.cs-story-ring:not(.viewed) {
+  background: linear-gradient(45deg, var(--primary), var(--accent-violet));
 }
 
 .cs-story-ring.viewed {
@@ -243,9 +246,9 @@
    RIGHT COLUMN - CONTEXTUAL MODULES
    -------------------------------------------------------------------------- */
 .cs-sidebar-right {
-  display: none; /* hidden on small */
+  display: none;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-4);
   position: sticky;
   top: var(--space-6);
   height: fit-content;
@@ -260,14 +263,13 @@
 .cs-module {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
 }
 
 .cs-module-title {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: var(--space-4);
   color: var(--text-main);
@@ -280,36 +282,34 @@
    BUTTONS & GLOBAL COMPONENTS
    -------------------------------------------------------------------------- */
 .cs-btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
+  background: var(--text-main);
+  color: var(--bg-surface);
   border: none;
   border-radius: var(--radius-full);
   padding: 0 var(--space-5);
   height: var(--btn-height);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: var(--bounce-transition);
-  box-shadow: var(--shadow-glow);
+  transition: var(--transition-fast);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
 }
 .cs-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
+  background: var(--text-muted);
 }
 
 .cs-btn-secondary {
-  background: var(--bg-surface-elevated);
+  background: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-full);
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-4);
   height: var(--btn-height);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: var(--transition-fast);
   display: inline-flex;
@@ -317,25 +317,30 @@
   justify-content: center;
 }
 .cs-btn-secondary:hover {
-  background: var(--border-hover);
+  background: var(--bg-surface-elevated);
 }
 
 /* Input Fields */
 .cs-input-group input, .cs-input-group textarea {
   width: 100%;
   background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--space-3);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-4);
+  height: var(--input-height);
   color: var(--text-main);
   font-family: var(--font-body);
   transition: var(--transition-fast);
 }
+.cs-input-group textarea {
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  height: auto;
+}
 .cs-input-group input:focus, .cs-input-group textarea:focus {
   outline: none;
-  border-color: var(--primary);
   background: var(--bg-surface);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 1px var(--primary);
 }
 
 /* Micro-animations & Interactive Elements */
@@ -354,15 +359,80 @@
 }
 .cs-action-btn:hover {
   color: var(--primary);
-  background: rgba(37, 99, 235, 0.1);
+  background: var(--bg-surface-elevated);
 }
 .cs-action-btn.liked {
-  color: var(--accent-magenta);
+  color: var(--danger);
+}
+.cs-action-btn.liked i {
+  font-weight: 900;
+}
+
+/* Hashtag styling */
+.cs-hashtag {
+  color: var(--primary);
+  text-decoration: none;
+}
+.cs-hashtag:hover {
+  text-decoration: underline;
 }
 
 /* --------------------------------------------------------------------------
    MOBILE BOTTOM NAVIGATION (REPLACES SIDEBAR ON MOBILE)
    -------------------------------------------------------------------------- */
+.cs-mobile-top-nav {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  padding: 0 var(--space-4);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+}
+.cs-mobile-top-brand, .cs-mobile-top-actions { display: flex; align-items: center; gap: var(--space-3); }
+.cs-mobile-top-brand { font-family: var(--font-heading); font-weight: 800; color: var(--text-main); }
+.cs-mobile-top-nav button { border: 0; background: transparent; color: var(--text-main); padding: 8px; font-size: 1.25rem; cursor: pointer; }
+@media (max-width: 1023px) { .cs-mobile-top-nav { display: flex; } }
+
+body.reels-body { overflow-x: hidden; }
+body.reels-body .reels-nav-arrow.prev { left: 16px; }
+body.reels-body .reels-nav-arrow.next { right: 16px; }
+
+@media (min-width: 1081px) {
+  body.reels-body .dashboard-layout {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 960px;
+    padding: 24px;
+  }
+  body.reels-body .dashboard-sidebar,
+  body.reels-body .dashboard-widgets { display: none !important; }
+  body.reels-body .main-content.dashboard-reels {
+    width: 100%;
+    min-height: calc(100vh - 92px) !important;
+    padding: 24px !important;
+    border: 0;
+  }
+  body.reels-body .reels-inline-stage {
+    position: relative;
+    width: min(100%, 480px);
+    height: min(760px, calc(100vh - 144px));
+  }
+}
+
+body.reels-body .reels-video-container {
+  border-radius: var(--radius-md);
+  border: none;
+  background: #000;
+}
+body.reels-body .dashboard-outer-window,
+body.reels-body .app-container.dashboard-layout,
+body.reels-body .main-content.dashboard-reels {
+  background: transparent !important;
+}
+
 .cs-mobile-nav {
   display: flex;
   position: fixed;
@@ -374,7 +444,6 @@
   justify-content: space-around;
   padding: var(--space-2) 0 calc(var(--space-2) + env(safe-area-inset-bottom));
   z-index: 50;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
 }
 
 @media (min-width: 1024px) {
@@ -396,29 +465,25 @@
   font-size: 1.25rem;
 }
 .cs-mobile-nav-item.active {
-  color: var(--primary);
+  color: var(--text-main);
+  font-weight: 700;
+}
+.cs-mobile-nav-item.active i {
+  color: var(--text-main);
 }
 
-/* Provide bottom padding on mobile layout to avoid occlusion */
 @media (max-width: 1023px) {
   body {
-    padding-bottom: 80px;
+    padding-bottom: 70px;
   }
   .cs-sidebar-nav {
-    display: none; /* Hide sidebar entirely on tablet/mobile */
+    display: none;
   }
 }
 
-/* --------------------------------------------------------------------------
-   PREFERS REDUCED MOTION (Accessibility)
-   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
-  }
-  .cs-main-sphere, .cs-floating-orb {
-    animation: none !important;
-    transform: none !important;
   }
 }

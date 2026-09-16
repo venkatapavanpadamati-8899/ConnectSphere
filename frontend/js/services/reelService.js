@@ -165,6 +165,58 @@ const ReelService = {
       showToast(`Initiating Spatial Node Remix for ${reel.creator}’s audio! 🎚️🎛️`);
     }
     return reel;
+  },
+
+  async createReel(file, caption = '', soundTitle = 'Original Audio') {
+    if (!file) return null;
+    const user = window.csStore.get('currentUser');
+    if (!user || !user.supabase_id) return null;
+
+    try {
+      if (typeof showToast === 'function') showToast('Uploading reel to spatial network... 🚀', 'info');
+      let publicUrl = '';
+      if (window.StorageService) {
+        const result = await window.StorageService.uploadFile('reel-media', file);
+        publicUrl = result.publicUrl;
+      } else {
+        throw new Error('StorageService not found');
+      }
+
+      const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
+      if (client && window.SupabaseClient.isConfigured()) {
+        const { data: dbReel, error: reelError } = await client
+          .from('reels')
+          .insert({
+            user_id: user.supabase_id,
+            caption: caption,
+            sound_title: soundTitle
+          })
+          .select()
+          .single();
+
+        if (reelError) throw reelError;
+
+        if (dbReel) {
+          const { error: mediaError } = await client.from('reel_media').insert({
+            reel_id: dbReel.id,
+            video_url: publicUrl,
+            duration_seconds: 15
+          });
+
+          if (mediaError) throw mediaError;
+
+          if (typeof showToast === 'function') showToast('Reel published successfully! 🎥✨');
+          
+          // Refresh reels
+          this.fetchReelsFromSupabase();
+          return dbReel;
+        }
+      }
+    } catch (err) {
+      console.error('[ReelService] createReel error:', err);
+      if (typeof showToast === 'function') showToast('Error publishing reel. ❌', 'error');
+    }
+    return null;
   }
 };
 if (typeof module !== 'undefined' && module.exports) {

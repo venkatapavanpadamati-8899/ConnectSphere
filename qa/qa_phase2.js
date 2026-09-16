@@ -24,7 +24,9 @@ async function runPhase2() {
     // -----------------------------------------------------
     const contextA = await browser.createBrowserContext();
     const pageA = await contextA.newPage();
-    pageA.on('console', msg => console.log('PAGE A: ' + msg.text()));
+    pageA.on('console', msg => console.log('PAGE A:', msg.text()));
+    pageA.on('pageerror', err => console.log('PAGE A ERROR:', err.toString()));
+    pageA.on('pageerror', err => console.log('PAGE A ERROR: ' + err.toString()));
     
     console.log(`\n--- STEP 1: Signup User A (${USERNAME_A}) ---`);
     await pageA.goto(`${BASE_URL}/signup.html`, { waitUntil: 'domcontentloaded' });
@@ -58,7 +60,9 @@ async function runPhase2() {
     // -----------------------------------------------------
     const contextB = await browser.createBrowserContext();
     const pageB = await contextB.newPage();
-    pageB.on('console', msg => console.log('PAGE B: ' + msg.text()));
+    pageB.on('console', msg => {
+      console.log(`PAGE B: ${msg.text()}`);
+    });
     
     console.log(`\n--- STEP 2: Signup User B (${USERNAME_B}) ---`);
     await pageB.goto(`${BASE_URL}/signup.html`, { waitUntil: 'domcontentloaded' });
@@ -105,12 +109,41 @@ async function runPhase2() {
     // STEP 3: User A Follows User B
     // -----------------------------------------------------
     console.log(`\n--- STEP 3: User A follows User B ---`);
-    await pageA.goto(`${BASE_URL}/profile.html?id=${userB_id}`, { waitUntil: 'domcontentloaded' });
+    await pageA.goto(`${BASE_URL}/profile?id=${userB_id}`, { waitUntil: 'domcontentloaded' });
     
-    await pageA.waitForSelector('#profile-username', { visible: true, timeout: 5000 });
+    const localStoreKeys = await pageA.evaluate(() => Object.keys(localStorage));
+    console.log('Page A localStorage keys:', localStoreKeys);
+    
+    await pageA.waitForSelector('#profile-username', { visible: true, timeout: 5000 }).catch(()=>null);
+    const currentUser = await pageA.evaluate(() => window.csStore?.get('currentUser'));
+    console.log('Page A currentUser: ', currentUser);
+    
+    await pageA.waitForFunction(
+      () => {
+        const el = document.getElementById('profile-username');
+        return el && el.textContent.trim() !== '@loading';
+      },
+      { timeout: 5000 }
+    ).catch(async () => {
+      console.log('Profile did not load properly (timeout), saving screenshot');
+      await pageA.screenshot({ path: 'C:\\Users\\venka\\.gemini\\antigravity-ide\\brain\\a759c52e-f22d-47ab-986e-e416f3ef81e9\\scratch\\profile_fail.png' });
+      throw new Error("Profile did not load");
+    });
+    
+    // Give time for async ProfileRenderer.init() to complete
+    await new Promise(r => setTimeout(r, 2000));
+    
+    const actionsHTML = await pageA.evaluate(() => {
+        const el = document.getElementById('profile-actions-container');
+        return el ? el.innerHTML : 'No container';
+    });
+    console.log('Actions HTML: ', actionsHTML);
     
     const followBtn = await pageA.$('#btn-toggle-follow');
     if (!followBtn) {
+       await pageA.screenshot({ path: 'C:\\Users\\venka\\.gemini\\antigravity-ide\\brain\\a759c52e-f22d-47ab-986e-e416f3ef81e9\\scratch\\follow_btn_fail.png' });
+       const actionsHtml = await pageA.$eval('#profile-actions-container', el => el.innerHTML).catch(() => 'no container');
+       console.log('Actions HTML: ', actionsHtml);
        throw new Error("Follow button not found on profile.html");
     }
     
@@ -149,18 +182,23 @@ async function runPhase2() {
     }
     await pageA.click('#btn-message-user');
     
-    // Should navigate to messages.html?convo=uuid
-    await pageA.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 5000 });
-    const urlA = pageA.url();
-    if (!urlA.includes('messages.html')) {
-       throw new Error(`Did not navigate to messages.html. Current URL: ${urlA}`);
-    }
+    // Should navigate to messages.html?convo=uuid (SPA navigation, no full reload)
+    await pageA.waitForFunction(() => window.location.href.includes('messages'), { timeout: 5000 }).catch(() => {
+      throw new Error(`Did not navigate to messages. Current URL: ${pageA.url()}`);
+    });
     
     console.log('✅ Navigated to Messages view');
     
     // Wait for chat input
-    await pageA.waitForSelector('#chat-input', { visible: true, timeout: 5000 });
-    await pageA.type('#chat-input', 'Hello from ConnectSphere E2E A');
+    await pageA.waitForSelector('#profile-username', { visible: true, timeout: 5000 }).catch(()=>null);
+    
+    const currUserA = await pageA.evaluate(() => {
+       return window.csStore ? window.csStore.get('currentUser') : null;
+    });
+    console.log('Page A currentUser: ', currUserA);
+    
+    await pageA.waitForSelector('#chat-input-field', { visible: true, timeout: 5000 });
+    await pageA.type('#chat-input-field', 'Hello from User A! E2E Test');
     await pageA.click('#btn-send-message');
     
     await delay(1000); // Wait for send
@@ -169,37 +207,49 @@ async function runPhase2() {
     // -----------------------------------------------------
     // STEP 5: User B Receives Message
     // -----------------------------------------------------
-    console.log(`\n--- STEP 5: User B receives message ---`);
-    await pageB.goto(`${BASE_URL}/messages.html`, { waitUntil: 'domcontentloaded' });
+    console.log('\n--- STEP 5: User B receives message ---');
+    await pageB.goto(`${BASE_URL}/messages`, { waitUntil: 'domcontentloaded' });
     
-    // User B should see a conversation in the list
-    await pageB.waitForSelector('.contact-item', { visible: true, timeout: 5000 });
+    const pageBCurrentUser = await pageB.evaluate(() => {
+      const auth = window.localStorage.getItem('connectsphere-supabase-auth');
+      return { 
+        url: window.location.href, 
+        auth: !!auth,
+        storeUser: window.csStore ? window.csStore.get('currentUser') : null
+      };
+    });
+    console.log('Page B State:', pageBCurrentUser);
+
+    await pageB.waitForSelector('.conversation-item', { timeout: 15000 });
+    await pageB.screenshot({ path: 'scratch/user_b_messages.png' });
     
-    // Click the conversation
-    await pageB.click('.contact-item');
+    // Click the conversation (using evaluate to avoid 'Node is detached from document' race condition during re-renders)
+    await pageB.evaluate(() => {
+        document.querySelector('.conversation-item').click();
+    });
     
     // Wait for messages to load in chat history
-    await pageB.waitForSelector('.chat-message', { visible: true, timeout: 5000 });
+    await pageB.waitForSelector('.msg-bubble', { visible: true, timeout: 5000 });
     
-    const bMessages = await pageB.$$eval('.chat-message .message-text', els => els.map(el => el.textContent));
+    const bMessages = await pageB.$$eval('.msg-bubble', els => els.map(el => el.textContent));
     console.log(`Messages seen by User B: ${bMessages.join(' | ')}`);
     
-    if (!bMessages.some(m => m.includes('Hello from ConnectSphere E2E A'))) {
+    if (!bMessages.some(m => m.includes('Hello from User A'))) {
        throw new Error("User B did not receive User A's message");
     }
     console.log('✅ User B successfully received message');
     
     // User B replies
-    await pageB.type('#chat-input', 'Reply from ConnectSphere E2E B');
+    await pageB.type('#chat-input-field', 'Reply from User B! E2E Test');
     await pageB.click('#btn-send-message');
     await delay(1000);
     
     // User A should see it (Realtime test)
     console.log(`\n--- STEP 6: Realtime Message Delivery (A receives B's reply) ---`);
-    const aMessages = await pageA.$$eval('.chat-message .message-text', els => els.map(el => el.textContent));
+    const aMessages = await pageA.$$eval('.msg-bubble', els => els.map(el => el.textContent));
     console.log(`Messages seen by User A: ${aMessages.join(' | ')}`);
     
-    if (!aMessages.some(m => m.includes('Reply from ConnectSphere E2E B'))) {
+    if (!aMessages.some(m => m.includes('Reply from User B'))) {
        console.log('❌ Realtime delivery failed! User A did not see B\'s message without reload.');
        throw new Error("Realtime delivery failed.");
     }

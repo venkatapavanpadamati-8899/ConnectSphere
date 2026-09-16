@@ -47,44 +47,44 @@
   -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
 }
 
-/* Image Layer for specific pages */
+/* Page-specific background variants */
+.cs-bg-index .cs-bg-image { background-image: url('../assets/backgrounds/bg_index.jpg'); opacity: 0.12; }
+.cs-bg-login .cs-bg-image { background-image: url('../assets/backgrounds/bg_login.jpg'); opacity: 0.15; }
+.cs-bg-signup .cs-bg-image { background-image: url('../assets/backgrounds/bg_signup.jpg'); opacity: 0.10; }
+.cs-bg-dashboard .cs-bg-image { background-image: url('../assets/backgrounds/bg_dashboard.jpg'); opacity: 0.08; }
+.cs-bg-explore .cs-bg-image { background-image: url('../assets/backgrounds/bg_explore.jpg'); opacity: 0.12; }
+.cs-bg-reels .cs-bg-image { background-image: url('../assets/backgrounds/bg_reels.jpg'); opacity: 0.20; mix-blend-mode: normal; }
+.cs-bg-messages .cs-bg-image { background-image: url('../assets/backgrounds/bg_messages.jpg'); opacity: 0.10; }
+.cs-bg-notifications .cs-bg-image { background-image: url('../assets/backgrounds/bg_notifications.jpg'); opacity: 0.08; }
+.cs-bg-profile .cs-bg-image { background-image: url('../assets/backgrounds/bg_profile.jpg'); opacity: 0.15; }
+.cs-bg-settings .cs-bg-image { background-image: url('../assets/backgrounds/bg_settings.jpg'); opacity: 0.08; }
+.cs-bg-forgot .cs-bg-image { background-image: url('../assets/backgrounds/bg_forgot.jpg'); opacity: 0.12; }
+
+/* Ensure all cs-bg-images use cover and center */
 .cs-bg-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
   mix-blend-mode: multiply;
   z-index: 0;
-  filter: blur(8px) contrast(1.1);
-}
-
-/* Dark Mode Overrides */
-[data-theme="dark"] .cs-premium-bg::before {
-  background: 
-    radial-gradient(circle at 15% 30%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 85% 70%, rgba(13, 148, 136, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
-}
-
-[data-theme="dark"] .cs-premium-bg::after {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  filter: blur(4px); /* Slightly less blur to reveal the AI premium image structure */
 }
 
 [data-theme="dark"] .cs-bg-image {
-  opacity: 0.3;
   mix-blend-mode: screen;
+  opacity: 0.25;
 }
 
-/* Page-specific background variants */
+/* Auth-specific subtle gradient enhancements */
 .cs-bg-auth .cs-premium-bg::before {
   background: 
-    radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 80% 20%, rgba(49, 46, 129, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.08) 0%, transparent 50%);
 }
 
 /* Animated floating orbs for landing/auth */
@@ -93,14 +93,14 @@
   border-radius: 50%;
   filter: blur(60px);
   z-index: 1;
-  opacity: 0.6;
-  animation: float 20s infinite ease-in-out alternate;
+  opacity: 0.4;
+  animation: float 25s infinite ease-in-out alternate;
 }
 
 .cs-orb-1 {
   width: 400px;
   height: 400px;
-  background: rgba(37, 99, 235, 0.1);
+  background: rgba(49, 46, 129, 0.08);
   top: -100px;
   right: -100px;
 }
@@ -108,21 +108,66 @@
 .cs-orb-2 {
   width: 300px;
   height: 300px;
-  background: rgba(13, 148, 136, 0.1);
+  background: rgba(30, 58, 138, 0.08);
   bottom: -50px;
   left: -100px;
   animation-delay: -10s;
-  animation-duration: 25s;
+  animation-duration: 30s;
 }
 
 @keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(30px, 50px) scale(1.05);
-  }
-  100% {
-    transform: translate(-20px, 20px) scale(0.95);
-  }
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 50px) scale(1.05); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* Brand artwork is used as atmosphere, not decoration: full-bleed where it
+   supports the story, carefully veiled wherever text needs to remain sharp. */
+.cs-brand-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cs-landing-scene {
+  opacity: .72;
+  object-position: 53% center;
+  filter: saturate(.88) contrast(1.04);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.12) 20%, #000 72%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.12) 20%, #000 72%);
+  animation: cs-scene-drift 22s ease-in-out infinite alternate;
+}
+
+.cs-auth-scene {
+  opacity: .88;
+  filter: saturate(.82) contrast(1.08) brightness(.72);
+  animation: cs-scene-drift 24s ease-in-out infinite alternate;
+}
+
+.cs-auth-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(3,11,28,.82), rgba(16,47,88,.38));
+  pointer-events: none;
+  z-index: 2;
+}
+.cs-auth-visual-content { z-index: 3 !important; }
+.cs-auth-visual :is(.cs-auth-logo-large, .cs-auth-visual-text) { color: #f8fbff !important; }
+
+@keyframes cs-scene-drift {
+  from { transform: scale(1.025) translate3d(0, 0, 0); }
+  to { transform: scale(1.075) translate3d(-1.2%, -1%, 0); }
+}
+
+@media (max-width: 767px) {
+  .cs-landing-scene { opacity: .28; mask-image: none; -webkit-mask-image: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-brand-scene { animation: none; transform: none; }
 }

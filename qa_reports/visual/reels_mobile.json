@@ -1,0 +1,16 @@
+{
+  "route": "/reels.html",
+  "viewport": "mobile",
+  "status": 304,
+  "title": "Dashboard | ConnectSphere",
+  "finalPath": "/reels",
+  "overflow": false,
+  "main": true,
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "pageErrors": [],
+  "networkErrors": [
+    "404 http://localhost:3000/assets/backgrounds/dashboard_masterpiece_ref.jpg"
+  ]
+}

@@ -2,134 +2,486 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore Discovery | ConnectSphere</title>
-  <!-- FontAwesome Icons -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="ConnectSphere Dashboard">
+  <title>Dashboard | ConnectSphere</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Modular Stylesheets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="../css/variables.css">
-  <link rel="stylesheet" href="../css/animations.css">
-  <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/backgrounds.css">
+  <link rel="stylesheet" href="../css/premium.css">
 </head>
-<body>
-
-  <!-- Ambient Grid Pattern Overlay -->
-  <div class="background-grid-pattern"></div>
-
-  <div class="app-container">
-
-    <!-- Left Navigation Sidebar -->
-    <div id="standard-navigation-container"></div>
-
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <header class="top-header">
-        <h2>Explore Discovery</h2>
-        <div class="search-box">
-          <i class="fa-solid fa-magnifying-glass" style="color: var(--text-dim);"></i>
-          <input type="text" id="main-search-input" placeholder="Explore trending tags, photos & reels...">
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <button class="icon-btn-round theme-toggle-btn" title="Toggle Theme">
-            <i class="fa-solid fa-moon"></i>
-          </button>
-        </div>
-      </header>
-
-      <!-- Category Filter Chips -->
-      <div style="display: flex; gap: 12px; padding: 20px 30px; overflow-x: auto; scrollbar-width: none;">
-        <button class="btn-follow" style="background: var(--primary); color: white;">🔥 For You</button>
-        <button class="btn-follow">📷 Photography</button>
-        <button class="btn-follow">🎥 Reels</button>
-        <button class="btn-follow">💻 Coding</button>
-        <button class="btn-follow">🎨 UI/UX Design</button>
-        <button class="btn-follow">🤖 AI Innovation</button>
-      </div>
-
-      <!-- Explore Media Grid -->
-      <div class="explore-grid">
-        <div class="explore-item floating-element">
-          <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&auto=format&fit=crop&q=80" alt="Explore">
-          <div class="explore-overlay">
-            <span><i class="fa-solid fa-heart"></i> 2.4K</span>
-            <span><i class="fa-solid fa-comment"></i> 180</span>
-          </div>
-        </div>
-
-        <div class="explore-item">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80" alt="Explore">
-          <div class="explore-overlay">
-            <span><i class="fa-solid fa-heart"></i> 1.9K</span>
-            <span><i class="fa-solid fa-comment"></i> 94</span>
-          </div>
-        </div>
-
-        <div class="explore-item floating-element">
-          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80" alt="Explore">
-          <div class="explore-overlay">
-            <span><i class="fa-solid fa-heart"></i> 4.1K</span>
-            <span><i class="fa-solid fa-comment"></i> 320</span>
-          </div>
-        </div>
-
-        <div class="explore-item">
-          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Explore">
-          <div class="explore-overlay">
-            <span><i class="fa-solid fa-heart"></i> 3.8K</span>
-            <span><i class="fa-solid fa-comment"></i> 210</span>
-          </div>
-        </div>
-
-        <div class="explore-item floating-element">
-          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80" alt="Explore">
-          <div class="explore-overlay">
-            <span><i class="fa-solid fa-heart"></i> 1.2K</span>
-            <span><i class="fa-solid fa-comment"></i> 88</span>
-          </div>
-        </div>
-
-        <div class="explore-item">
-          <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&auto=format&fit=crop&q=80" alt="Explore">
-          <div class="explore-overlay">
-            <span><i class="fa-solid fa-heart"></i> 5.6K</span>
-            <span><i class="fa-solid fa-comment"></i> 412</span>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <aside class="sidebar-right">
-      <div class="widget-card">
-        <div class="widget-title"><span>Popular Tags</span></div>
-        <div class="trending-item"><div class="trending-topic">#Glassmorphism</div><div class="trending-count">24.5K posts</div></div>
-        <div class="trending-item"><div class="trending-topic">#FrontendArchitecture</div><div class="trending-count">19.2K posts</div></div>
-        <div class="trending-item"><div class="trending-topic">#AIComponents</div><div class="trending-count">12.1K posts</div></div>
-      </div>
-    </aside>
-
+<body data-page="explore">
+  <div class="cs-premium-bg cs-bg-dashboard">
+    <div class="cs-bg-image"></div>
   </div>
 
-  <!-- Mobile Navigation -->
-  
+  <!-- Mobile Top Nav -->
+  <nav class="cs-mobile-top-nav">
+     <div class="cs-mobile-top-brand">
+       <button id="btn-mobile-menu"><i class="fa-solid fa-bars"></i></button>
+       <span>Connect<span style="color:var(--primary)">Sphere</span></span>
+     </div>
+     <div class="cs-mobile-top-actions">
+        <button id="btn-mobile-search"><i class="fa-solid fa-search"></i></button>
+        <button id="btn-mobile-notifications"><i class="fa-solid fa-bell"></i></button>
+     </div>
+  </nav>
 
-  <!-- Modular Scripts -->
-  <script src="../js/utils/security.js"></script>
-  <script src="../js/state/store.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Mobile Search Overlay (ID required by JS) -->
+  <div class="mobile-search-overlay" id="mobile-search-overlay">
+    <div class="mobile-search-input-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="mobile-search-input" placeholder="Search ConnectSphere...">
+    </div>
+    <button type="button" class="btn-close-mobile-search" id="btn-close-mobile-search">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="cs-app-layout">
+    
+    <!-- LEFT COLUMN - NAVIGATION -->
+    <aside class="cs-sidebar-nav">
+       <a href="dashboard.html" class="cs-brand-logo">
+         <i class="fa-solid fa-globe"></i> Connect<span>Sphere</span>
+       </a>
+
+       <div class="cs-nav-links">
+          <a href="dashboard.html" class="cs-nav-link active" id="nav-item-home" class="cs-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="explore.html" class="cs-nav-link" id="nav-item-explore" class="cs-nav-link active"><i class="fa-solid fa-compass"></i> Explore</a>
+          <a href="#stories" class="cs-nav-link" id="sidebar-link-stories"><i class="fa-solid fa-circle-notch"></i> Stories</a>
+          <a href="reels.html" class="cs-nav-link" id="sidebar-link-reels"><i class="fa-solid fa-video"></i> Reels</a>
+          <a href="messages.html" class="cs-nav-link" id="sidebar-link-messages"><i class="fa-solid fa-envelope"></i> Messages</a>
+          <a href="explore.html#communities" class="cs-nav-link" id="sidebar-link-communities"><i class="fa-solid fa-users"></i> Communities</a>
+          <a href="notifications.html" class="cs-nav-link" id="sidebar-link-notifications"><i class="fa-solid fa-bell"></i> Notifications</a>
+          <a href="profile.html" class="cs-nav-link" id="sidebar-link-profile"><i class="fa-solid fa-user"></i> Profile</a>
+          <a href="settings.html" class="cs-nav-link" id="sidebar-link-settings"><i class="fa-solid fa-gear"></i> Settings</a>
+       </div>
+       
+       <button class="cs-btn-primary" id="btn-open-create-modal" style="width: 100%; margin-top: 24px;">
+         <i class="fa-solid fa-feather"></i> Post
+       </button>
+       
+       <div id="header-user-capsule" style="margin-top: 32px; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-full); background: var(--bg-surface-elevated); cursor: pointer; transition: var(--transition-fast);">
+          <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+          <div class="info" style="display: flex; flex-direction: column;">
+             <span id="nav-user-name" style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Loading...</span>
+             <span id="nav-user-handle" style="color: var(--text-muted); font-size: 0.85rem;">@loading</span>
+          </div>
+       </div>
+    </aside>
+
+    <!-- CENTER COLUMN - FEED -->
+    <main class="cs-feed-center">
+       
+       <!-- Stories Tray -->
+       <div class="cs-card">
+         <div class="cs-stories-tray" id="dashboard-stories-container">
+            <!-- Add Story -->
+            <div class="cs-story-item" id="add-story-trigger" data-testid="story-trigger">
+               <div class="cs-story-ring viewed" style="display:flex;align-items:center;justify-content:center;background:var(--bg-surface-elevated);border:2px dashed var(--border-color);">
+                  <i class="fa-solid fa-plus" style="font-size:1.5rem;color:var(--text-muted);"></i>
+               </div>
+               <span style="font-size:0.8rem;font-weight:600;color:var(--text-main);">Add Story</span>
+               <input type="file" id="story-upload-file-input" accept="image/*" style="display:none;">
+            </div>
+            <!-- Mock Stories injected by JS but need a placeholder for layout test -->
+            <div class="cs-story-item">
+               <div class="cs-story-ring">
+                  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80">
+               </div>
+               <span style="font-size:0.8rem;font-weight:600;color:var(--text-main);">Mia</span>
+            </div>
+         </div>
+       </div>
+
+       <!-- Composer -->
+       <div class="cs-composer">
+          <div style="display:flex; gap:var(--space-3); align-items:flex-start;">
+             <img id="composer-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="cs-avatar">
+             <div class="cs-input-group" style="flex:1;">
+               <textarea id="composer-post-text" placeholder="What's happening?" rows="2" style="resize:none; background:transparent; border:none; padding:var(--space-2) 0; font-size:1.1rem;"></textarea>
+             </div>
+          </div>
+          
+          <div id="composer-media-preview" style="display:none; margin-top:var(--space-3); position:relative;">
+             <img id="composer-preview-img" src="" style="width:100%; border-radius:var(--radius-md);">
+             <button id="btn-remove-composer-media" style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <input type="file" id="composer-photo-input" style="display:none;">
+          <div id="composer-poll-builder" style="display:none;"></div>
+
+          <hr style="border:0; border-top:1px solid var(--border-color); margin:var(--space-4) 0;">
+
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+             <div style="display:flex; gap:var(--space-2);">
+                <button id="btn-media-photo" class="cs-action-btn"><i class="fa-solid fa-image"></i></button>
+                <button id="btn-media-video" class="cs-action-btn"><i class="fa-solid fa-video"></i></button>
+                <button id="btn-media-poll" class="cs-action-btn"><i class="fa-solid fa-chart-bar"></i></button>
+                <button id="btn-media-ai" class="cs-action-btn"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent-teal);"></i></button>
+             </div>
+             <div style="display:flex; align-items:center; gap:var(--space-3);">
+                <span id="composer-char-count" style="font-size:0.85rem; color:var(--text-muted); display:none;">0</span>
+                <button class="cs-btn-primary" id="btn-publish-inline-post">Post</button>
+             </div>
+          </div>
+       </div>
+       
+       <div class="active-filter-banner" id="active-filter-banner" style="display:none; padding:var(--space-3); background:var(--bg-surface-elevated); border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-3);">
+          <span id="active-filter-text" style="font-weight:600; color:var(--primary);">Explore ConnectSphere</span>
+          <button id="btn-clear-feed-filter" class="cs-btn-secondary" style="height:32px; padding:0 12px; font-size:0.85rem;">Clear</button>
+       </div>
+
+       <!-- Feed List -->
+       <div id="feed-list" style="display:flex; flex-direction:column; gap:var(--space-4);">
+          <!-- Empty State -->
+          <div id="feed-empty-state" style="display:none; text-align:center; padding:var(--space-8) var(--space-4); background:var(--bg-card); border-radius:var(--radius-xl); border:1px solid var(--border-color);">
+             <i class="fa-solid fa-inbox" style="font-size:3rem; color:var(--text-muted); margin-bottom:var(--space-3);"></i>
+             <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:var(--space-2);">No posts yet</h3>
+             <p style="color:var(--text-muted);">Follow people or join communities to see posts here.</p>
+          </div>
+          <!-- Mock Post -->
+          <article class="cs-post" id="post-1">
+             <div class="cs-post-header">
+                <div class="cs-post-author">
+                   <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80" class="cs-avatar">
+                   <div>
+                      <span class="cs-author-name">Sofia Chen <i class="fa-solid fa-circle-check" style="color:var(--primary); font-size:12px;"></i></span>
+                      <span class="cs-post-time">@sofiacodes &bull; 2h ago</span>
+                   </div>
+                </div>
+             </div>
+             <div class="cs-post-content">
+                <p>Just launched the new spatial computing app! What do you guys think?</p>
+                <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=800&auto=format&fit=crop&q=80" class="cs-post-image">
+             </div>
+             <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:var(--space-3);">
+                <button class="cs-action-btn"><i class="fa-regular fa-heart"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">1.2K</span></button>
+                <button class="cs-action-btn"><i class="fa-regular fa-comment"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">48</span></button>
+                <button class="cs-action-btn"><i class="fa-solid fa-retweet"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">12</span></button>
+                <button class="cs-action-btn"><i class="fa-regular fa-paper-plane"></i></button>
+             </div>
+          </article>
+       </div>
+    </main>
+
+    <!-- RIGHT COLUMN - WIDGETS -->
+    <aside class="cs-sidebar-right">
+       <div class="cs-input-group" style="position:relative;">
+          <i class="fa-solid fa-search" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
+          <input type="text" id="masterpiece-top-search-input" placeholder="Search ConnectSphere..." style="padding-left:44px; border-radius:var(--radius-full);">
+       </div>
+
+       <div class="cs-module">
+          <h3 class="cs-module-title">Trending Now</h3>
+          <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+             <div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">1 &bull; Technology</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ConnectSphere</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
+             </div>
+             <div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">2 &bull; Tech</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#TechTalk</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
+             </div>
+             <div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">3 &bull; Global</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ExploreMore</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
+             </div>
+             <div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">4 &bull; AI</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#AI</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
+             </div>
+          </div>
+       </div>
+
+       <div class="cs-module">
+          <h3 class="cs-module-title">Suggested Creators</h3>
+          <div style="display:flex; flex-direction:column; gap:var(--space-4);">
+             <div style="display:flex; align-items:center; gap:var(--space-3);">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                <div style="flex:1;">
+                   <div style="font-weight:700; font-size:0.95rem; color:var(--text-main);">David Kim</div>
+                   <div style="font-size:0.85rem; color:var(--text-muted);">@davidk</div>
+                </div>
+                <button class="cs-btn-secondary" style="height:32px; padding:0 16px; font-size:0.85rem;">Follow</button>
+             </div>
+             <div style="display:flex; align-items:center; gap:var(--space-3);">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                <div style="flex:1;">
+                   <div style="font-weight:700; font-size:0.95rem; color:var(--text-main);">Elena Rostova</div>
+                   <div style="font-size:0.85rem; color:var(--text-muted);">@elena_r</div>
+                </div>
+                <button class="cs-btn-secondary" style="height:32px; padding:0 16px; font-size:0.85rem;">Follow</button>
+             </div>
+          </div>
+       </div>
+
+       <!-- Invisible Required Elements for JS -->
+       <div style="display:none;">
+         <button id="btn-desktop-notifications-toggle"></button>
+         <button id="btn-header-messages-toggle"></button>
+         <button id="btn-vip-learn-more"></button>
+         <div id="sidebar-user-widget"></div>
+         <div id="post-2"></div>
+         <div id="video-post-player-1"></div>
+         <div id="post-3"></div>
+         <div id="video-post-player-2"></div>
+         <div id="post-4"></div>
+         <div id="post-5"></div>
+         <div id="carousel-post-1"></div>
+         <button id="btn-empty-reset"></button>
+         <input type="text" id="widget-search-input">
+         <div id="sphere-ai-widget"></div>
+         <button id="btn-ai-discover-people"></button>
+         <button id="btn-ai-explore-topics"></button>
+         <span id="ai-recs-text"></span>
+         <button id="btn-ai-action-explore"></button>
+         <button id="btn-ai-action-sparkle"></button>
+         <button id="btn-refresh-ai-recs"></button>
+         <div id="suggested-communities-widget"></div>
+         <div id="widget-reels-teaser"></div>
+         <div id="widget-messages-preview"></div>
+         <div id="widget-voice-video-room"></div>
+         <button id="btn-join-voice-room"></button>
+         <div id="widget-community-hubs"></div>
+         <button id="btn-toggle-floating-chat"></button>
+         <div id="floating-chat-drawer"></div>
+         <button id="btn-drawer-voice-call"></button>
+         <button id="btn-drawer-video-call"></button>
+         <button id="btn-close-floating-chat"></button>
+         <div id="chat-drawer-messages"></div>
+         <form id="floating-chat-form"></form>
+         <input type="text" id="floating-chat-input">
+       </div>
+    </aside>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="cs-mobile-nav">
+     <a href="dashboard.html" class="cs-mobile-nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+     <a href="explore.html" class="cs-mobile-nav-item"><i class="fa-solid fa-compass"></i><span>Explore</span></a>
+     <a href="reels.html" class="cs-mobile-nav-item"><i class="fa-solid fa-video"></i><span>Reels</span></a>
+     <a href="messages.html" class="cs-mobile-nav-item"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+     <a href="profile.html" class="cs-mobile-nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+  </nav>
+
+  <!-- Modals (Hidden by default, used by JS) -->
+  <div style="display:none;" id="modals-container">
+    <div class="cs-modal-backdrop" id="universal-search-modal" role="dialog" aria-modal="true" aria-label="Universal Search">
+    <div class="universal-search-stage">
+      <div class="search-modal-header">
+        <i class="fa-solid fa-magnifying-glass" style="color: #00D2FF; font-size: 15px;"></i>
+        <input type="text" class="search-modal-input" id="universal-search-input" placeholder="Search people, posts, reels, videos, communities, topics...">
+        <button type="button" class="reels-close-btn" id="btn-close-search-modal" aria-label="Close search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="search-filter-tabs">
+        <button type="button" class="search-tab-pill active" data-filter="all">All</button>
+        <button type="button" class="search-tab-pill" data-filter="people">People</button>
+        <button type="button" class="search-tab-pill" data-filter="posts">Posts</button>
+        <button type="button" class="search-tab-pill" data-filter="reels">Reels</button>
+        <button type="button" class="search-tab-pill" data-filter="videos">Videos</button>
+        <button type="button" class="search-tab-pill" data-filter="communities">Communities</button>
+        <button type="button" class="search-tab-pill" data-filter="topics">Topics</button>
+      </div>
+
+      <div class="search-results-list" id="universal-search-results">
+        <!-- Default Suggestions -->
+        <div class="search-result-item" data-type="people">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;" alt="Elena">
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Elena Rostova <i class="fa-solid fa-circle-check badge-verified"></i></div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">@elena_rostova &bull; Spatial Audio Engineer &bull; 48.9K followers</div>
+          </div>
+          <button type="button" class="btn-connect-pill">Connect</button>
+        </div>
+        <div class="search-result-item" data-type="communities">
+          <div class="community-icon-box"><i class="fa-solid fa-cubes"></i></div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Spatial Architects Guild</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Community &bull; 48.2K members &bull; Architecture & 3D Spatial</div>
+          </div>
+          <button type="button" class="btn-join-community">Join</button>
+        </div>
+        <div class="search-result-item" data-type="topics">
+          <div class="community-icon-box"><i class="fa-solid fa-hashtag"></i></div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">#QuantumNetwork</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Technology Trend &bull; 48.2K posts today</div>
+          </div>
+          <i class="fa-solid fa-arrow-trend-up" style="color: #10B981; font-size: 13px;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+    <div id="create-post-modal">
+       <button id="btn-close-modal"></button>
+       <img id="modal-user-avatar">
+       <span id="modal-author-name"></span>
+       <textarea id="modal-post-text"></textarea>
+       <div id="modal-media-preview">
+         <img id="modal-preview-img">
+         <video id="modal-preview-video"></video>
+         <button id="btn-remove-modal-media"></button>
+       </div>
+       <div id="modal-poll-creator">
+         <div id="modal-poll-extra-options"></div>
+         <button id="btn-modal-poll-add"></button>
+         <button id="btn-modal-poll-remove"></button>
+       </div>
+       <div id="modal-voice-creator">
+         <span id="voice-timer"></span>
+         <audio id="modal-voice-preview"></audio>
+         <button id="btn-modal-voice-record"></button>
+         <button id="btn-modal-voice-stop"></button>
+         <button id="btn-modal-voice-remove"></button>
+       </div>
+       <input type="file" id="modal-photo-input">
+       <button id="btn-modal-media-photo"></button>
+       <button id="btn-modal-media-spatial"></button>
+       <button id="btn-modal-media-poll"></button>
+       <button id="btn-modal-media-voice"></button>
+       <button id="btn-generate-ai-caption"></button>
+       <button id="btn-submit-modal-post"></button>
+    </div>
+    <div id="story-modal">
+       <img id="story-viewer-avatar">
+       <div id="story-viewer-name"></div>
+       <div id="story-viewer-time"></div>
+       <button id="btn-close-story-modal"></button>
+       <img id="story-viewer-media">
+       <div id="story-viewer-caption"></div>
+       <input type="text" id="story-reply-input">
+    </div>
+    <div id="post-options-dropdown-global">
+       <div id="opt-copy-link"></div>
+       <div id="opt-save-bookmark"></div>
+       <div id="opt-mute-author"></div>
+       <div id="opt-report-post"></div>
+    </div>
+    <div id="notifications-dropdown-menu">
+       <button id="btn-mark-all-read"></button>
+       <div id="notif-dropdown-list"></div>
+    </div>
+    <!-- Drawer -->
+    <div id="mobile-drawer-backdrop"></div>
+    <div id="mobile-nav-drawer">
+       <button id="btn-close-mobile-drawer"></button>
+       <a id="drawer-link-stories"></a>
+    </div>
+    <!-- Reels -->
+    <div id="reels-modal">
+       <video id="reel-active-video"></video>
+       <button id="btn-close-reels-modal"></button>
+       <button id="btn-reel-like"></button>
+       <i id="reel-like-icon"></i>
+       <span id="reel-likes-count"></span>
+       <button id="btn-reel-comment"></button>
+       <button id="btn-reel-share"></button>
+       <button id="btn-reel-remix"></button>
+       <button id="btn-reel-audio-toggle"></button>
+       <i id="reel-volume-icon"></i>
+       <img id="reel-creator-avatar">
+       <span id="reel-creator-name"></span>
+       <button id="btn-reel-follow"></button>
+       <p id="reel-caption"></p>
+       <span id="reel-sound-track"></span>
+       <div id="reels-progress-indicator"></div>
+       <button id="btn-reel-prev"></button>
+       <button id="btn-reel-next"></button>
+    </div>
+    <!-- Video Theater -->
+    <div id="video-theater-modal">
+       <video id="theater-active-video"></video>
+       <button id="btn-close-theater-modal"></button>
+       <h3 id="theater-title"></h3>
+       <span id="theater-views"></span>
+       <img id="theater-channel-avatar">
+       <div id="theater-channel-name"></div>
+       <div id="theater-channel-subs"></div>
+       <button id="btn-theater-subscribe"></button>
+       <button id="btn-theater-like"></button>
+       <span id="theater-likes-count"></span>
+       <button id="btn-theater-share"></button>
+       <button id="btn-theater-save"></button>
+       <input type="text" id="input-theater-comment">
+       <button id="btn-theater-post-comment"></button>
+    </div>
+    <!-- Calling Modal -->
+    <div id="calling-modal">
+       <img id="call-partner-avatar">
+       <h3 id="call-partner-name"></h3>
+       <div id="call-status-text"></div>
+       <span id="call-timer"></span>
+       <button id="btn-call-toggle-mic"></button>
+       <i id="icon-call-mic"></i>
+       <button id="btn-call-toggle-cam"></button>
+       <i id="icon-call-cam"></i>
+       <button id="btn-call-screenshare"></button>
+       <button id="btn-call-add-user"></button>
+       <button id="btn-call-end"></button>
+    </div>
+    <!-- Snap Media Modal -->
+    <div id="snap-media-modal">
+       <div id="snap-sender-name"></div>
+       <div id="snap-countdown-timer"></div>
+       <span id="snap-seconds-left"></span>
+       <img id="snap-image-view">
+       <input type="text" id="snap-quick-reply">
+       <button id="btn-send-snap-reply"></button>
+    </div>
+    <!-- Creator Studio Modal -->
+    <div id="creator-studio-modal">
+       <button id="btn-close-creator-modal"></button>
+    </div>
+  </div>
+
+  <script src="../js/vendor/supabase.js"></script>
   <script src="../js/config/env.js"></script>
   <script src="../js/lib/supabaseClient.js"></script>
+  <script src="../js/utils/security.js"></script>
+  <script src="../js/state/store.js"></script>
+  <script src="../js/lib/realtimeManager.js"></script>
   <script src="../js/services/authService.js"></script>
+  <script src="../js/services/storageService.js"></script>
+  <script src="../js/services/postService.js"></script>
+  <script src="../js/services/storyService.js"></script>
+  <script src="../js/services/reelService.js"></script>
+  <script src="../js/services/chatService.js"></script>
+  <script src="../js/services/callingService.js"></script>
+  <script src="../js/services/snapService.js"></script>
+  <script src="../js/services/videoService.js"></script>
+  <script src="../js/services/aiService.js"></script>
+  <script src="../js/services/notificationService.js"></script>
+  <script src="../js/services/searchService.js"></script>
+  <script src="../js/services/communityService.js"></script>
+  <script src="../js/components/feedRenderer.js"></script>
+  <script src="../js/components/postActions.js"></script>
+  <script src="../js/components/storyRenderer.js"></script>
+  <script src="../js/components/reelsRenderer.js"></script>
+  <script src="../js/components/chatRenderer.js"></script>
+  <script src="../js/components/callingRenderer.js"></script>
+  <script src="../js/components/theaterRenderer.js"></script>
+  <script src="../js/components/searchRenderer.js"></script>
   <script src="../js/navigation.js"></script>
   <script src="../js/animations.js"></script>
   <script src="../js/effects.js"></script>
-  <script src="../js/components/postActions.js"></script>
   <script src="../js/app.js"></script>
-<script src="../js/components/navigationRenderer.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (window.NavigationRenderer) window.NavigationRenderer.init("explore");
-    });
-  </script>
 </body>
 </html>

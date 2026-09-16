@@ -116,6 +116,8 @@
   body .app-container,
   body .dashboard-layout {
     grid-template-columns: 1fr;
+    padding-top: 70px;
+    padding-bottom: 80px;
   }
   
   body .sidebar-left,
@@ -133,8 +135,8 @@
     display: flex;
     height: 68px;
     background: rgba(5, 7, 19, 0.88);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 

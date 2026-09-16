@@ -16,19 +16,19 @@ const SettingsService = {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : (window.csSupabase || null);
       const user = window.csStore?.get('currentUser');
-      if (!client || !user?.id) return null;
+      if (!client || !user?.supabase_id) return null;
 
       // 1. Fetch Profile (for is_private)
-      const { data: profile } = await client.from('profiles').select('is_private').eq('id', user.id).single();
+      const { data: profile } = await client.from('profiles').select('is_private').eq('id', user.supabase_id).single();
 
       // 2. Fetch User Settings
-      let { data: settings } = await client.from('user_settings').select('*').eq('user_id', user.id).single();
+      let { data: settings } = await client.from('user_settings').select('*').eq('user_id', user.supabase_id).single();
       
       // Upsert default if not exists
       if (!settings) {
         const { data: newSettings, error } = await client
           .from('user_settings')
-          .insert({ user_id: user.id })
+          .insert({ user_id: user.supabase_id })
           .select()
           .single();
         if (!error) settings = newSettings;
@@ -49,14 +49,14 @@ const SettingsService = {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : (window.csSupabase || null);
       const user = window.csStore?.get('currentUser');
-      if (!client || !user?.id) return false;
+      if (!client || !user?.supabase_id) return false;
 
       let success = false;
       if (key === 'is_private') {
-        const { error } = await client.from('profiles').update({ is_private: value }).eq('id', user.id);
+        const { error } = await client.from('profiles').update({ is_private: value }).eq('id', user.supabase_id);
         success = !error;
       } else {
-        const { error } = await client.from('user_settings').update({ [key]: value }).eq('user_id', user.id);
+        const { error } = await client.from('user_settings').update({ [key]: value }).eq('user_id', user.supabase_id);
         success = !error;
       }
 

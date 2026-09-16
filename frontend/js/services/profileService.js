@@ -214,23 +214,27 @@ const ProfileService = {
   },
 
   async getBlockedUsers() {
-    try {
-      const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
-      const user = window.csStore?.get('currentUser');
-      if (!client || !user?.id) return [];
-
-      const { data, error } = await client
-        .from('blocks')
-        .select('blocked_id')
-        .eq('blocker_id', user.id);
-
-      if (error) throw error;
-      return data.map(b => b.blocked_id);
-    } catch (err) {
-      console.warn('[ProfileService] getBlockedUsers error:', err);
-      return [];
-    }
-  },
+      try {
+        console.log('[ProfileService] getBlockedUsers start');
+        const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
+        const user = window.csStore?.get('currentUser');
+        console.log('[ProfileService] getBlockedUsers client:', !!client, 'user:', user?.id);
+        if (!client || !user?.id) return [];
+  
+        console.log('[ProfileService] fetching from blocks...');
+        const { data, error } = await client
+          .from('blocks')
+          .select('blocked_id')
+          .eq('blocker_id', user.id);
+  
+        console.log('[ProfileService] blocks fetch done', { data, error });
+        if (error) throw error;
+        return data.map(b => b.blocked_id);
+      } catch (err) {
+        console.warn('[ProfileService] getBlockedUsers error:', err);
+        return [];
+      }
+    },
 
   async getBlockedByUsers() {
     try {

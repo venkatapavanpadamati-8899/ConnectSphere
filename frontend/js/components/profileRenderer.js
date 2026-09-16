@@ -43,9 +43,27 @@ class ProfileRenderer {
         .eq('id', this.targetUserId)
         .single();
         
+      console.log('[ProfileRenderer] Fetched profile:', profile, 'Error:', error);
+      let profileObj = profile;
       if (error || !profile) {
-        return;
+        console.warn('[ProfileRenderer] Profile not found or error. Trying fallback...');
+        const currentUser = window.csStore?.get('currentUser');
+        if (this.targetUserId === currentUser?.id) {
+          profileObj = {
+            id: currentUser.id,
+            full_name: currentUser.name,
+            username: currentUser.username,
+            avatar_url: currentUser.avatar,
+            bio: currentUser.bio || 'New ConnectSphere User',
+            location: currentUser.location || 'Unknown',
+            is_verified: currentUser.isVerified || false
+          };
+        } else {
+          return;
+        }
       }
+      
+      const p = profileObj; // alias for the code below
 
       // Populate basic info
       const nameEl = document.getElementById('profile-name');
@@ -55,11 +73,11 @@ class ProfileRenderer {
       const avatarEl = document.getElementById('profile-avatar');
       const coverEl = document.getElementById('profile-cover');
 
-      if (nameEl) nameEl.innerHTML = `${profile.full_name} ${profile.is_verified ? '<i class="fa-solid fa-circle-check badge-verified"></i>' : ''}`;
-      if (usernameEl) usernameEl.textContent = `@${profile.username}`;
-      if (bioEl) bioEl.textContent = profile.bio || 'No bio provided.';
-      if (locationEl) locationEl.innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> ${profile.location || 'Unknown'}`;
-      if (avatarEl) avatarEl.src = profile.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80';
+      if (nameEl) nameEl.innerHTML = `${p.full_name} ${p.is_verified ? '<i class="fa-solid fa-circle-check badge-verified"></i>' : ''}`;
+      if (usernameEl) usernameEl.textContent = `@${p.username}`;
+      if (bioEl) bioEl.textContent = p.bio || 'No bio provided.';
+      if (locationEl) locationEl.innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> ${p.location || 'Unknown'}`;
+      if (avatarEl) avatarEl.src = p.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80';
 
       // Setup actions block
       const actionsContainer = document.getElementById('profile-actions-container');
@@ -141,9 +159,9 @@ class ProfileRenderer {
                 if (window.ChatService && this.targetUserId) {
                    messageBtn.disabled = true;
                    messageBtn.innerHTML = 'Starting...';
-                   const convoId = await window.ChatService.startOrGetConversation(this.targetUserId);
-                   if (convoId) {
-                      window.location.href = `messages.html?convo=${convoId}`;
+                   const convo = await window.ChatService.startOrGetConversation(this.targetUserId);
+                   if (convo && convo.id) {
+                      window.location.href = `messages?convo=${convo.id}`;
                    } else {
                       messageBtn.innerHTML = 'Error';
                       setTimeout(() => { messageBtn.disabled = false; messageBtn.innerHTML = '<i class="fa-regular fa-envelope"></i> Message'; }, 2000);
@@ -195,6 +213,7 @@ class ProfileRenderer {
       this.loadStats();
 
     } catch (err) {
+      console.error('[ProfileRenderer] loadProfileData error:', err);
     }
   }
   
@@ -216,6 +235,7 @@ class ProfileRenderer {
        if (followingCountEl) followingCountEl.textContent = followingCount || 0;
        
     } catch(err) {
+      console.error('[ProfileRenderer] loadStats error:', err);
     }
   }
 

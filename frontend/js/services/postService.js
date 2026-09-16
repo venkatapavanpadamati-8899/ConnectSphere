@@ -142,6 +142,23 @@ const PostService = {
 
         window.csStore.set('posts', formattedPosts);
         window.csStore.publish('posts:loaded', formattedPosts);
+        
+        // Calculate trending topics from tags
+        const tagCounts = {};
+        formattedPosts.forEach(p => {
+            (p.tags || []).forEach(t => {
+                const lower = t.toLowerCase();
+                tagCounts[lower] = (tagCounts[lower] || 0) + 1;
+            });
+        });
+        const trending = Object.keys(tagCounts).map(tag => ({
+            id: tag,
+            tag: '#' + tag,
+            category: 'Trending',
+            count: tagCounts[tag]
+        })).sort((a, b) => b.count - a.count).slice(0, 10);
+        window.csStore.set('trendingTopics', trending);
+        window.csStore.publish('trending:updated', trending);
       }
     } catch (err) {
       console.warn('[PostService] Fetch error fallback to local cache:', err);

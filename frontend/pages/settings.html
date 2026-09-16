@@ -12,17 +12,23 @@
   <link rel="stylesheet" href="../css/animations.css">
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/backgrounds.css">
+  <link rel="stylesheet" href="../css/premium.css">
 </head>
 
 <body>
 
-  <div class="app-container">
+  <div class="cs-premium-bg cs-bg-settings">
+    <div class="cs-bg-image"></div>
+  </div>
+
+  <div class="cs-app-layout">
 
     <!-- Left Navigation Sidebar -->
     <div id="standard-navigation-container"></div>
 
     <!-- Main Content Area -->
-    <main class="main-content">
+    <main class="cs-feed-center">
       <header class="top-header">
         <h2>Account Settings</h2>
         <div style="display: flex; gap: 10px;">
@@ -35,7 +41,7 @@
       <section style="padding: 30px; display: flex; flex-direction: column; gap: 24px; max-width: 720px;">
 
         <!-- Theme & Appearance -->
-        <div class="widget-card">
+        <div class="cs-module">
           <div class="widget-title">
             <span><i class="fa-solid fa-palette" style="color: var(--primary);"></i> Theme & Appearance</span>
           </div>
@@ -50,7 +56,7 @@
         </div>
 
         <!-- Privacy & Security -->
-        <div class="widget-card">
+        <div class="cs-module">
           <div class="widget-title">
             <span><i class="fa-solid fa-shield-halved" style="color: var(--secondary);"></i> Privacy & Security</span>
           </div>
@@ -72,7 +78,7 @@
         </div>
 
         <!-- Notification Preferences -->
-        <div class="widget-card">
+        <div class="cs-module">
           <div class="widget-title">
             <span><i class="fa-solid fa-bell" style="color: var(--accent);"></i> Push Notifications</span>
           </div>
@@ -100,9 +106,9 @@
       </section>
     </main>
 
-    <aside class="sidebar-right">
-      <div class="widget-card">
-        <div class="widget-title"><span>Connected Devices</span></div>
+    <aside class="cs-sidebar-right">
+      <div class="cs-module">
+        <h3 class="cs-module-title">Connected Devices</h3>
         <div style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6;">
           <p><i class="fa-solid fa-desktop" style="color: var(--success);"></i> Windows PC (Current Session)</p>
           <p><i class="fa-solid fa-mobile-screen-button" style="color: var(--text-dim);"></i> iPhone 15 Pro</p>
@@ -118,7 +124,7 @@
   <!-- Modular Scripts -->
   <script src="../js/utils/security.js"></script>
   <script src="../js/state/store.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/vendor/supabase.js"></script>
   <script src="../js/config/env.js"></script>
   <script src="../js/lib/supabaseClient.js"></script>
   <script src="../js/services/authService.js"></script>

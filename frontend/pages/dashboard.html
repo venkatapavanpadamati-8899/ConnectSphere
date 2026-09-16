@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="ConnectSphere Dashboard">
   <title>Dashboard | ConnectSphere</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,9 @@
   <link rel="stylesheet" href="../css/premium.css">
 </head>
 <body data-page="dashboard">
-  <div class="cs-premium-bg"></div>
+  <div class="cs-premium-bg cs-bg-dashboard">
+    <div class="cs-bg-image"></div>
+  </div>
 
   <!-- Mobile Top Nav -->
   <nav class="cs-mobile-top-nav">
@@ -182,13 +185,23 @@
           <div style="display:flex; flex-direction:column; gap:var(--space-4);">
              <div>
                 <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">1 &bull; Technology</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;">#ArtificialIntelligence</div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">125K posts</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ConnectSphere</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
              </div>
              <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">2 &bull; Design</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;">#UIUX</div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">84K posts</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">2 &bull; Tech</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#TechTalk</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
+             </div>
+             <div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">3 &bull; Global</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ExploreMore</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
+             </div>
+             <div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">4 &bull; AI</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#AI</a></div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
              </div>
           </div>
        </div>
@@ -266,6 +279,57 @@
 
   <!-- Modals (Hidden by default, used by JS) -->
   <div style="display:none;" id="modals-container">
+    <div class="cs-modal-backdrop" id="universal-search-modal" role="dialog" aria-modal="true" aria-label="Universal Search">
+    <div class="universal-search-stage">
+      <div class="search-modal-header">
+        <i class="fa-solid fa-magnifying-glass" style="color: #00D2FF; font-size: 15px;"></i>
+        <input type="text" class="search-modal-input" id="universal-search-input" placeholder="Search people, posts, reels, videos, communities, topics...">
+        <button type="button" class="reels-close-btn" id="btn-close-search-modal" aria-label="Close search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="search-filter-tabs">
+        <button type="button" class="search-tab-pill active" data-filter="all">All</button>
+        <button type="button" class="search-tab-pill" data-filter="people">People</button>
+        <button type="button" class="search-tab-pill" data-filter="posts">Posts</button>
+        <button type="button" class="search-tab-pill" data-filter="reels">Reels</button>
+        <button type="button" class="search-tab-pill" data-filter="videos">Videos</button>
+        <button type="button" class="search-tab-pill" data-filter="communities">Communities</button>
+        <button type="button" class="search-tab-pill" data-filter="topics">Topics</button>
+      </div>
+
+      <div class="search-results-list" id="universal-search-results">
+        <!-- Default Suggestions -->
+        <div class="search-result-item" data-type="people">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;" alt="Elena">
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Elena Rostova <i class="fa-solid fa-circle-check badge-verified"></i></div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">@elena_rostova &bull; Spatial Audio Engineer &bull; 48.9K followers</div>
+          </div>
+          <button type="button" class="btn-connect-pill">Connect</button>
+        </div>
+        <div class="search-result-item" data-type="communities">
+          <div class="community-icon-box"><i class="fa-solid fa-cubes"></i></div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Spatial Architects Guild</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Community &bull; 48.2K members &bull; Architecture & 3D Spatial</div>
+          </div>
+          <button type="button" class="btn-join-community">Join</button>
+        </div>
+        <div class="search-result-item" data-type="topics">
+          <div class="community-icon-box"><i class="fa-solid fa-hashtag"></i></div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">#QuantumNetwork</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Technology Trend &bull; 48.2K posts today</div>
+          </div>
+          <i class="fa-solid fa-arrow-trend-up" style="color: #10B981; font-size: 13px;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
     <div id="create-post-modal">
        <button id="btn-close-modal"></button>
        <img id="modal-user-avatar">
@@ -388,9 +452,36 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/vendor/supabase.js"></script>
   <script src="../js/config/env.js"></script>
   <script src="../js/lib/supabaseClient.js"></script>
+  <script src="../js/utils/security.js"></script>
+  <script src="../js/state/store.js"></script>
+  <script src="../js/lib/realtimeManager.js"></script>
+  <script src="../js/services/authService.js"></script>
+  <script src="../js/services/storageService.js"></script>
+  <script src="../js/services/postService.js"></script>
+  <script src="../js/services/storyService.js"></script>
+  <script src="../js/services/reelService.js"></script>
+  <script src="../js/services/chatService.js"></script>
+  <script src="../js/services/callingService.js"></script>
+  <script src="../js/services/snapService.js"></script>
+  <script src="../js/services/videoService.js"></script>
+  <script src="../js/services/aiService.js"></script>
+  <script src="../js/services/notificationService.js"></script>
+  <script src="../js/services/searchService.js"></script>
+  <script src="../js/services/communityService.js"></script>
+  <script src="../js/components/feedRenderer.js"></script>
+  <script src="../js/components/postActions.js"></script>
+  <script src="../js/components/storyRenderer.js"></script>
+  <script src="../js/components/reelsRenderer.js"></script>
+  <script src="../js/components/chatRenderer.js"></script>
+  <script src="../js/components/callingRenderer.js"></script>
+  <script src="../js/components/theaterRenderer.js"></script>
+  <script src="../js/components/searchRenderer.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/effects.js"></script>
   <script src="../js/app.js"></script>
 </body>
 </html>
