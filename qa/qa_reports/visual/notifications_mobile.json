@@ -1,0 +1,12 @@
+{
+  "route": "/notifications.html",
+  "viewport": "mobile",
+  "status": 304,
+  "title": "Notifications | ConnectSphere",
+  "finalPath": "/notifications",
+  "overflow": false,
+  "main": true,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "networkErrors": []
+}

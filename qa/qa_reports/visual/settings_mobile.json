@@ -1,0 +1,12 @@
+{
+  "route": "/settings.html",
+  "viewport": "mobile",
+  "status": 304,
+  "title": "Settings | ConnectSphere",
+  "finalPath": "/settings",
+  "overflow": false,
+  "main": true,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "networkErrors": []
+}

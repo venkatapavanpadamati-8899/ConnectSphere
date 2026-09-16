@@ -1,0 +1,12 @@
+{
+  "route": "/dashboard.html",
+  "viewport": "mobile",
+  "status": 304,
+  "title": "Dashboard | ConnectSphere",
+  "finalPath": "/dashboard",
+  "overflow": false,
+  "main": true,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "networkErrors": []
+}

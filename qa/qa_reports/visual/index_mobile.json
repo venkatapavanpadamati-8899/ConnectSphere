@@ -1,0 +1,12 @@
+{
+  "route": "/index.html",
+  "viewport": "mobile",
+  "status": 304,
+  "title": "ConnectSphere | Connect. Share. Discover.",
+  "finalPath": "/",
+  "overflow": false,
+  "main": true,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "networkErrors": []
+}
