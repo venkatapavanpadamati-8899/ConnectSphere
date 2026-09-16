@@ -15,20 +15,24 @@
   <link rel="stylesheet" href="../css/premium.css">
   
   <style>
-    /* Split Authentication Layout */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
+      overflow-x: hidden;
     }
 
     .cs-auth-split {
       display: flex;
       width: 100%;
-      min-height: 100vh;
+      min-height: 100svh;
     }
 
     /* Left Side - Brand Visual */
@@ -93,6 +97,8 @@
       z-index: 10;
       background: var(--bg-surface);
       box-shadow: -10px 0 30px rgba(0,0,0,0.03);
+      overflow-y: auto;
+      max-height: 100svh;
     }
     
     @media (min-width: 900px) {
@@ -341,6 +347,8 @@
           <p class="cs-auth-subtitle">Enter your details to access your account</p>
         </div>
 
+        <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm);"></div>
+
         <form id="loginForm">
           <div class="cs-form-group">
             <label class="cs-form-label" for="email">Email address</label>
@@ -427,7 +435,9 @@
         
         window.location.href = 'dashboard.html';
       } catch (error) {
-        alert(error.message);
+        const errEl = document.getElementById('general-error');
+        errEl.textContent = error.message;
+        errEl.style.display = 'block';
         btn.innerHTML = originalText;
         btn.disabled = false;
       }
@@ -439,12 +449,14 @@
         const { error } = await window.csSupabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: window.location.origin + '/pages/dashboard.html'
+            redirectTo: window.location.origin + '/dashboard.html'
           }
         });
         if (error) throw error;
       } catch (error) {
-        alert(error.message);
+        const errEl = document.getElementById('general-error');
+        errEl.textContent = error.message;
+        errEl.style.display = 'block';
       }
     });
   </script>

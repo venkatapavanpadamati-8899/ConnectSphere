@@ -3,7 +3,26 @@
  * Entry point orchestrating navigation, animations, micro-effects, and backend REST API calls
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // --- SESSION HYDRATION & ROUTE GUARD ---
+  const publicPages = ['login', 'signup', 'forgot-password', 'index'];
+  const currentPage = document.body.dataset.page || window.location.pathname.split('/').pop().replace('.html', '');
+  const isPublicPage = publicPages.includes(currentPage) || currentPage === '' || currentPage === '/';
+
+  if (!isPublicPage && typeof window.AuthService !== 'undefined') {
+    // Prevent flash of unauthenticated content
+    document.body.style.opacity = '0';
+    
+    try {
+      const isAuthenticated = await window.AuthService.requireAuth('login.html');
+      if (!isAuthenticated) return; // Stop executing page logic, redirecting
+    } finally {
+      // Show content once hydration/check is complete
+      document.body.style.transition = 'opacity 0.3s ease';
+      document.body.style.opacity = '1';
+    }
+  }
+  // --- END SESSION HYDRATION ---
   // Establish consistent keyboard navigation and semantic landmarks on every page.
   if (typeof initAccessibilitySuite === 'function') initAccessibilitySuite();
 

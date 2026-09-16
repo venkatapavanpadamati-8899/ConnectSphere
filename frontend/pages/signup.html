@@ -15,19 +15,24 @@
   <link rel="stylesheet" href="../css/premium.css">
   
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
+      overflow-x: hidden;
     }
 
     .cs-auth-split {
       display: flex;
       width: 100%;
-      min-height: 100vh;
+      min-height: 100svh;
     }
 
     /* Left Side - Brand Visual */
@@ -90,6 +95,8 @@
       z-index: 10;
       background: var(--bg-surface);
       box-shadow: -10px 0 30px rgba(0,0,0,0.03);
+      overflow-y: auto;
+      max-height: 100svh;
     }
     
     @media (min-width: 900px) {
@@ -402,6 +409,8 @@
           <h1 class="cs-auth-title">Create Account</h1>
           <p class="cs-auth-subtitle">Join ConnectSphere in just a few steps</p>
         </div>
+        
+        <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm);"></div>
 
         <!-- Progress Indicator -->
         <div class="cs-progress-bar">
@@ -594,13 +603,18 @@
     };
 
     window.submitSignup = async function() {
+      const errEl = document.getElementById('general-error');
+      errEl.style.display = 'none';
+      errEl.textContent = '';
+
       // Collect OTP
       const inputs = document.querySelectorAll('.cs-otp-input');
       let otp = '';
       inputs.forEach(input => otp += input.value);
 
       if (otp !== '123456') {
-        alert("Invalid DEMO OTP. Please enter 123456.");
+        errEl.textContent = "Invalid DEMO OTP. Please enter 123456.";
+        errEl.style.display = 'block';
         return;
       }
 
@@ -629,22 +643,33 @@
           }
         });
 
-        if (error) throw error;
+        if (error) {
+          if (error.status === 429 || error.message.includes('rate limit')) {
+            throw new Error('Email send rate limit exceeded. Please try again later.');
+          }
+          throw error;
+        }
         
         // Follow actual Supabase auth state
-        if (data.user && data.user.identities && data.user.identities.length === 0) {
-           alert("This email is already registered. Please log in.");
-           window.location.href = 'login.html';
-        } else if (data.session) {
-          // Auto logged in
-          window.location.href = 'dashboard.html';
+        if (data?.user?.identities?.length === 0) {
+           errEl.textContent = "This email is already registered. Please log in.";
+           errEl.style.display = 'block';
+           btn.innerHTML = originalText;
+           btn.disabled = false;
+        } else if (data?.session) {
+           // Auto logged in
+           window.location.href = 'dashboard.html';
         } else {
-          // Email confirmation required by Supabase settings
-          alert("Success! Please check your email to confirm your account.");
-          window.location.href = 'login.html';
+           // Email confirmation required by Supabase settings
+           errEl.style.display = 'block';
+           errEl.style.color = 'var(--primary)';
+           errEl.style.background = 'rgba(37, 99, 235, 0.1)';
+           errEl.textContent = "Success! Please check your email to confirm your account.";
+           btn.innerHTML = originalText;
         }
       } catch (error) {
-        alert(error.message);
+        errEl.textContent = error.message;
+        errEl.style.display = 'block';
         btn.innerHTML = originalText;
         btn.disabled = false;
       }
