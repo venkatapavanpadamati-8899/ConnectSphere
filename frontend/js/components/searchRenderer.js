@@ -48,7 +48,7 @@ const SearchRenderer = {
     `).join('');
   },
 
-  executeSearch(query) {
+  async executeSearch(query) {
     const resultsContainer = this.modal?.querySelector('#universal-search-results');
     if (!resultsContainer) return;
 
@@ -56,8 +56,11 @@ const SearchRenderer = {
       resultsContainer.innerHTML = '';
       return;
     }
+    
+    // Simple loading state
+    resultsContainer.innerHTML = '<div style="text-align: center; padding: 24px; color: rgba(255,255,255,0.4); font-size: 0.8rem;">Searching...</div>';
 
-    const results = SearchService.search(query, this.activeCategory);
+    const results = await SearchService.search(query, this.activeCategory);
     let html = '';
 
     // People
@@ -136,11 +139,19 @@ const SearchRenderer = {
       headerInput.addEventListener('focus', () => this.open());
     }
 
+    let searchTimeout = null;
+    const debouncedSearch = (val) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        this.executeSearch(val);
+      }, 300);
+    };
+
     if (mobileSearchInput) {
       mobileSearchInput.addEventListener('input', (e) => {
         this.open();
         if (modalInput) modalInput.value = e.target.value;
-        this.executeSearch(e.target.value);
+        debouncedSearch(e.target.value);
       });
     }
 
@@ -155,7 +166,7 @@ const SearchRenderer = {
 
     if (modalInput) {
       modalInput.addEventListener('input', (e) => {
-        this.executeSearch(e.target.value);
+        debouncedSearch(e.target.value);
       });
       modalInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
