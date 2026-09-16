@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Login | ConnectSphere</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,103 +26,89 @@
       color: var(--text-main);
       min-height: 100svh;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
       overflow-x: hidden;
+      font-family: var(--font-body);
     }
 
-    .cs-auth-split {
-      display: flex;
+    /* Fixed background behind everything */
+    .cs-premium-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background-color: var(--bg-dark);
+    }
+    
+    .cs-premium-bg .cs-bg-image {
+      width: 100%;
+      height: 100%;
+      background-image: url('../assets/backgrounds/bg_login.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.6;
+      animation: slowPan 60s linear infinite alternate;
+    }
+
+    @keyframes slowPan {
+      0% { transform: scale(1.05) translate(0, 0); }
+      100% { transform: scale(1.1) translate(-2%, 2%); }
+    }
+
+    .cs-auth-centered-container {
       width: 100%;
       min-height: 100svh;
-    }
-
-    /* Left Side - Brand Visual */
-    .cs-auth-visual {
-      display: none;
-      flex: 1;
-      position: relative;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(13, 148, 136, 0.05));
-      overflow: hidden;
-      justify-content: center;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
-    @media (min-width: 900px) {
-      .cs-auth-visual {
-        display: flex;
-      }
-    }
-
-    .cs-auth-visual-content {
-      position: relative;
+    .cs-auth-card {
+      width: min(100% - 32px, 460px);
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-depth-2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      margin: var(--space-4) auto;
+      animation: popIn 0.5s var(--transition);
       z-index: 10;
-      text-align: center;
-      padding: var(--space-8);
-      max-width: 480px;
     }
 
     .cs-auth-logo-large {
       font-family: var(--font-heading);
-      font-size: 3rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      color: var(--primary);
-      margin-bottom: var(--space-4);
+      color: var(--text-main);
+      margin-bottom: var(--space-5);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--space-3);
+      gap: var(--space-2);
     }
     
     .cs-auth-logo-large i {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .cs-auth-visual-text {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Right Side - Login Form */
-    .cs-auth-form-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: var(--space-6) var(--space-4);
-      position: relative;
-      z-index: 10;
-      background: var(--bg-surface);
-      box-shadow: -10px 0 30px rgba(0,0,0,0.03);
-      overflow-y: auto;
-      max-height: 100svh;
-    }
-    
-    @media (min-width: 900px) {
-      .cs-auth-form-container {
-        max-width: 500px;
-        flex: none;
-        width: 100%;
-      }
-    }
-
-    .cs-auth-card {
-      width: 100%;
-      max-width: 400px;
-      animation: popIn 0.6s var(--transition);
-    }
-
     .cs-auth-header {
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-5);
       text-align: center;
     }
 
     .cs-auth-title {
       font-family: var(--font-heading);
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: var(--space-2);
       color: var(--text-main);
@@ -164,7 +150,7 @@
       width: 100%;
       height: var(--input-height);
       padding: 0 16px 0 44px;
-      background: var(--bg-surface-elevated);
+      background: var(--bg-glass-input);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       color: var(--text-main);
@@ -176,12 +162,12 @@
     .cs-input:focus {
       outline: none;
       border-color: var(--primary);
-      background: var(--bg-surface);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
     }
 
     .cs-input:focus + i {
-      color: var(--primary);
+      color: var(--primary-light);
     }
 
     .cs-password-toggle {
@@ -194,16 +180,21 @@
       background: none;
       border: none;
       padding: 4px;
+      transition: var(--transition-fast);
+    }
+    
+    .cs-password-toggle:hover {
+      color: var(--text-main);
     }
 
     .cs-auth-options {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-5);
     }
 
     .cs-forgot-link {
-      color: var(--primary);
+      color: var(--primary-light);
       font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
@@ -211,7 +202,7 @@
     }
 
     .cs-forgot-link:hover {
-      color: var(--primary-hover);
+      color: var(--text-main);
       text-decoration: underline;
     }
 
@@ -231,11 +222,12 @@
       justify-content: center;
       align-items: center;
       gap: var(--space-2);
+      font-family: var(--font-body);
     }
 
     .cs-btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.2);
+      box-shadow: 0 12px 24px rgba(79, 70, 229, 0.4);
     }
 
     .cs-btn-submit:disabled {
@@ -247,7 +239,7 @@
     .cs-divider {
       display: flex;
       align-items: center;
-      margin: var(--space-6) 0;
+      margin: var(--space-5) 0;
       color: var(--text-dim);
       font-size: 0.9rem;
     }
@@ -265,10 +257,11 @@
     .cs-btn-google {
       width: 100%;
       height: var(--btn-height);
-      background: var(--bg-surface);
+      background: rgba(255,255,255,0.05);
       color: var(--text-main);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
+      font-family: var(--font-body);
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
@@ -277,12 +270,11 @@
       align-items: center;
       gap: var(--space-3);
       transition: var(--transition);
-      box-shadow: var(--shadow-sm);
     }
 
     .cs-btn-google:hover {
-      background: var(--bg-surface-elevated);
-      border-color: var(--border-hover);
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.3);
     }
 
     .cs-btn-google img {
@@ -298,100 +290,93 @@
     }
 
     .cs-auth-footer a {
-      color: var(--primary);
+      color: var(--primary-light);
       font-weight: 600;
       text-decoration: none;
+      transition: var(--transition-fast);
     }
     
     .cs-auth-footer a:hover {
+      color: var(--text-main);
       text-decoration: underline;
     }
 
     @keyframes popIn {
-      0% { opacity: 0; transform: translateY(15px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: translateY(15px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .cs-premium-bg .cs-bg-image {
+        animation: none;
+      }
+      .cs-auth-card {
+        animation: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="cs-premium-bg cs-bg-auth cs-bg-login">
+  <div class="cs-premium-bg">
     <div class="cs-bg-image"></div>
   </div>
 
-  <div class="cs-auth-split">
-    <!-- Left Visual -->
-    <div class="cs-auth-visual">
-      <img class="cs-brand-scene cs-auth-scene" src="../assets/backgrounds/bg_login.jpg" alt="">
-      <div class="cs-floating-orb cs-orb-1"></div>
-      <div class="cs-floating-orb cs-orb-2"></div>
-      <div class="cs-auth-visual-content">
-        <div class="cs-auth-logo-large">
-          <i class="fa-solid fa-earth-americas"></i>
-          <span>ConnectSphere</span>
-        </div>
-        <p class="cs-auth-visual-text">Log in to continue building your network, discovering content, and sharing your world.</p>
+  <div class="cs-auth-centered-container">
+    <div class="cs-auth-card">
+      
+      <div class="cs-auth-logo-large">
+        <i class="fa-solid fa-earth-americas"></i>
+        <span>ConnectSphere</span>
       </div>
-    </div>
 
-    <!-- Right Login Card -->
-    <div class="cs-auth-form-container">
-      <div class="cs-auth-card">
-        
-        <!-- Mobile Logo (Hidden on Desktop) -->
-        <div class="cs-auth-header cs-mobile-only" style="margin-bottom: var(--space-4);">
-          <i class="fa-solid fa-earth-americas" style="font-size: 2.5rem; color: var(--primary);"></i>
+      <div class="cs-auth-header">
+        <h1 class="cs-auth-title">Welcome back</h1>
+        <p class="cs-auth-subtitle">Log in to continue your journey</p>
+      </div>
+
+      <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius-sm); color: #FCA5A5;"></div>
+
+      <form id="loginForm">
+        <div class="cs-form-group">
+          <label class="cs-form-label" for="email">Email address</label>
+          <div class="cs-input-icon-wrapper">
+            <input type="email" id="email" class="cs-input" placeholder="name@example.com" required>
+            <i class="fa-regular fa-envelope"></i>
+          </div>
         </div>
 
-        <div class="cs-auth-header">
-          <h1 class="cs-auth-title">Welcome back</h1>
-          <p class="cs-auth-subtitle">Enter your details to access your account</p>
+        <div class="cs-form-group">
+          <label class="cs-form-label" for="password">Password</label>
+          <div class="cs-input-icon-wrapper">
+            <input type="password" id="password" class="cs-input" placeholder="Enter your password" required>
+            <i class="fa-solid fa-lock"></i>
+            <button type="button" class="cs-password-toggle" id="togglePassword">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
         </div>
 
-        <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm);"></div>
+        <div class="cs-auth-options">
+          <a href="forgot-password.html" class="cs-forgot-link">Forgot password?</a>
+        </div>
 
-        <form id="loginForm">
-          <div class="cs-form-group">
-            <label class="cs-form-label" for="email">Email address</label>
-            <div class="cs-input-icon-wrapper">
-              <input type="email" id="email" class="cs-input" placeholder="name@example.com" required>
-              <i class="fa-regular fa-envelope"></i>
-            </div>
-          </div>
-
-          <div class="cs-form-group">
-            <label class="cs-form-label" for="password">Password</label>
-            <div class="cs-input-icon-wrapper">
-              <input type="password" id="password" class="cs-input" placeholder="Enter your password" required>
-              <i class="fa-solid fa-lock"></i>
-              <button type="button" class="cs-password-toggle" id="togglePassword">
-                <i class="fa-regular fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="cs-auth-options">
-            <a href="forgot-password.html" class="cs-forgot-link">Forgot password?</a>
-          </div>
-
-          <button type="submit" class="cs-btn-submit" id="loginBtn">
-            <span>Log In</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </form>
-
-        <div class="cs-divider">Or continue with</div>
-
-        <button type="button" class="cs-btn-google" id="googleLoginBtn">
-          <!-- External icon for standard Google G -->
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
-          Continue with Google
+        <button type="submit" class="cs-btn-submit" id="loginBtn">
+          <span>Log In</span>
+          <i class="fa-solid fa-arrow-right"></i>
         </button>
+      </form>
 
-        <div class="cs-auth-footer">
-          Don't have an account? <a href="signup.html">Create account</a>
-        </div>
-        
+      <div class="cs-divider">Or continue with</div>
+
+      <button type="button" class="cs-btn-google" id="googleLoginBtn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+        Continue with Google
+      </button>
+
+      <div class="cs-auth-footer">
+        Don't have an account? <a href="signup.html">Create account</a>
       </div>
+      
     </div>
   </div>
 
