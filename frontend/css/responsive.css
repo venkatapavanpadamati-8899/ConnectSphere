@@ -638,6 +638,18 @@
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
+  .chat-input-bar,
+  body .chat-input-bar {
+    padding: 10px 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #chat-input-field,
+  body #chat-input-field {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
   .explore-category-tabs,
   body .explore-category-tabs {
     max-width: 100% !important;

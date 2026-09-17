@@ -25,11 +25,12 @@ const StoryRenderer = {
 
     let html = '';
     if (!hasSelf) {
-      const user = window.csStore?.get('currentUser') || { avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100' };
+      const user = window.csStore?.get('currentUser') || {};
+      const userAvatar = user.avatar || user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100';
       html += `
         <div class="story-card my-story" id="add-story-trigger" data-testid="story-trigger" data-story-id="story_self" title="Your Story">
           <div class="story-ring-wrapper seen">
-            <img src="${user.avatar}" class="avatar" alt="Your Story">
+            <img src="${userAvatar}" class="avatar" alt="Your Story">
             <span class="add-story-badge" id="btn-add-story-badge"><i class="fa-solid fa-plus"></i></span>
           </div>
           <span class="story-name">Your Story</span>
