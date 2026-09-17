@@ -465,3 +465,123 @@
     border-radius: 20px;
   }
 }
+
+/* Small Mobile (<= 360px) / 320px QA */
+@media (max-width: 360px) {
+  body .app-container,
+  body .dashboard-layout {
+    padding-top: 60px;
+    padding-bottom: 70px;
+  }
+
+  body .top-header {
+    padding: 10px 12px;
+  }
+
+  body .search-box {
+    width: 140px;
+  }
+  
+  .search-box:focus-within {
+    width: 160px;
+  }
+
+  body .mobile-nav-item {
+    font-size: 18px;
+    padding: 6px 8px;
+  }
+  
+  body .mobile-nav-item span {
+    font-size: 9px;
+  }
+
+  body .stories-container,
+  body .cs-stories-tray {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  body .story-ring-wrapper .avatar,
+  body .cs-story-ring {
+    width: 48px;
+    height: 48px;
+  }
+
+  body .post-card,
+  body .cs-post,
+  body .cs-composer,
+  body .create-post-box,
+  body .cs-card,
+  body .auth-card {
+    padding: 12px;
+    border-radius: 16px;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  body .post-header .user-name,
+  body .cs-author-name {
+    font-size: 0.85rem;
+  }
+
+  body .post-caption,
+  body .cs-post-content {
+    font-size: 0.82rem;
+  }
+
+  body .post-actions .action-btn,
+  body .cs-action-btn {
+    padding: 6px;
+    gap: 4px;
+  }
+  
+  body .post-actions .action-btn i,
+  body .cs-action-btn i {
+    font-size: 16px;
+  }
+
+  body .explore-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body .chat-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  body .chat-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  body #chat-input-field {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  body .chat-input-bar .btn-play-voice {
+    display: none !important;
+  }
+
+  body .top-header {
+    padding: 12px 14px !important;
+  }
+
+  body .explore-search-wrap input {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  body .explore-category-tabs {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  body .reels-nav-arrow {
+    display: none !important;
+  }
+}
+

@@ -14,6 +14,9 @@ const ReelsRenderer = {
 
     this.currentIndex = 0;
     this.bindEvents();
+    
+    // Asynchronously render trending hashtags for the sidebar
+    this.renderTrendingHashtags().catch(e => console.error(e));
   },
 
   open() {
@@ -45,7 +48,11 @@ const ReelsRenderer = {
     const followBtn = this.modal.querySelector('#btn-reel-follow');
 
     if (creatorName) creatorName.textContent = reel.creator;
-    if (caption) caption.textContent = reel.caption;
+    if (caption) {
+      const escapedCaption = reel.caption.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const htmlCaption = escapedCaption.replace(/#([\w]+)/g, '<span class="hashtag">#$1</span>');
+      caption.innerHTML = htmlCaption;
+    }
     if (music) music.textContent = reel.music || 'Original Audio';
     if (likesCount) likesCount.textContent = ConnectSphereSecurity.formatNumber(reel.likes);
     if (commentsCount) commentsCount.textContent = ConnectSphereSecurity.formatNumber(reel.commentsCount);
@@ -142,6 +149,16 @@ const ReelsRenderer = {
       });
     }
 
+    // Share button
+    const shareBtn = this.modal.querySelector('#btn-reel-share');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        const reels = ReelService.getReels();
+        const reel = reels[this.currentIndex];
+        if (reel) ReelService.shareReel(reel.id);
+      });
+    }
+
     // Remix button
     const remixBtn = this.modal.querySelector('#btn-reel-remix');
     if (remixBtn) {
@@ -211,6 +228,67 @@ const ReelsRenderer = {
         this.close();
       }
     });
+  },
+
+  async renderTrendingHashtags() {
+    const listContainer = document.getElementById('trending-masterpiece-list');
+    if (!listContainer) return;
+
+    if (window.ReelService && typeof window.ReelService.getTrendingHashtags === 'function') {
+      const trending = await window.ReelService.getTrendingHashtags(5);
+      
+      if (!trending || trending.length === 0) {
+        listContainer.innerHTML = '<div style="padding: 15px; text-align: center; color: rgba(255,255,255,0.5);">No trending topics yet.</div>';
+        return;
+      }
+
+      listContainer.innerHTML = '';
+      trending.forEach((tag, index) => {
+        const row = document.createElement('div');
+        row.className = 'trending-row';
+        row.style.cursor = 'pointer';
+        
+        // When clicking a trending tag, filter the reels
+        row.addEventListener('click', async () => {
+          if (window.ReelService) {
+            await window.ReelService.fetchReelsFromSupabase(tag.hashtag);
+            this.currentIndex = 0;
+            this.renderCurrentReel();
+          }
+        });
+
+        const rankSpan = document.createElement('span');
+        rankSpan.className = 'trending-rank';
+        rankSpan.textContent = String(index + 1).padStart(2, '0');
+        
+        // Random thumbnail to keep the rich UI appearance
+        const thumb = document.createElement('img');
+        thumb.className = 'trend-thumb';
+        thumb.src = `https://images.unsplash.com/photo-${1500000000000 + index * 100000}?w=100&auto=format&fit=crop&q=80`;
+        thumb.alt = `#${tag.hashtag}`;
+        
+        const info = document.createElement('div');
+        info.className = 'trend-info';
+        
+        const tagDiv = document.createElement('div');
+        tagDiv.className = 'trend-tag';
+        tagDiv.textContent = `#${tag.hashtag}`;
+        
+        const countDiv = document.createElement('div');
+        countDiv.className = 'trend-count';
+        const score = Math.round(Number(tag.trend_score || tag.trending_score || 0));
+        countDiv.innerHTML = `Trending &bull; Score ${score}`;
+        
+        info.appendChild(tagDiv);
+        info.appendChild(countDiv);
+        
+        row.appendChild(rankSpan);
+        row.appendChild(thumb);
+        row.appendChild(info);
+        
+        listContainer.appendChild(row);
+      });
+    }
   }
 };
 

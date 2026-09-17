@@ -140,6 +140,12 @@
           <button id="btn-clear-feed-filter" class="cs-btn-secondary" style="height:32px; padding:0 12px; font-size:0.85rem;">Clear</button>
        </div>
 
+       <!-- Feed Stream Tabs (For You / Following) -->
+       <div class="feed-tabs-wrapper" id="feed-category-tabs" style="margin-bottom: var(--space-4); width: fit-content;">
+          <button class="feed-tab-btn active" data-tab="for-you">For You</button>
+          <button class="feed-tab-btn" data-tab="following">Following</button>
+       </div>
+
        <!-- Feed List -->
        <div id="feed-list" style="display:flex; flex-direction:column; gap:var(--space-4);">
           <!-- Empty State -->
@@ -170,6 +176,11 @@
                 <button class="cs-action-btn"><i class="fa-regular fa-paper-plane"></i></button>
              </div>
           </article>
+       </div>
+
+       <!-- Feed Infinite Scroll Trigger & Loader -->
+       <div id="infinite-scroll-trigger" class="feed-loader" style="text-align:center; padding:16px; display:none;">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; color:var(--primary);"></i>
        </div>
     </main>
 

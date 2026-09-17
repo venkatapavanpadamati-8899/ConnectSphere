@@ -6,6 +6,10 @@
 
 const PostService = {
   isInitialized: false,
+  isFetching: false,
+  hasMore: true,
+  currentOffset: 0,
+  limit: 15,
 
   async init() {
     console.log('[PostService] init called. isInitialized:', this.isInitialized);
@@ -31,10 +35,23 @@ const PostService = {
     }
   },
 
-  async fetchPostsFromSupabase() {
+  async fetchPostsFromSupabase(append = false) {
+    if (this.isFetching) return;
+    if (append && !this.hasMore) return;
+    
+    this.isFetching = true;
     try {
+      if (!append) {
+        this.currentOffset = 0;
+        this.hasMore = true;
+      }
+
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
-      if (!client || !window.SupabaseClient.isConfigured()) return;
+      if (!client || !window.SupabaseClient.isConfigured()) {
+        this.isFetching = false;
+        return;
+      }
+      
       let blockedIds = [];
       if (window.ProfileService) {
         const blocked = await window.ProfileService.getBlockedUsers();
@@ -60,7 +77,23 @@ const PostService = {
 
       const { data: dbPosts, error } = await query
         .order('created_at', { ascending: false })
-        .limit(50);
+        .range(this.currentOffset, this.currentOffset + this.limit - 1);
+
+      if (error) {
+        console.warn('[PostService] Supabase fetch error:', error.message);
+        this.isFetching = false;
+        return;
+      }
+      
+      if (dbPosts.length < this.limit) {
+        this.hasMore = false;
+      }
+      
+      if (append) {
+        this.currentOffset += dbPosts.length;
+      } else {
+        this.currentOffset = dbPosts.length;
+      }
 
       if (error) {
         console.warn('[PostService] Supabase fetch error:', error.message);
@@ -140,8 +173,14 @@ const PostService = {
           return postObj;
         });
 
-        window.csStore.set('posts', formattedPosts);
-        window.csStore.publish('posts:loaded', formattedPosts);
+        const existing = append ? (window.csStore.get('posts') || []) : [];
+        const allPosts = [...existing, ...formattedPosts];
+        
+        // Remove duplicates just in case
+        const uniquePosts = Array.from(new Map(allPosts.map(p => [p.id, p])).values());
+
+        window.csStore.set('posts', uniquePosts);
+        window.csStore.publish('posts:loaded', uniquePosts);
         
         // Calculate trending topics from tags
         const tagCounts = {};
@@ -159,9 +198,13 @@ const PostService = {
         })).sort((a, b) => b.count - a.count).slice(0, 10);
         window.csStore.set('trendingTopics', trending);
         window.csStore.publish('trending:updated', trending);
+      } else if (!append) {
+        window.csStore.set('posts', []);
       }
     } catch (err) {
       console.warn('[PostService] Fetch error fallback to local cache:', err);
+    } finally {
+      this.isFetching = false;
     }
   },
 

@@ -26,7 +26,7 @@ const ChatService = {
           conversation_id, role,
           conversations (
             id, type, title, avatar_url, created_at,
-            messages ( id, sender_id, text, is_disappearing, created_at ),
+            messages ( id, sender_id, text, is_disappearing, created_at, is_deleted, message_attachments ( file_url ) ),
             conversation_members ( user_id, profiles ( id, full_name, username, avatar_url, is_verified ) )
           )
         `)
@@ -41,12 +41,14 @@ const ChatService = {
       if (convMembers && convMembers.length > 0) {
         const formatted = convMembers.map(cm => {
           const c = cm.conversations || {};
-          let msgs = (c.messages || []).map(m => ({
+          let msgs = (c.messages || [])
+            .filter(m => !m.is_deleted)
+            .map(m => ({
             id: m.id,
             sender: m.sender_id,
             text: m.text || '',
             type: 'text',
-            mediaUrl: null,
+            media_url: (m.message_attachments && m.message_attachments.length > 0) ? m.message_attachments[0].file_url : null,
             timestamp: m.created_at,
             isRead: true,
             disappearing: m.is_disappearing || false
@@ -155,8 +157,8 @@ const ChatService = {
       id: msg.id,
       sender: msg.sender_id,
       text: msg.text || '', // Fixed text/content field mapping
-      type: 'text', // In schema it doesn't have message_type, but let's default to text
-      mediaUrl: null, // Attachments are in a separate table
+      type: 'text',
+      media_url: null, // Subscriptions on message_attachments might be needed, but we rely on refresh for now or push it explicitly.
       timestamp: msg.created_at,
       isRead: false,
       disappearing: msg.is_disappearing || false
@@ -236,19 +238,22 @@ const ChatService = {
     window.csStore.publish('chat:switched', { convId });
   },
 
-  async sendMessage(text, type = 'text', mediaUrl = null) {
-    if ((!text || !text.trim()) && !mediaUrl) return null;
+  async sendMessage(text, file = null) {
+    if ((!text || !text.trim()) && !file) return null;
 
     const conv = this.getActiveConversation();
     if (!conv) return null;
 
     const currentUser = window.csStore.get('currentUser');
+    const tempId = typeof ConnectSphereSecurity !== 'undefined' ? ConnectSphereSecurity.generateId('msg') : `msg_${Date.now()}`;
+    
+    // Optimistic UI update
     const newMsg = {
-      id: (typeof ConnectSphereSecurity !== 'undefined' ? ConnectSphereSecurity.generateId('msg') : `msg_${Date.now()}`),
+      id: tempId,
       sender: currentUser.id,
       text: text ? text.trim() : '',
-      type,
-      mediaUrl,
+      type: 'text',
+      media_url: file ? URL.createObjectURL(file) : null,
       timestamp: new Date().toISOString(),
       isRead: true,
       disappearing: conv.disappearingMode
@@ -263,17 +268,72 @@ const ChatService = {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
       if (client && window.SupabaseClient.isConfigured() && currentUser?.supabase_id) {
-        await client.from('messages').insert({
+        
+        // 1. Upload file if exists
+        let uploadedUrl = null;
+        let fileType = 'image';
+        if (file && window.StorageService) {
+          uploadedUrl = await window.StorageService.uploadFile('message-media', file);
+          if (file.type.startsWith('video')) fileType = 'video';
+          else if (file.type.startsWith('audio')) fileType = 'audio';
+          else if (!file.type.startsWith('image')) fileType = 'document';
+        }
+
+        // 2. Insert message
+        const { data: insertedMsg, error: msgErr } = await client.from('messages').insert({
           conversation_id: conv.id,
           sender_id: currentUser.supabase_id,
           text: text ? text.trim() : ''
-        });
+        }).select('id').single();
+
+        if (msgErr) throw msgErr;
+
+        // 3. Insert attachment if we have a file
+        if (insertedMsg && uploadedUrl) {
+          await client.from('message_attachments').insert({
+            message_id: insertedMsg.id,
+            file_url: uploadedUrl,
+            file_type: fileType,
+            file_size_bytes: file.size
+          });
+          newMsg.id = insertedMsg.id; // Update temp id with real id
+          newMsg.media_url = uploadedUrl;
+        } else if (insertedMsg) {
+          newMsg.id = insertedMsg.id;
+        }
       }
     } catch (err) {
       console.warn('[ChatService] Supabase message insert error:', err);
     }
 
     return newMsg;
+  },
+
+  async deleteMessage(messageId) {
+    if (!messageId || messageId.startsWith('msg_')) return; // temp id
+
+    try {
+      const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
+      if (client && window.SupabaseClient.isConfigured()) {
+        const { error } = await client.from('messages')
+          .update({ is_deleted: true })
+          .eq('id', messageId);
+          
+        if (error) throw error;
+
+        // Update local state
+        const convs = this.getConversations();
+        for (const c of convs) {
+          if (c.messages) {
+            c.messages = c.messages.filter(m => m.id !== messageId);
+          }
+        }
+        window.csStore.set('conversations', [...convs]);
+        window.csStore.publish('chat:switched', { convId: window.csStore.get('activeConversationId') });
+      }
+    } catch (err) {
+      console.error('[ChatService] Error deleting message:', err);
+    }
   },
 
   sendStoryReaction(creatorName, reactionEmoji) {

@@ -50,10 +50,18 @@
             <!-- Dynamic Messages -->
           </div>
 
-          <div class="chat-input-bar" id="chat-input-form">
-            <button class="icon-btn-round btn-play-voice"><i class="fa-solid fa-microphone"></i></button>
-            <input type="text" id="chat-input-field" placeholder="Type a message...">
-            <button class="icon-btn-round" id="btn-send-message" style="background: var(--primary); color: white;"><i class="fa-solid fa-paper-plane"></i></button>
+          <div class="chat-input-bar" id="chat-input-form" style="flex-direction: column;">
+            <div id="chat-media-preview-container" style="display: none; width: 100%; padding: 8px; position: relative;">
+              <img id="chat-media-preview-img" src="" alt="Attachment Preview" style="max-height: 100px; border-radius: 8px;">
+              <button id="btn-remove-chat-media" type="button" class="icon-btn-round" style="position: absolute; top: 0; left: 100px; background: var(--bg-card); color: var(--text-muted); width: 24px; height: 24px;"><i class="fa-solid fa-xmark" style="font-size: 12px;"></i></button>
+            </div>
+            <div style="display: flex; width: 100%; gap: 10px; align-items: center;">
+              <input type="file" id="chat-media-input" accept="image/*,video/*" style="display: none;">
+              <button type="button" class="icon-btn-round" id="btn-chat-attach-media" title="Attach Media"><i class="fa-solid fa-paperclip"></i></button>
+              <button type="button" class="icon-btn-round btn-play-voice"><i class="fa-solid fa-microphone"></i></button>
+              <input type="text" id="chat-input-field" placeholder="Type a message..." style="flex: 1; min-width: 0;">
+              <button type="button" class="icon-btn-round" id="btn-send-message" style="background: var(--primary); color: white;"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
           </div>
         </div>
       </div>

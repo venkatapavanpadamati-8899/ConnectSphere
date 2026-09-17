@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (typeof initCarouselSliders === 'function') initCarouselSliders();
   if (typeof initVideoPlayers === 'function') initVideoPlayers();
   if (typeof initNextGenExperienceSuite === 'function') initNextGenExperienceSuite();
+  if (typeof initPlatformSuite === 'function') initPlatformSuite();
 });
 
 /**

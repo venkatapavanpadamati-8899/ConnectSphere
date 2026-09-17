@@ -24,9 +24,17 @@ const MessagesPageRenderer = {
     if (this.sendBtn && this.inputField) {
       const sendMsg = () => {
         const text = this.inputField.value.trim();
-        if (text) {
-          ChatService.sendMessage(text);
+        const fileInput = document.getElementById('chat-media-input');
+        const file = fileInput && fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+        
+        if (text || file) {
+          ChatService.sendMessage(text, file);
           this.inputField.value = '';
+          if (fileInput) fileInput.value = '';
+          const previewContainer = document.getElementById('chat-media-preview-container');
+          const previewImg = document.getElementById('chat-media-preview-img');
+          if (previewContainer) previewContainer.style.display = 'none';
+          if (previewImg) previewImg.src = '';
         }
       };
 
@@ -36,6 +44,35 @@ const MessagesPageRenderer = {
           e.preventDefault();
           sendMsg();
         }
+      });
+    }
+
+    const attachBtn = document.getElementById('btn-chat-attach-media');
+    const mediaInput = document.getElementById('chat-media-input');
+    const removeMediaBtn = document.getElementById('btn-remove-chat-media');
+    const previewContainer = document.getElementById('chat-media-preview-container');
+    const previewImg = document.getElementById('chat-media-preview-img');
+
+    if (attachBtn && mediaInput) {
+      attachBtn.addEventListener('click', () => mediaInput.click());
+    }
+
+    if (mediaInput && previewContainer && previewImg) {
+      mediaInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const file = e.target.files[0];
+          const url = URL.createObjectURL(file);
+          previewImg.src = url;
+          previewContainer.style.display = 'block';
+        }
+      });
+    }
+
+    if (removeMediaBtn && mediaInput && previewContainer) {
+      removeMediaBtn.addEventListener('click', () => {
+        mediaInput.value = '';
+        previewImg.src = '';
+        previewContainer.style.display = 'none';
       });
     }
 
@@ -106,9 +143,11 @@ const MessagesPageRenderer = {
     let html = (conv.messages || []).map(m => {
       const isOutgoing = m.sender === currentUserId || m.sender === currentUserSupabaseId;
       return `
-        <div class="msg-bubble ${isOutgoing ? 'sent' : 'received'}">
+        <div class="msg-bubble ${isOutgoing ? 'sent' : 'received'}" data-message-id="${m.id || ''}" style="position: relative;">
+          ${m.media_url ? `<img src="${ConnectSphereSecurity.sanitize(m.media_url)}" alt="Attached Media" style="max-width: 100%; border-radius: 8px; margin-bottom: 5px;">` : ''}
           ${ConnectSphereSecurity.sanitize(m.text)}
           ${m.disappearing ? '<span style="font-size: 9px; opacity: 0.6; display: block; margin-top: 2px;">⏱ Disappears in 24h</span>' : ''}
+          ${isOutgoing && m.id ? `<button type="button" class="btn-delete-msg" onclick="if(window.ChatService) window.ChatService.deleteMessage('${m.id}')" title="Delete Message" style="position: absolute; ${isOutgoing ? 'left: -25px;' : 'right: -25px;'} top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--danger); cursor: pointer; font-size: 12px; opacity: 0.6; transition: 0.2s;"><i class="fa-solid fa-trash"></i></button>` : ''}
         </div>
       `;
     }).join('');

@@ -360,6 +360,26 @@ const FeedRenderer = {
         }
       }
     });
+
+    // Infinite Scroll
+    const handleScroll = (e) => {
+      const target = e.target === document ? document.documentElement : e.target;
+      const scrollHeight = target.scrollHeight;
+      const scrollTop = target.scrollTop || window.scrollY;
+      const clientHeight = target.clientHeight || window.innerHeight;
+
+      if (scrollHeight - scrollTop - clientHeight < 400) {
+        if (window.PostService && !window.PostService.isFetching && window.PostService.hasMore) {
+          window.PostService.fetchPostsFromSupabase(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    const feedCenter = document.querySelector('.cs-feed-center');
+    if (feedCenter) {
+      feedCenter.addEventListener('scroll', handleScroll, { passive: true });
+    }
   }
 };
 

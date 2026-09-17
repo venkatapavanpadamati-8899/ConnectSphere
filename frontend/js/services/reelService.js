@@ -13,12 +13,12 @@ const ReelService = {
     await this.fetchReelsFromSupabase();
   },
 
-  async fetchReelsFromSupabase() {
+  async fetchReelsFromSupabase(hashtag = null) {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
       if (!client || !window.SupabaseClient.isConfigured()) return;
 
-      const { data: dbReels, error } = await client
+      let query = client
         .from('reels')
         .select(`
           id, user_id, caption, sound_title,
@@ -28,6 +28,12 @@ const ReelService = {
         `)
         .order('created_at', { ascending: false })
         .limit(30);
+
+      if (hashtag) {
+        query = query.ilike('caption', `%#${hashtag}%`);
+      }
+
+      const { data: dbReels, error } = await query;
 
       if (error) {
         console.warn('[ReelService] Supabase reel fetch error:', error.message);
@@ -56,9 +62,30 @@ const ReelService = {
 
         window.csStore.set('reels', formatted);
         window.csStore.publish('reels:loaded', formatted);
+      } else if (hashtag) {
+        window.csStore.set('reels', []);
+        window.csStore.publish('reels:loaded', []);
       }
     } catch (err) {
       console.warn('[ReelService] Fetch fallback error:', err);
+    }
+  },
+
+  async getTrendingHashtags(limitCount = 10) {
+    try {
+      const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
+      if (!client || !window.SupabaseClient.isConfigured()) return [];
+
+      const { data, error } = await client.rpc('get_trending_hashtags', { limit_count: limitCount });
+      
+      if (error) {
+        console.warn('[ReelService] Trending hashtags fetch error:', error.message);
+        return [];
+      }
+      return data || [];
+    } catch (err) {
+      console.warn('[ReelService] Trending hashtags catch error:', err);
+      return [];
     }
   },
 
@@ -154,6 +181,43 @@ const ReelService = {
     }
 
     return isFollowingNow;
+  },
+
+  async shareReel(reelId) {
+    const reels = window.csStore.get('reels') || [];
+    const reel = reels.find(r => r.id === reelId);
+    if (!reel) return null;
+
+    const shareUrl = `${window.location.origin}/reels.html?id=${reel.id}`;
+    const shareTitle = `Check out this reel by ${reel.creator}`;
+    const shareText = reel.caption;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl
+        });
+        if (typeof showToast === 'function') showToast('Reel shared successfully! 🌐', 'success');
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        if (typeof showToast === 'function') showToast('Reel link copied to clipboard! 📋', 'success');
+      }
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        return reel;
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(shareUrl);
+          if (typeof showToast === 'function') showToast('Reel link copied to clipboard! 📋', 'success');
+          return reel;
+        }
+      } catch (clipErr) {}
+      console.warn('[ReelService] shareReel note:', err.message);
+    }
+    return reel;
   },
 
   remixReel(reelId) {
