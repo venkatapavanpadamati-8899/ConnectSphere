@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="ConnectSphere Dashboard">
-  <title>Dashboard | ConnectSphere</title>
+  <meta name="description" content="Explore ConnectSphere — search people, posts, and trending hashtags in the spatial social network.">
+  <title>Explore | ConnectSphere</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,6 +17,322 @@
   <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="../css/backgrounds.css">
   <link rel="stylesheet" href="../css/premium.css">
+
+  <style>
+    /* ── Explore page-specific styles ── */
+
+    /* Search bar */
+    .explore-search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--bg-surface-elevated);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 0 16px;
+      gap: 10px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .explore-search-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
+    }
+    .explore-search-wrap .search-icon {
+      color: var(--text-muted);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .explore-search-wrap input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1.05rem;
+      font-family: var(--font-body);
+      color: var(--text-main);
+      padding: 14px 0;
+    }
+    .explore-search-wrap input::placeholder { color: var(--text-muted); }
+    #explore-search-clear {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface);
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+    #explore-search-clear:hover { background: var(--bg-surface-hover); color: var(--text-main); }
+
+    /* Category tabs */
+    .explore-category-tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .explore-category-tabs::-webkit-scrollbar { display: none; }
+    .explore-tab-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--border-color);
+      background: transparent;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .explore-tab-pill.active,
+    .explore-tab-pill:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    /* Loading skeleton */
+    #explore-search-loading {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding: 24px 0;
+    }
+    .explore-skeleton {
+      background: linear-gradient(90deg, var(--bg-surface-elevated) 25%, var(--bg-surface-hover) 50%, var(--bg-surface-elevated) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.4s ease infinite;
+      border-radius: 12px;
+    }
+    @keyframes skeleton-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* Results container */
+    #explore-search-results { display: none; }
+
+    /* Section label */
+    .explore-section-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .explore-results-section {
+      margin-bottom: 28px;
+    }
+    .explore-empty-section {
+      margin-bottom: 28px;
+    }
+
+    /* Profile cards grid */
+    .explore-grid-profiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .explore-profile-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.15s;
+    }
+    .explore-profile-card:hover {
+      border-color: var(--primary);
+      background: var(--bg-surface-elevated);
+      transform: translateY(-1px);
+    }
+    .explore-profile-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--border-color);
+    }
+    .explore-profile-info { flex: 1; min-width: 0; }
+    .explore-profile-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .explore-profile-handle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+    .explore-profile-bio {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      line-height: 1.4;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .explore-verified-badge {
+      color: var(--primary);
+      font-size: 11px;
+    }
+
+    /* Post cards */
+    .explore-results-list { display: flex; flex-direction: column; gap: 12px; }
+    .explore-post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      transition: border-color 0.15s;
+    }
+    .explore-post-card:hover { border-color: rgba(var(--primary-rgb), 0.4); }
+    .explore-post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .explore-post-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .explore-post-meta { display: flex; flex-direction: column; gap: 2px; }
+    .explore-post-author {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .explore-post-handle-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .explore-post-caption {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+    .explore-post-media {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+    }
+    .explore-post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .explore-tag-chip {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 3px 10px;
+      background: rgba(var(--primary-rgb), 0.1);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+    }
+    .explore-tag-chip:hover { background: rgba(var(--primary-rgb), 0.2); }
+    .explore-post-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .explore-post-stats span { display: flex; align-items: center; gap: 5px; }
+
+    /* Hashtag cards */
+    .explore-hashtag-list { display: flex; flex-direction: column; gap: 8px; }
+    .explore-hashtag-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .explore-hashtag-card:hover { border-color: #10B981; background: var(--bg-surface-elevated); }
+    .explore-hashtag-icon {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10B981;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .explore-hashtag-rank {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #F59E0B;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .explore-hashtag-info { flex: 1; min-width: 0; }
+    .explore-hashtag-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .explore-hashtag-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* No results */
+    .explore-no-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 24px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Empty state */
+    #explore-empty-state { display: none; }
+  </style>
 </head>
 <body data-page="explore">
   <div class="cs-premium-bg cs-bg-dashboard">
@@ -35,7 +351,7 @@
      </div>
   </nav>
 
-  <!-- Mobile Search Overlay (ID required by JS) -->
+  <!-- Mobile Search Overlay (required by JS) -->
   <div class="mobile-search-overlay" id="mobile-search-overlay">
     <div class="mobile-search-input-wrap">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -47,7 +363,7 @@
   </div>
 
   <div class="cs-app-layout">
-    
+
     <!-- LEFT COLUMN - NAVIGATION -->
     <aside class="cs-sidebar-nav">
        <a href="dashboard.html" class="cs-brand-logo">
@@ -55,8 +371,8 @@
        </a>
 
        <div class="cs-nav-links">
-          <a href="dashboard.html" class="cs-nav-link active" id="nav-item-home" class="cs-nav-link"><i class="fa-solid fa-house"></i> Home</a>
-          <a href="explore.html" class="cs-nav-link" id="nav-item-explore" class="cs-nav-link active"><i class="fa-solid fa-compass"></i> Explore</a>
+          <a href="dashboard.html" class="cs-nav-link" id="nav-item-home"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="explore.html" class="cs-nav-link active" id="nav-item-explore"><i class="fa-solid fa-compass"></i> Explore</a>
           <a href="#stories" class="cs-nav-link" id="sidebar-link-stories"><i class="fa-solid fa-circle-notch"></i> Stories</a>
           <a href="reels.html" class="cs-nav-link" id="sidebar-link-reels"><i class="fa-solid fa-video"></i> Reels</a>
           <a href="messages.html" class="cs-nav-link" id="sidebar-link-messages"><i class="fa-solid fa-envelope"></i> Messages</a>
@@ -65,11 +381,11 @@
           <a href="profile.html" class="cs-nav-link" id="sidebar-link-profile"><i class="fa-solid fa-user"></i> Profile</a>
           <a href="settings.html" class="cs-nav-link" id="sidebar-link-settings"><i class="fa-solid fa-gear"></i> Settings</a>
        </div>
-       
+
        <button class="cs-btn-primary" id="btn-open-create-modal" style="width: 100%; margin-top: 24px;">
          <i class="fa-solid fa-feather"></i> Post
        </button>
-       
+
        <div id="header-user-capsule" style="margin-top: 32px; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-full); background: var(--bg-surface-elevated); cursor: pointer; transition: var(--transition-fast);">
           <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
           <div class="info" style="display: flex; flex-direction: column;">
@@ -79,161 +395,104 @@
        </div>
     </aside>
 
-    <!-- CENTER COLUMN - FEED -->
+    <!-- CENTER COLUMN - EXPLORE SEARCH -->
     <main class="cs-feed-center">
-       
-       <!-- Stories Tray -->
-       <div class="cs-card">
-         <div class="cs-stories-tray" id="dashboard-stories-container">
-            <!-- Add Story -->
-            <div class="cs-story-item" id="add-story-trigger" data-testid="story-trigger">
-               <div class="cs-story-ring viewed" style="display:flex;align-items:center;justify-content:center;background:var(--bg-surface-elevated);border:2px dashed var(--border-color);">
-                  <i class="fa-solid fa-plus" style="font-size:1.5rem;color:var(--text-muted);"></i>
-               </div>
-               <span style="font-size:0.8rem;font-weight:600;color:var(--text-main);">Add Story</span>
-               <input type="file" id="story-upload-file-input" accept="image/*" style="display:none;">
-            </div>
-            <!-- Mock Stories injected by JS but need a placeholder for layout test -->
-            <div class="cs-story-item">
-               <div class="cs-story-ring">
-                  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80">
-               </div>
-               <span style="font-size:0.8rem;font-weight:600;color:var(--text-main);">Mia</span>
-            </div>
-         </div>
-       </div>
 
-       <!-- Composer -->
-       <div class="cs-composer">
-          <div style="display:flex; gap:var(--space-3); align-items:flex-start;">
-             <img id="composer-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="cs-avatar">
-             <div class="cs-input-group" style="flex:1;">
-               <textarea id="composer-post-text" placeholder="What's happening?" rows="2" style="resize:none; background:transparent; border:none; padding:var(--space-2) 0; font-size:1.1rem;"></textarea>
-             </div>
-          </div>
-          
-          <div id="composer-media-preview" style="display:none; margin-top:var(--space-3); position:relative;">
-             <img id="composer-preview-img" src="" style="width:100%; border-radius:var(--radius-md);">
-             <button id="btn-remove-composer-media" style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
-          </div>
-          <input type="file" id="composer-photo-input" style="display:none;">
-          <div id="composer-poll-builder" style="display:none;"></div>
+      <!-- Page Header -->
+      <div style="margin-bottom: 24px;">
+        <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">
+          <i class="fa-solid fa-compass" style="color: var(--primary); margin-right: 8px;"></i>Explore
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Search people, posts, and trending topics</p>
+      </div>
 
-          <hr style="border:0; border-top:1px solid var(--border-color); margin:var(--space-4) 0;">
+      <!-- Search Input -->
+      <div class="cs-card" style="padding: 20px;">
+        <div class="explore-search-wrap">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="explore-search-input"
+            placeholder="Search people, posts, or #hashtags..."
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+            aria-label="Search ConnectSphere"
+          >
+          <button id="explore-search-clear" aria-label="Clear search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
 
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-             <div style="display:flex; gap:var(--space-2);">
-                <button id="btn-media-photo" class="cs-action-btn"><i class="fa-solid fa-image"></i></button>
-                <button id="btn-media-video" class="cs-action-btn"><i class="fa-solid fa-video"></i></button>
-                <button id="btn-media-poll" class="cs-action-btn"><i class="fa-solid fa-chart-bar"></i></button>
-                <button id="btn-media-ai" class="cs-action-btn"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent-teal);"></i></button>
-             </div>
-             <div style="display:flex; align-items:center; gap:var(--space-3);">
-                <span id="composer-char-count" style="font-size:0.85rem; color:var(--text-muted); display:none;">0</span>
-                <button class="cs-btn-primary" id="btn-publish-inline-post">Post</button>
-             </div>
-          </div>
-       </div>
-       
-       <div class="active-filter-banner" id="active-filter-banner" style="display:none; padding:var(--space-3); background:var(--bg-surface-elevated); border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-3);">
-          <span id="active-filter-text" style="font-weight:600; color:var(--primary);">Explore ConnectSphere</span>
-          <button id="btn-clear-feed-filter" class="cs-btn-secondary" style="height:32px; padding:0 12px; font-size:0.85rem;">Clear</button>
-       </div>
+        <!-- Category Filter Tabs -->
+        <div class="explore-category-tabs" role="tablist" aria-label="Search category">
+          <button class="explore-tab-pill active" data-explore-category="all" role="tab" aria-selected="true" id="explore-tab-all">
+            <i class="fa-solid fa-globe"></i> All
+          </button>
+          <button class="explore-tab-pill" data-explore-category="people" role="tab" aria-selected="false" id="explore-tab-people">
+            <i class="fa-solid fa-user"></i> People
+          </button>
+          <button class="explore-tab-pill" data-explore-category="posts" role="tab" aria-selected="false" id="explore-tab-posts">
+            <i class="fa-solid fa-file-lines"></i> Posts
+          </button>
+          <button class="explore-tab-pill" data-explore-category="hashtags" role="tab" aria-selected="false" id="explore-tab-hashtags">
+            <i class="fa-solid fa-hashtag"></i> Hashtags
+          </button>
+        </div>
+      </div>
 
-       <!-- Feed List -->
-       <div id="feed-list" style="display:flex; flex-direction:column; gap:var(--space-4);">
-          <!-- Empty State -->
-          <div id="feed-empty-state" style="display:none; text-align:center; padding:var(--space-8) var(--space-4); background:var(--bg-card); border-radius:var(--radius-xl); border:1px solid var(--border-color);">
-             <i class="fa-solid fa-inbox" style="font-size:3rem; color:var(--text-muted); margin-bottom:var(--space-3);"></i>
-             <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:var(--space-2);">No posts yet</h3>
-             <p style="color:var(--text-muted);">Follow people or join communities to see posts here.</p>
-          </div>
-          <!-- Mock Post -->
-          <article class="cs-post" id="post-1">
-             <div class="cs-post-header">
-                <div class="cs-post-author">
-                   <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80" class="cs-avatar">
-                   <div>
-                      <span class="cs-author-name">Sofia Chen <i class="fa-solid fa-circle-check" style="color:var(--primary); font-size:12px;"></i></span>
-                      <span class="cs-post-time">@sofiacodes &bull; 2h ago</span>
-                   </div>
-                </div>
-             </div>
-             <div class="cs-post-content">
-                <p>Just launched the new spatial computing app! What do you guys think?</p>
-                <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=800&auto=format&fit=crop&q=80" class="cs-post-image">
-             </div>
-             <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:var(--space-3);">
-                <button class="cs-action-btn"><i class="fa-regular fa-heart"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">1.2K</span></button>
-                <button class="cs-action-btn"><i class="fa-regular fa-comment"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">48</span></button>
-                <button class="cs-action-btn"><i class="fa-solid fa-retweet"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">12</span></button>
-                <button class="cs-action-btn"><i class="fa-regular fa-paper-plane"></i></button>
-             </div>
-          </article>
-       </div>
+      <!-- Loading State -->
+      <div id="explore-search-loading" style="margin-top: 24px;">
+        <div class="explore-skeleton" style="height: 20px; width: 120px; margin-bottom: 12px;"></div>
+        <div class="explore-skeleton" style="height: 74px; margin-bottom: 8px;"></div>
+        <div class="explore-skeleton" style="height: 74px; margin-bottom: 8px;"></div>
+        <div class="explore-skeleton" style="height: 74px;"></div>
+      </div>
+
+      <!-- Empty State (Trending + Suggested, shown before search) -->
+      <div id="explore-empty-state" style="margin-top: 24px;">
+        <!-- Populated by ExploreSearchController._renderEmptyState() -->
+        <div style="text-align: center; padding: 48px 24px; color: var(--text-muted);">
+          <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 1.5rem; margin-bottom: 12px; display: block;"></i>
+          Loading explore...
+        </div>
+      </div>
+
+      <!-- Search Results (shown after search) -->
+      <div id="explore-search-results" style="margin-top: 24px;"></div>
+
     </main>
 
     <!-- RIGHT COLUMN - WIDGETS -->
     <aside class="cs-sidebar-right">
+       <!-- Sidebar search (used by global search JS, hidden on explore since we have inline) -->
        <div class="cs-input-group" style="position:relative;">
           <i class="fa-solid fa-search" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
           <input type="text" id="masterpiece-top-search-input" placeholder="Search ConnectSphere..." style="padding-left:44px; border-radius:var(--radius-full);">
        </div>
 
        <div class="cs-module">
-          <h3 class="cs-module-title">Trending Now</h3>
-          <div style="display:flex; flex-direction:column; gap:var(--space-4);">
-             <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">1 &bull; Technology</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ConnectSphere</a></div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
-             </div>
-             <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">2 &bull; Tech</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#TechTalk</a></div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
-             </div>
-             <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">3 &bull; Global</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ExploreMore</a></div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
-             </div>
-             <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">4 &bull; AI</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#AI</a></div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
-             </div>
+          <h3 class="cs-module-title">Quick Links</h3>
+          <div style="display:flex; flex-direction:column; gap:var(--space-2);">
+            <a href="dashboard.html" style="display:flex; align-items:center; gap:10px; padding:10px; border-radius:var(--radius-md); color:var(--text-main); text-decoration:none; background:var(--bg-surface-elevated); font-size:0.88rem; font-weight:600; transition:var(--transition-fast);">
+              <i class="fa-solid fa-house" style="color:var(--primary); width:16px;"></i> Home Feed
+            </a>
+            <a href="reels.html" style="display:flex; align-items:center; gap:10px; padding:10px; border-radius:var(--radius-md); color:var(--text-main); text-decoration:none; background:var(--bg-surface-elevated); font-size:0.88rem; font-weight:600; transition:var(--transition-fast);">
+              <i class="fa-solid fa-video" style="color:#7357FF; width:16px;"></i> Reels
+            </a>
+            <a href="messages.html" style="display:flex; align-items:center; gap:10px; padding:10px; border-radius:var(--radius-md); color:var(--text-main); text-decoration:none; background:var(--bg-surface-elevated); font-size:0.88rem; font-weight:600; transition:var(--transition-fast);">
+              <i class="fa-solid fa-envelope" style="color:#10B981; width:16px;"></i> Messages
+            </a>
           </div>
        </div>
 
-       <div class="cs-module">
-          <h3 class="cs-module-title">Suggested Creators</h3>
-          <div style="display:flex; flex-direction:column; gap:var(--space-4);">
-             <div style="display:flex; align-items:center; gap:var(--space-3);">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
-                <div style="flex:1;">
-                   <div style="font-weight:700; font-size:0.95rem; color:var(--text-main);">David Kim</div>
-                   <div style="font-size:0.85rem; color:var(--text-muted);">@davidk</div>
-                </div>
-                <button class="cs-btn-secondary" style="height:32px; padding:0 16px; font-size:0.85rem;">Follow</button>
-             </div>
-             <div style="display:flex; align-items:center; gap:var(--space-3);">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
-                <div style="flex:1;">
-                   <div style="font-weight:700; font-size:0.95rem; color:var(--text-main);">Elena Rostova</div>
-                   <div style="font-size:0.85rem; color:var(--text-muted);">@elena_r</div>
-                </div>
-                <button class="cs-btn-secondary" style="height:32px; padding:0 16px; font-size:0.85rem;">Follow</button>
-             </div>
-          </div>
-       </div>
-
-       <!-- Invisible Required Elements for JS -->
+       <!-- Invisible required elements for shared app.js -->
        <div style="display:none;">
          <button id="btn-desktop-notifications-toggle"></button>
          <button id="btn-header-messages-toggle"></button>
          <button id="btn-vip-learn-more"></button>
          <div id="sidebar-user-widget"></div>
+         <div id="post-1"></div>
          <div id="post-2"></div>
          <div id="video-post-player-1"></div>
          <div id="post-3"></div>
@@ -264,72 +523,61 @@
          <div id="chat-drawer-messages"></div>
          <form id="floating-chat-form"></form>
          <input type="text" id="floating-chat-input">
+         <div id="feed-list"></div>
+         <div id="feed-empty-state"></div>
+         <div id="active-filter-banner"></div>
+         <span id="active-filter-text"></span>
+         <button id="btn-clear-feed-filter"></button>
+         <div id="dashboard-stories-container"></div>
+         <div id="add-story-trigger"></div>
+         <input type="file" id="story-upload-file-input">
+         <textarea id="composer-post-text"></textarea>
+         <img id="composer-user-avatar">
+         <div id="composer-media-preview"></div>
+         <img id="composer-preview-img">
+         <button id="btn-remove-composer-media"></button>
+         <input type="file" id="composer-photo-input">
+         <div id="composer-poll-builder"></div>
+         <span id="composer-char-count"></span>
+         <button id="btn-publish-inline-post"></button>
+         <button id="btn-media-photo"></button>
+         <button id="btn-media-video"></button>
+         <button id="btn-media-poll"></button>
+         <button id="btn-media-ai"></button>
        </div>
     </aside>
   </div>
 
   <!-- Mobile Bottom Nav -->
   <nav class="cs-mobile-nav">
-     <a href="dashboard.html" class="cs-mobile-nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
-     <a href="explore.html" class="cs-mobile-nav-item"><i class="fa-solid fa-compass"></i><span>Explore</span></a>
+     <a href="dashboard.html" class="cs-mobile-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+     <a href="explore.html" class="cs-mobile-nav-item active"><i class="fa-solid fa-compass"></i><span>Explore</span></a>
      <a href="reels.html" class="cs-mobile-nav-item"><i class="fa-solid fa-video"></i><span>Reels</span></a>
      <a href="messages.html" class="cs-mobile-nav-item"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
      <a href="profile.html" class="cs-mobile-nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
   </nav>
 
-  <!-- Modals (Hidden by default, used by JS) -->
+  <!-- Modals (required by shared JS) -->
   <div style="display:none;" id="modals-container">
     <div class="cs-modal-backdrop" id="universal-search-modal" role="dialog" aria-modal="true" aria-label="Universal Search">
     <div class="universal-search-stage">
       <div class="search-modal-header">
         <i class="fa-solid fa-magnifying-glass" style="color: #00D2FF; font-size: 15px;"></i>
-        <input type="text" class="search-modal-input" id="universal-search-input" placeholder="Search people, posts, reels, videos, communities, topics...">
+        <input type="text" class="search-modal-input" id="universal-search-input" placeholder="Search ConnectSphere...">
         <button type="button" class="reels-close-btn" id="btn-close-search-modal" aria-label="Close search">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-
       <div class="search-filter-tabs">
         <button type="button" class="search-tab-pill active" data-filter="all">All</button>
         <button type="button" class="search-tab-pill" data-filter="people">People</button>
         <button type="button" class="search-tab-pill" data-filter="posts">Posts</button>
-        <button type="button" class="search-tab-pill" data-filter="reels">Reels</button>
-        <button type="button" class="search-tab-pill" data-filter="videos">Videos</button>
-        <button type="button" class="search-tab-pill" data-filter="communities">Communities</button>
-        <button type="button" class="search-tab-pill" data-filter="topics">Topics</button>
+        <button type="button" class="search-tab-pill" data-filter="hashtags">Hashtags</button>
       </div>
-
-      <div class="search-results-list" id="universal-search-results">
-        <!-- Default Suggestions -->
-        <div class="search-result-item" data-type="people">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;" alt="Elena">
-          <div style="flex: 1;">
-            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Elena Rostova <i class="fa-solid fa-circle-check badge-verified"></i></div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">@elena_rostova &bull; Spatial Audio Engineer &bull; 48.9K followers</div>
-          </div>
-          <button type="button" class="btn-connect-pill">Connect</button>
-        </div>
-        <div class="search-result-item" data-type="communities">
-          <div class="community-icon-box"><i class="fa-solid fa-cubes"></i></div>
-          <div style="flex: 1;">
-            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Spatial Architects Guild</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Community &bull; 48.2K members &bull; Architecture & 3D Spatial</div>
-          </div>
-          <button type="button" class="btn-join-community">Join</button>
-        </div>
-        <div class="search-result-item" data-type="topics">
-          <div class="community-icon-box"><i class="fa-solid fa-hashtag"></i></div>
-          <div style="flex: 1;">
-            <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">#QuantumNetwork</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Technology Trend &bull; 48.2K posts today</div>
-          </div>
-          <i class="fa-solid fa-arrow-trend-up" style="color: #10B981; font-size: 13px;"></i>
-        </div>
-      </div>
+      <div class="search-results-list" id="universal-search-results"></div>
     </div>
-  </div>
+    </div>
 
-  
     <div id="create-post-modal">
        <button id="btn-close-modal"></button>
        <img id="modal-user-avatar">
@@ -379,13 +627,11 @@
        <button id="btn-mark-all-read"></button>
        <div id="notif-dropdown-list"></div>
     </div>
-    <!-- Drawer -->
     <div id="mobile-drawer-backdrop"></div>
     <div id="mobile-nav-drawer">
        <button id="btn-close-mobile-drawer"></button>
        <a id="drawer-link-stories"></a>
     </div>
-    <!-- Reels -->
     <div id="reels-modal">
        <video id="reel-active-video"></video>
        <button id="btn-close-reels-modal"></button>
@@ -406,7 +652,6 @@
        <button id="btn-reel-prev"></button>
        <button id="btn-reel-next"></button>
     </div>
-    <!-- Video Theater -->
     <div id="video-theater-modal">
        <video id="theater-active-video"></video>
        <button id="btn-close-theater-modal"></button>
@@ -423,7 +668,6 @@
        <input type="text" id="input-theater-comment">
        <button id="btn-theater-post-comment"></button>
     </div>
-    <!-- Calling Modal -->
     <div id="calling-modal">
        <img id="call-partner-avatar">
        <h3 id="call-partner-name"></h3>
@@ -437,7 +681,6 @@
        <button id="btn-call-add-user"></button>
        <button id="btn-call-end"></button>
     </div>
-    <!-- Snap Media Modal -->
     <div id="snap-media-modal">
        <div id="snap-sender-name"></div>
        <div id="snap-countdown-timer"></div>
@@ -446,7 +689,6 @@
        <input type="text" id="snap-quick-reply">
        <button id="btn-send-snap-reply"></button>
     </div>
-    <!-- Creator Studio Modal -->
     <div id="creator-studio-modal">
        <button id="btn-close-creator-modal"></button>
     </div>
@@ -483,5 +725,27 @@
   <script src="../js/animations.js"></script>
   <script src="../js/effects.js"></script>
   <script src="../js/app.js"></script>
+
+  <!-- Initialize ExploreSearchController after all scripts load -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // ExploreSearchController is initialized after auth check completes
+      // (app.js runs auth + loads user state first)
+      // We wait a short tick to ensure app.js init has completed
+      let initDone = false;
+      function tryInit() {
+        if (initDone) return;
+        if (typeof ExploreSearchController !== 'undefined' && typeof SearchService !== 'undefined') {
+          initDone = true;
+          ExploreSearchController.init().catch(err => {
+            console.warn('[Explore] ExploreSearchController.init() error:', err);
+          });
+        }
+      }
+      // Try immediately, then fall back to timeout
+      setTimeout(tryInit, 800);
+      setTimeout(tryInit, 2000);
+    });
+  </script>
 </body>
 </html>
