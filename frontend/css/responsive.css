@@ -594,5 +594,7 @@ html, body {
 .cs-premium-bg .cs-bg-image {
   max-width: 100% !important;
   overflow: hidden !important;
+  clip-path: inset(0) !important;
+  contain: strict !important;
 }
 
