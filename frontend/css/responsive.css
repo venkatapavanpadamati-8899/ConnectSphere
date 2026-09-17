@@ -585,3 +585,14 @@
   }
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.cs-premium-bg,
+.cs-premium-bg .cs-bg-image {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
