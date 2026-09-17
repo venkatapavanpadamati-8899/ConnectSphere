@@ -585,9 +585,83 @@
   }
 }
 
+@media (max-width: 768px) {
+  .cs-mobile-top-nav,
+  body .cs-mobile-top-nav {
+    padding: 10px 12px !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .cs-mobile-top-brand,
+  body .cs-mobile-top-brand {
+    gap: 8px !important;
+    font-size: 16px !important;
+    min-width: 0 !important;
+  }
+  .cs-mobile-top-brand span {
+    font-size: 15px !important;
+  }
+  .cs-mobile-top-actions,
+  body .cs-mobile-top-actions {
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+  .cs-mobile-top-actions button,
+  body .cs-mobile-top-actions button {
+    padding: 4px !important;
+    font-size: 14px !important;
+  }
+  .chat-container,
+  body .chat-container {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .conversations-list,
+  body .conversations-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .conversation-item,
+  body .conversation-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 14px !important;
+  }
+  .chat-box,
+  body .chat-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .explore-category-tabs,
+  body .explore-category-tabs {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    box-sizing: border-box !important;
+  }
+  .cs-app-layout,
+  body .cs-app-layout {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+
 html, body {
-  max-width: 100%;
-  overflow-x: hidden;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 .cs-premium-bg,
