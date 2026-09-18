@@ -570,10 +570,10 @@ body.reels-body .main-content.dashboard-reels {
   body[data-page="dashboard"] .cs-sidebar-nav,
   body[data-page="dashboard"] .cs-sidebar-right {
     height: 100%;
-    max-height: 100%;
-    overflow-y: hidden;
+    max-height: calc(100vh - (var(--space-6) * 2));
+    overflow-y: auto;
     position: static;
-    padding-bottom: calc(var(--space-8) + 40px);
+    padding-bottom: var(--space-4);
     scrollbar-width: none;
   }
   
@@ -582,3 +582,20 @@ body.reels-body .main-content.dashboard-reels {
     display: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   FLOATING NOTIFICATIONS (TOASTS) - UNIFIED POSITIONING
+   -------------------------------------------------------------------------- */
+.cs-toast-container {
+  /* Desktop default is inline styled bottom: 24px, right: 24px */
+}
+
+@media (max-width: 768px) {
+  .cs-toast-container {
+    /* Lift toast above mobile bottom nav */
+    bottom: max(80px, calc(env(safe-area-inset-bottom, 0px) + 80px)) !important;
+    right: max(16px, env(safe-area-inset-right, 16px)) !important;
+    max-width: calc(100vw - 32px) !important;
+  }
+}
+

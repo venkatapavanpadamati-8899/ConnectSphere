@@ -254,7 +254,11 @@ function showToast(message) {
       flex-direction: column;
       gap: 10px;
       pointer-events: none;
+      align-items: flex-end;
+      max-width: calc(100vw - 48px);
     `;
+    // Add a class for responsive overrides if needed
+    toastContainer.className = 'cs-toast-container';
     document.body.appendChild(toastContainer);
   }
 
