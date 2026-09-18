@@ -540,3 +540,45 @@ body.reels-body .main-content.dashboard-reels {
     transition: none !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   DESKTOP 3-COLUMN SCROLL BEHAVIOR
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  body[data-page="dashboard"] {
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  body[data-page="dashboard"] .cs-app-layout {
+    height: 100vh;
+    overflow: hidden;
+    padding-bottom: 0; /* Let inner scroll areas reach the bottom */
+  }
+
+  body[data-page="dashboard"] .cs-feed-center {
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none; /* Hide scrollbar for premium look */
+    padding-bottom: calc(var(--space-8) + 40px); /* Extra space at bottom */
+  }
+  
+  body[data-page="dashboard"] .cs-feed-center::-webkit-scrollbar {
+    display: none;
+  }
+
+  body[data-page="dashboard"] .cs-sidebar-nav,
+  body[data-page="dashboard"] .cs-sidebar-right {
+    height: 100%;
+    max-height: 100%;
+    overflow-y: hidden;
+    position: static;
+    padding-bottom: calc(var(--space-8) + 40px);
+    scrollbar-width: none;
+  }
+  
+  body[data-page="dashboard"] .cs-sidebar-nav::-webkit-scrollbar,
+  body[data-page="dashboard"] .cs-sidebar-right::-webkit-scrollbar {
+    display: none;
+  }
+}
