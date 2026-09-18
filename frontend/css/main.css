@@ -9181,17 +9181,18 @@ body[data-page="dashboard"] {
   border-radius: var(--radius-xl);
   padding: 20px;
   margin-bottom: 24px;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .post-card:hover {
-  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 /* ===========================================================================
-   ConnectSphere Refresh — calm, editorial, content-first UI
+   ConnectSphere Light Theme — activated by theme toggle only
    ========================================================================== */
-:root {
+[data-theme="light"] {
   --bg-dark: #f5f7fb;
   --bg-midnight: #f5f7fb;
   --bg-navy: #eef2f7;

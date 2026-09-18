@@ -11,6 +11,20 @@ const ReelService = {
     if (this.isInitialized) return;
     this.isInitialized = true;
     await this.fetchReelsFromSupabase();
+    this.subscribeToRealtimeReels();
+  },
+
+  subscribeToRealtimeReels() {
+    if (typeof window.RealtimeManager !== 'undefined') {
+      window.RealtimeManager.subscribeToTable({
+        channelName: 'reels:realtime',
+        table: 'reels',
+        event: 'INSERT',
+        onInsert: async () => {
+          await this.fetchReelsFromSupabase();
+        }
+      });
+    }
   },
 
   async fetchReelsFromSupabase(hashtag = null) {
@@ -46,6 +60,7 @@ const ReelService = {
           const media = (r.reel_media && r.reel_media[0]) || {};
           return {
             id: r.id,
+            creatorId: r.user_id,
             creator: prof.full_name || 'Creator',
             handle: prof.username ? (prof.username.startsWith('@') ? prof.username : '@' + prof.username) : '@creator',
             avatar: prof.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100',

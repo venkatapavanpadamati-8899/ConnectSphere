@@ -1,0 +1,131 @@
+
+  <div class="cs-premium-bg">
+    <div class="cs-bg-image"></div>
+  </div>
+
+  <div class="cs-auth-centered-container">
+    <div class="cs-auth-card">
+      
+      <div class="cs-auth-logo-large">
+        <i class="fa-solid fa-earth-americas"></i>
+        <span>ConnectSphere</span>
+      </div>
+
+      <div class="cs-auth-header">
+        <h1 class="cs-auth-title">Welcome back</h1>
+        <p class="cs-auth-subtitle">Log in to continue your journey</p>
+      </div>
+
+      <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius-sm); color: #FCA5A5;"></div>
+
+      <form id="loginForm">
+        <div class="cs-form-group">
+          <label class="cs-form-label" for="email">Email address</label>
+          <div class="cs-input-icon-wrapper">
+            <input type="email" id="email" class="cs-input" placeholder="name@example.com" required="">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+        </div>
+
+        <div class="cs-form-group">
+          <label class="cs-form-label" for="password">Password</label>
+          <div class="cs-input-icon-wrapper">
+            <input type="password" id="password" class="cs-input" placeholder="Enter your password" required="">
+            <i class="fa-solid fa-lock"></i>
+            <button type="button" class="cs-password-toggle" id="togglePassword">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="cs-auth-options">
+          <a href="forgot-password.html" class="cs-forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="cs-btn-submit" id="loginBtn">
+          <span>Log In</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="cs-divider">Or continue with</div>
+
+      <button type="button" class="cs-btn-google" id="googleLoginBtn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+        Continue with Google
+      </button>
+
+      <div class="cs-auth-footer">
+        Don't have an account? <a href="signup.html">Create account</a>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="../js/vendor/supabase.js"></script>
+  <script src="../js/config/env.js"></script>
+  <script src="../js/lib/supabaseClient.js"></script>
+  <script>
+
+    // Password Toggle
+    document.getElementById('togglePassword').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const icon = this.querySelector('i');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+
+    // Login Form Submit
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Logging in...';
+      btn.disabled = true;
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const { data, error } = await window.csSupabase.auth.signInWithPassword({
+          email,
+          password
+        });
+        if (error) throw error;
+        
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        const errEl = document.getElementById('general-error');
+        errEl.textContent = error.message;
+        errEl.style.display = 'block';
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    });
+
+    // Google Login
+    document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+      try {
+        const { error } = await window.csSupabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/dashboard.html'
+          }
+        });
+        if (error) throw error;
+      } catch (error) {
+        const errEl = document.getElementById('general-error');
+        errEl.textContent = error.message;
+        errEl.style.display = 'block';
+      }
+    });
+  </script>
+
+

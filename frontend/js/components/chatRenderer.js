@@ -101,7 +101,7 @@ const ChatRenderer = {
     if (voiceCallBtn) {
       voiceCallBtn.addEventListener('click', () => {
         const conv = ChatService.getActiveConversation();
-        CallingService.startCall(conv?.partner?.name || 'Elena Rostova', 'voice');
+        CallingService.startCall(conv?.partner?.name || 'Peer', 'voice', conv?.partner?.id || null);
         if (window.CallingRenderer) CallingRenderer.open();
       });
     }
@@ -109,7 +109,7 @@ const ChatRenderer = {
     if (videoCallBtn) {
       videoCallBtn.addEventListener('click', () => {
         const conv = ChatService.getActiveConversation();
-        CallingService.startCall(conv?.partner?.name || 'Elena Rostova', 'video');
+        CallingService.startCall(conv?.partner?.name || 'Peer', 'video', conv?.partner?.id || null);
         if (window.CallingRenderer) CallingRenderer.open();
       });
     }

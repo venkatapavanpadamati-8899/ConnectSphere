@@ -159,28 +159,37 @@ const FeedRenderer = {
     }
 
     // Render comments list
-    const commentsListHTML = (post.comments || []).map(c => `
+    const commentsListHTML = (post.comments || []).map(c => {
+      const commentProfileUrl = c.authorId ? `profile.html?id=${encodeURIComponent(c.authorId)}` : '#';
+      return `
       <div class="comment-item" style="display: flex; gap: 10px; margin-top: 10px; font-size: 0.8rem;">
-        <img src="${c.avatar}" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" alt="${c.author}">
+        <a href="${commentProfileUrl}" style="text-decoration: none; flex-shrink: 0;">
+          <img src="${c.avatar}" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color);" alt="${c.author}">
+        </a>
         <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 6px 12px; flex: 1;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-            <span style="font-weight: 700; color: #FFFFFF;">${ConnectSphereSecurity.sanitize(c.author)}</span>
+            <a href="${commentProfileUrl}" style="font-weight: 700; color: #FFFFFF; text-decoration: none;">${ConnectSphereSecurity.sanitize(c.author)}</a>
             <span style="font-size: 0.68rem; color: rgba(255,255,255,0.4);">${ConnectSphereSecurity.formatTimeAgo(c.createdAt)}</span>
           </div>
           <div style="color: rgba(255,255,255,0.85);">${ConnectSphereSecurity.sanitize(c.text)}</div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
+
+    const authorProfileUrl = post.author?.id ? `profile.html?id=${encodeURIComponent(post.author.id)}` : 'profile.html';
 
     return `
       <article class="post-card post-card-masterpiece" id="post-card-${post.id}" data-post-id="${post.id}">
         <!-- Post Header -->
         <div class="post-header">
           <div class="user-meta" style="display: flex; align-items: center; gap: 12px;">
-            <img src="${post.author.avatar}" class="avatar" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;" alt="${post.author.name}">
+            <a href="${authorProfileUrl}" style="text-decoration: none; flex-shrink: 0; display: block;">
+              <img src="${post.author.avatar}" class="avatar" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); cursor: pointer;" alt="${post.author.name}">
+            </a>
             <div class="user-details">
               <div class="user-name-row" style="display: flex; align-items: center; gap: 6px;">
-                <span class="user-name" style="font-weight: 700; color: #FFFFFF; font-size: 0.94rem;">${ConnectSphereSecurity.sanitize(post.author.name)}</span>
+                <a href="${authorProfileUrl}" class="user-name" style="font-weight: 700; color: #FFFFFF; font-size: 0.94rem; text-decoration: none; cursor: pointer;">${ConnectSphereSecurity.sanitize(post.author.name)}</a>
                 ${post.author.isVerified ? '<i class="fa-solid fa-circle-check badge-verified" style="color: #00D2FF; font-size: 13px;"></i>' : ''}
                 ${post.author.badge ? `<span class="user-badge" style="font-size: 0.68rem; background: rgba(0, 210, 255, 0.1); border: 1px solid rgba(0, 210, 255, 0.2); color: #00D2FF; padding: 1px 7px; border-radius: 20px;">${ConnectSphereSecurity.sanitize(post.author.badge)}</span>` : ''}
               </div>

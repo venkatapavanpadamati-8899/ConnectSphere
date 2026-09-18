@@ -168,13 +168,25 @@ const MessagesPageRenderer = {
       return;
     }
 
+    const partnerId = conv.partner.id;
+    const profileUrl = partnerId ? `profile.html?id=${encodeURIComponent(partnerId)}` : 'profile.html';
+
     this.infoSidebar.innerHTML = `
-      <img src="${ConnectSphereSecurity.sanitize(conv.partner.avatar)}" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary);" class="floating-element" alt="${ConnectSphereSecurity.sanitize(conv.partner.name)}">
-      <h4 style="margin-top: 10px; font-size: 16px;">${ConnectSphereSecurity.sanitize(conv.partner.name)}</h4>
-      <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 5px;">${ConnectSphereSecurity.sanitize(conv.partner.handle)}</div>
-      <span style="font-size: 12px; color: ${conv.partner.status === 'online' ? 'var(--success)' : 'var(--text-muted)'};">
+      <a href="${profileUrl}" style="text-decoration: none; display: block;">
+        <img src="${ConnectSphereSecurity.sanitize(conv.partner.avatar)}" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); cursor: pointer;" class="floating-element" alt="${ConnectSphereSecurity.sanitize(conv.partner.name)}">
+      </a>
+      <h4 style="margin-top: 10px; font-size: 16px;">
+        <a href="${profileUrl}" style="color: var(--text-main); text-decoration: none; cursor: pointer;">${ConnectSphereSecurity.sanitize(conv.partner.name)}</a>
+      </h4>
+      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">${ConnectSphereSecurity.sanitize(conv.partner.handle)}</div>
+      <span style="font-size: 12px; color: ${conv.partner.status === 'online' ? 'var(--success, #10B981)' : 'var(--text-muted)'};">
         <i class="fa-solid fa-circle" style="font-size: 8px;"></i> ${conv.partner.status === 'online' ? 'Active Now' : 'Offline'}
       </span>
+      <div style="margin-top: 16px;">
+        <a href="${profileUrl}" class="cs-btn-secondary" style="text-decoration: none; font-size: 0.82rem; padding: 6px 14px; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 6px;">
+          <i class="fa-solid fa-user"></i> View Profile
+        </a>
+      </div>
     `;
   }
 };

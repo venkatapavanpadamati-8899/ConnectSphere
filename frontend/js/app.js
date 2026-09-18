@@ -2467,6 +2467,7 @@ function initPlatformSuite() {
   if (typeof TheaterRenderer !== 'undefined' && TheaterRenderer.init) TheaterRenderer.init();
   if (typeof SearchRenderer !== 'undefined' && SearchRenderer.init) SearchRenderer.init();
   if (typeof CreatorRenderer !== 'undefined' && CreatorRenderer.init) CreatorRenderer.init();
+  if (typeof TrendingWidget !== 'undefined' && TrendingWidget.init) TrendingWidget.init();
 
   // Category Tabs synchronization with State Store
   document.querySelectorAll('.feed-tab-btn').forEach(btn => {

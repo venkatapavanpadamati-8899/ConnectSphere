@@ -211,6 +211,7 @@ class ProfileRenderer {
       }
 
       this.loadStats();
+      await this.loadUserPosts();
 
     } catch (err) {
       console.error('[ProfileRenderer] loadProfileData error:', err);
@@ -239,8 +240,146 @@ class ProfileRenderer {
     }
   }
 
+  async loadUserPosts() {
+    const container = document.getElementById('profile-posts-container');
+    if (!container || !this.client) return;
+
+    try {
+      const { data: posts, error } = await this.client
+        .from('posts')
+        .select(`
+          id, user_id, caption, media_type, category, location, tags,
+          likes_count, comments_count, reposts_count, bookmarks_count, views_count, created_at,
+          profiles!posts_user_id_fkey ( id, full_name, username, avatar_url, is_verified ),
+          post_media ( id, media_url, media_type, aspect_ratio ),
+          post_polls ( id, question, total_votes, post_poll_options ( id, option_text, votes_count ) ),
+          post_comments ( id, text, created_at, profiles!post_comments_user_id_fkey ( full_name, username, avatar_url, is_verified ) ),
+          post_likes ( user_id )
+        `)
+        .eq('user_id', this.targetUserId)
+        .order('created_at', { ascending: false })
+        .limit(20);
+
+      if (error) {
+        console.warn('[ProfileRenderer] loadUserPosts error:', error);
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: var(--text-muted); background: var(--bg-card); border-radius: var(--radius-xl); border: 1px solid var(--border-color);">
+            <p>Unable to load posts at this time.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (!posts || posts.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 48px 24px; background: var(--bg-card); border-radius: var(--radius-xl); border: 1px solid var(--border-color);">
+            <div style="width: 52px; height: 52px; border-radius: 50%; background: var(--bg-surface-elevated); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--text-muted); font-size: 22px;">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">No posts yet</h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 320px; margin: 0 auto;">
+              ${this.isOwnProfile ? 'Share your thoughts, photos, or polls with your followers!' : 'This user hasn\'t shared any posts yet.'}
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      const currentUser = window.csStore?.get('currentUser');
+
+      container.innerHTML = posts.map(p => {
+        const author = p.profiles || {};
+        const media = (p.post_media && p.post_media[0]) || null;
+        const isLiked = (p.post_likes || []).some(l => l.user_id === currentUser?.id || l.user_id === currentUser?.supabase_id);
+        const timeAgo = (typeof ConnectSphereSecurity !== 'undefined' && ConnectSphereSecurity.formatTimeAgo)
+          ? ConnectSphereSecurity.formatTimeAgo(p.created_at)
+          : 'Recently';
+        const formattedCaption = (typeof ConnectSphereSecurity !== 'undefined' && ConnectSphereSecurity.formatCaption)
+          ? ConnectSphereSecurity.formatCaption(p.caption)
+          : (p.caption || '');
+
+        let mediaHTML = '';
+        if (p.media_type === 'image' && media?.media_url) {
+          mediaHTML = `
+            <div style="border-radius: var(--radius-lg); overflow: hidden; margin: 12px 0;">
+              <img src="${media.media_url}" style="width: 100%; max-height: 420px; object-fit: cover; display: block;" alt="Media">
+            </div>
+          `;
+        }
+
+        return `
+          <article class="post-card" id="post-card-${p.id}" data-post-id="${p.id}" style="margin-bottom: 20px;">
+            <div class="post-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div class="post-user-details" style="display: flex; align-items: center; gap: 12px;">
+                <img src="${author.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}" class="avatar" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color);" alt="${author.full_name || 'User'}">
+                <div>
+                  <div class="post-user-name" style="font-weight: 700; color: var(--text-main); font-size: 0.95rem;">
+                    ${author.full_name || 'ConnectSphere User'}
+                    ${author.is_verified ? '<i class="fa-solid fa-circle-check badge-verified" style="color: var(--primary); font-size: 13px; margin-left: 4px;"></i>' : ''}
+                  </div>
+                  <div class="post-time" style="font-size: 0.78rem; color: var(--text-muted);">${timeAgo}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-caption" style="font-size: 0.92rem; color: var(--text-main); line-height: 1.5; margin-bottom: 12px;">
+              ${formattedCaption}
+            </div>
+
+            ${mediaHTML}
+
+            <div class="post-actions" style="display: flex; gap: 16px; border-top: 1px solid var(--border-color); padding-top: 12px;">
+              <button type="button" class="action-btn btn-like ${isLiked ? 'liked' : ''}" data-post-id="${p.id}">
+                <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart" style="${isLiked ? 'color: var(--danger, #ef4444);' : ''}"></i>
+                <span class="like-count">${p.likes_count || 0}</span>
+              </button>
+              <button type="button" class="action-btn btn-comment-toggle" data-post-id="${p.id}">
+                <i class="fa-regular fa-comment"></i>
+                <span class="comment-count">${p.comments_count || 0}</span>
+              </button>
+              <button type="button" class="action-btn btn-share" data-post-id="${p.id}">
+                <i class="fa-regular fa-paper-plane"></i>
+              </button>
+              <button type="button" class="action-btn btn-bookmark-post" data-post-id="${p.id}" style="margin-left: auto;">
+                <i class="fa-regular fa-bookmark"></i>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+    } catch (err) {
+      console.error('[ProfileRenderer] loadUserPosts error:', err);
+    }
+  }
+
   bindEvents() {
-    // Add additional binding logic for profile posts tab etc.
+    const container = document.getElementById('profile-posts-container');
+    if (container) {
+      container.addEventListener('click', async (e) => {
+        const likeBtn = e.target.closest('.btn-like');
+        if (likeBtn && window.PostService) {
+          const postId = likeBtn.getAttribute('data-post-id');
+          if (postId) {
+            const isLiked = likeBtn.classList.contains('liked');
+            const icon = likeBtn.querySelector('i');
+            const countSpan = likeBtn.querySelector('.like-count');
+            let count = parseInt(countSpan?.textContent || '0', 10);
+
+            if (isLiked) {
+              likeBtn.classList.remove('liked');
+              if (icon) { icon.className = 'fa-regular fa-heart'; icon.style.color = ''; }
+              if (countSpan) countSpan.textContent = Math.max(0, count - 1);
+            } else {
+              likeBtn.classList.add('liked');
+              if (icon) { icon.className = 'fa-solid fa-heart'; icon.style.color = 'var(--danger, #ef4444)'; }
+              if (countSpan) countSpan.textContent = count + 1;
+            }
+            await window.PostService.toggleLike(postId);
+          }
+        }
+      });
+    }
   }
 }
 

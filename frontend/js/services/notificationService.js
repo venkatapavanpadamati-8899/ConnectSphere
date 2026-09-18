@@ -17,35 +17,68 @@ const NotificationService = {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
       const user = window.csStore?.get('currentUser');
-      if (!client || !window.SupabaseClient.isConfigured() || !user?.supabase_id) return;
+      const userId = user?.supabase_id || user?.id;
+      if (!client || !window.SupabaseClient.isConfigured() || !userId) return;
 
-      const { data: dbNotifs, error } = await client
+      let dbNotifs = null;
+      // Try with actor profile join
+      const { data, error } = await client
         .from('notifications')
-        .select('id, type, title, message, is_read, created_at')
-        .eq('user_id', user.supabase_id)
+        .select('id, actor_id, type, title, message, is_read, resource_id, resource_type, created_at, profiles!actor_id(id, full_name, username, avatar_url)')
+        .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .limit(30);
 
       if (error) {
-        console.warn('[NotificationService] Supabase notif fetch error:', error.message);
-        return;
+        // Fallback without join in case constraint name varies
+        const { data: fallbackData, error: fallbackError } = await client
+          .from('notifications')
+          .select('id, actor_id, type, title, message, is_read, resource_id, resource_type, created_at')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+          .limit(30);
+        if (fallbackError) {
+          console.warn('[NotificationService] Supabase notif fetch error:', fallbackError.message);
+          return;
+        }
+        dbNotifs = fallbackData;
+      } else {
+        dbNotifs = data;
       }
 
-      if (dbNotifs && dbNotifs.length > 0) {
-        const formatted = dbNotifs.map(n => ({
-          id: n.id,
-          type: n.type || 'system',
-          title: n.title,
-          body: n.message,
-          time: new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          isRead: n.is_read
-        }));
+      if (dbNotifs) {
+        const formatted = dbNotifs.map(n => {
+          const actor = n.profiles || null;
+          let timeStr = 'Recently';
+          try {
+            if (typeof ConnectSphereSecurity !== 'undefined' && ConnectSphereSecurity.formatTimeAgo) {
+              timeStr = ConnectSphereSecurity.formatTimeAgo(n.created_at);
+            } else {
+              timeStr = new Date(n.created_at).toLocaleDateString([], { month: 'short', day: 'numeric' });
+            }
+          } catch (_) {}
+
+          return {
+            id: n.id,
+            actorId: n.actor_id || actor?.id,
+            actorName: actor?.full_name || n.title || 'Someone',
+            actorUsername: actor?.username || '',
+            actorAvatar: actor?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100',
+            type: n.type || 'system',
+            title: n.title,
+            body: n.message,
+            time: timeStr,
+            isRead: !!n.is_read,
+            resourceId: n.resource_id,
+            resourceType: n.resource_type
+          };
+        });
 
         window.csStore.set('notifications', formatted);
         window.csStore.publish('notifications:loaded', formatted);
       }
     } catch (err) {
-      console.warn('[NotificationService] fetch fallback error:', err);
+      console.warn('[NotificationService] fetch error:', err);
     }
   },
 
@@ -58,7 +91,8 @@ const NotificationService = {
         onInsert: (newRow) => {
           const n = newRow;
           const user = window.csStore?.get('currentUser');
-          if (n.user_id !== user?.supabase_id) return;
+          const userId = user?.supabase_id || user?.id;
+          if (n.user_id !== userId) return;
 
           const notif = {
             id: n.id,
@@ -107,9 +141,10 @@ const NotificationService = {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
       const user = window.csStore?.get('currentUser');
-      if (client && window.SupabaseClient.isConfigured() && user?.supabase_id) {
+      const userId = user?.supabase_id || user?.id;
+      if (client && window.SupabaseClient.isConfigured() && userId) {
         await client.from('notifications').insert({
-          user_id: user.supabase_id,
+          user_id: userId,
           type,
           title,
           message: body
@@ -131,11 +166,12 @@ const NotificationService = {
     try {
       const client = window.SupabaseClient ? window.SupabaseClient.getClient() : null;
       const user = window.csStore?.get('currentUser');
-      if (client && window.SupabaseClient.isConfigured() && user?.supabase_id) {
+      const userId = user?.supabase_id || user?.id;
+      if (client && window.SupabaseClient.isConfigured() && userId) {
         await client
           .from('notifications')
           .update({ is_read: true })
-          .eq('user_id', user.supabase_id);
+          .eq('user_id', userId);
       }
     } catch (err) {
       console.warn('[NotificationService] markAllAsRead sync error:', err);

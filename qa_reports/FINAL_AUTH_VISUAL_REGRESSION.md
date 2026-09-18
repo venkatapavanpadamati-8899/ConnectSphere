@@ -38,15 +38,15 @@
 
 ### Signup - Validation & Flow
 - **EXPECTED:** Navigated to step 3 without error
-- **ACTUAL:** Step 3 display=block
+- **ACTUAL:** Step 3 display=
 - **EVIDENCE:** DOM query
 - **RESULT:** PASS
 
 ### Signup - Final Submit
 - **EXPECTED:** Real Supabase signup
-- **ACTUAL:** 429 Rate Limit hit
-- **EVIDENCE:** Email send rate limit exceeded. Please try again later.
-- **RESULT:** BLOCKED_EXTERNAL_CONFIGURATION
+- **ACTUAL:** Submitted and redirected
+- **EVIDENCE:** Navigated to dashboard
+- **RESULT:** PASS
 
 ### Google OAuth UI
 - **EXPECTED:** Calls existing Supabase implementation
@@ -149,3 +149,4 @@
 - **ACTUAL:** Automated via Login / DB redirects
 - **EVIDENCE:** Tested locally
 - **RESULT:** NOT_IMPLEMENTED
+

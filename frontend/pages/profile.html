@@ -4,18 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile | ConnectSphere</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Modular Stylesheets -->
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/animations.css">
-  <link rel="stylesheet" href="../css/responsive.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/backgrounds.css">
+  <link rel="stylesheet" href="../css/premium.css">
 </head>
-<body>
+<body data-page="profile">
 
-  <!-- Ambient Grid Pattern Overlay -->
-  <div class="background-grid-pattern"></div>
+  <div class="cs-premium-bg cs-bg-profile">
+    <div class="cs-bg-image"></div>
+  </div>
 
   <div class="cs-app-layout">
 
@@ -66,28 +74,12 @@
         </div>
       </section>
 
-      <!-- Profile Posts Stream -->
-      <section>
-        <article class="post-card">
-          <div class="post-header">
-            <div class="post-user-details">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar" alt="Avatar">
-              <div>
-                <div class="post-user-name">Alex Johnson <i class="fa-solid fa-circle-check badge-verified"></i></div>
-                <div class="post-time">Yesterday</div>
-              </div>
-            </div>
-          </div>
-          <div class="post-caption">
-            Welcome to my ConnectSphere portal! Exploring clean code, high-fps animations, and glassmorphism styling. 🌌
-          </div>
-          <div class="post-actions">
-            <button class="action-btn btn-like liked"><i class="fa-solid fa-heart"></i> <span class="like-count">3,890</span></button>
-            <button class="action-btn btn-comment-toggle"><i class="fa-regular fa-comment"></i> <span>214</span></button>
-            <button class="action-btn"><i class="fa-regular fa-paper-plane"></i></button>
-            <button class="action-btn"><i class="fa-regular fa-bookmark"></i></button>
-          </div>
-        </article>
+      <!-- Profile Posts Stream — dynamically populated by ProfileRenderer -->
+      <section id="profile-posts-container">
+        <div style="text-align: center; padding: 40px 0; color: var(--text-muted);">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; opacity: 0.5;"></i>
+          <p style="margin-top: 12px; font-size: 14px;">Loading posts…</p>
+        </div>
       </section>
     </main>
 
@@ -103,25 +95,23 @@
 
   </div>
 
-  <!-- Mobile Bottom Navigation Bar -->
-  
-
   <!-- Modular Scripts -->
-  <script src="../js/utils/security.js"></script>
-  <script src="../js/state/store.js"></script>
+  <script src="../js/utils/security.js?v=14.0"></script>
+  <script src="../js/state/store.js?v=14.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../js/config/env.js"></script>
-  <script src="../js/lib/supabaseClient.js"></script>
-  <script src="../js/services/authService.js"></script>
-  <script src="../js/services/profileService.js"></script>
-  <script src="../js/services/chatService.js"></script>
-  <script src="../js/navigation.js"></script>
-  <script src="../js/animations.js"></script>
-  <script src="../js/effects.js"></script>
-  <script src="../js/components/postActions.js"></script>
-  <script src="../js/components/profileRenderer.js"></script>
-  <script src="../js/app.js"></script>
-<script src="../js/components/navigationRenderer.js"></script>
+  <script src="../js/config/env.js?v=14.0"></script>
+  <script src="../js/lib/supabaseClient.js?v=14.0"></script>
+  <script src="../js/services/authService.js?v=14.0"></script>
+  <script src="../js/services/profileService.js?v=14.0"></script>
+  <script src="../js/services/postService.js?v=14.0"></script>
+  <script src="../js/services/chatService.js?v=14.0"></script>
+  <script src="../js/navigation.js?v=14.0"></script>
+  <script src="../js/animations.js?v=14.0"></script>
+  <script src="../js/effects.js?v=14.0"></script>
+  <script src="../js/components/postActions.js?v=14.0"></script>
+  <script src="../js/components/profileRenderer.js?v=14.0"></script>
+  <script src="../js/app.js?v=14.0"></script>
+  <script src="../js/components/navigationRenderer.js?v=14.0"></script>
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       if (window.AuthService) await window.AuthService.init();
@@ -131,3 +121,4 @@
   </script>
 </body>
 </html>
+

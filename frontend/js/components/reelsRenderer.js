@@ -39,6 +39,7 @@ const ReelsRenderer = {
 
     const video = this.modal.querySelector('#reel-active-video, .reels-video-element');
     const poster = this.modal.querySelector('.reels-poster');
+    const avatar = this.modal.querySelector('#reel-creator-avatar, .reel-creator-avatar');
     const creatorName = this.modal.querySelector('.reel-creator-name');
     const caption = this.modal.querySelector('.reel-caption');
     const music = this.modal.querySelector('.reel-audio-title, #reels-music-tag');
@@ -47,7 +48,20 @@ const ReelsRenderer = {
     const commentsCount = this.modal.querySelector('#reel-comments-count');
     const followBtn = this.modal.querySelector('#btn-reel-follow');
 
-    if (creatorName) creatorName.textContent = reel.creator;
+    const targetId = reel.creatorId || reel.userId;
+    const profileUrl = targetId ? `profile.html?id=${encodeURIComponent(targetId)}` : 'profile.html';
+
+    if (avatar) {
+      if (reel.avatar) avatar.src = reel.avatar;
+      avatar.style.cursor = 'pointer';
+      avatar.onclick = () => { window.location.href = profileUrl; };
+    }
+
+    if (creatorName) {
+      creatorName.textContent = reel.creator;
+      creatorName.style.cursor = 'pointer';
+      creatorName.onclick = () => { window.location.href = profileUrl; };
+    }
     if (caption) {
       const escapedCaption = reel.caption.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const htmlCaption = escapedCaption.replace(/#([\w]+)/g, '<span class="hashtag">#$1</span>');

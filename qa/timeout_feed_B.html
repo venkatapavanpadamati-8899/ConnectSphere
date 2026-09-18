@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="ConnectSphere Dashboard">
@@ -9,8 +7,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/main.css">
@@ -18,13 +16,13 @@
   <link rel="stylesheet" href="../css/backgrounds.css">
   <link rel="stylesheet" href="../css/premium.css">
 </head>
-<body data-page="dashboard">
+<body data-page="dashboard" style="opacity: 1; transition: opacity 0.3s;"><a class="skip-to-content" href="#main-content">Skip to main content</a>
   <div class="cs-premium-bg cs-bg-dashboard">
     <div class="cs-bg-image"></div>
   </div>
 
   <!-- Mobile Top Nav -->
-  <nav class="cs-mobile-top-nav">
+  <nav class="cs-mobile-top-nav" aria-label="Primary navigation">
      <div class="cs-mobile-top-brand">
        <button id="btn-mobile-menu"><i class="fa-solid fa-bars"></i></button>
        <span>Connect<span style="color:var(--primary)">Sphere</span></span>
@@ -71,7 +69,7 @@
        </button>
        
        <div id="header-user-capsule" style="margin-top: 32px; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-full); background: var(--bg-surface-elevated); cursor: pointer; transition: var(--transition-fast);">
-          <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+          <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&amp;auto=format&amp;fit=crop&amp;q=80" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
           <div class="info" style="display: flex; flex-direction: column;">
              <span id="nav-user-name" style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Loading...</span>
              <span id="nav-user-handle" style="color: var(--text-muted); font-size: 0.85rem;">@loading</span>
@@ -80,7 +78,7 @@
     </aside>
 
     <!-- CENTER COLUMN - FEED -->
-    <main class="cs-feed-center">
+    <main class="cs-feed-center" id="main-content" tabindex="-1">
        
        <!-- Stories Tray -->
        <div class="cs-card">
@@ -96,7 +94,7 @@
             <!-- Mock Stories injected by JS but need a placeholder for layout test -->
             <div class="cs-story-item">
                <div class="cs-story-ring">
-                  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80">
+                  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&amp;auto=format&amp;fit=crop&amp;q=80">
                </div>
                <span style="font-size:0.8rem;font-weight:600;color:var(--text-main);">Mia</span>
             </div>
@@ -106,7 +104,7 @@
        <!-- Composer -->
        <div class="cs-composer">
           <div style="display:flex; gap:var(--space-3); align-items:flex-start;">
-             <img id="composer-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="cs-avatar">
+             <img id="composer-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&amp;auto=format&amp;fit=crop&amp;q=80" class="cs-avatar">
              <div class="cs-input-group" style="flex:1;">
                <textarea id="composer-post-text" placeholder="What's happening?" rows="2" style="resize:none; background:transparent; border:none; padding:var(--space-2) 0; font-size:1.1rem;"></textarea>
              </div>
@@ -140,12 +138,6 @@
           <button id="btn-clear-feed-filter" class="cs-btn-secondary" style="height:32px; padding:0 12px; font-size:0.85rem;">Clear</button>
        </div>
 
-       <!-- Feed Stream Tabs (For You / Following) -->
-       <div class="feed-tabs-wrapper" id="feed-category-tabs" style="margin-bottom: var(--space-4); width: fit-content;">
-          <button class="feed-tab-btn active" data-tab="for-you">For You</button>
-          <button class="feed-tab-btn" data-tab="following">Following</button>
-       </div>
-
        <!-- Feed List -->
        <div id="feed-list" style="display:flex; flex-direction:column; gap:var(--space-4);">
           <!-- Empty State -->
@@ -158,16 +150,16 @@
           <article class="cs-post" id="post-1">
              <div class="cs-post-header">
                 <div class="cs-post-author">
-                   <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&auto=format&fit=crop&q=80" class="cs-avatar">
+                   <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&amp;auto=format&amp;fit=crop&amp;q=80" class="cs-avatar">
                    <div>
                       <span class="cs-author-name">Sofia Chen <i class="fa-solid fa-circle-check" style="color:var(--primary); font-size:12px;"></i></span>
-                      <span class="cs-post-time">@sofiacodes &bull; 2h ago</span>
+                      <span class="cs-post-time">@sofiacodes • 2h ago</span>
                    </div>
                 </div>
              </div>
              <div class="cs-post-content">
                 <p>Just launched the new spatial computing app! What do you guys think?</p>
-                <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=800&auto=format&fit=crop&q=80" class="cs-post-image">
+                <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=800&amp;auto=format&amp;fit=crop&amp;q=80" class="cs-post-image">
              </div>
              <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border-color); padding-top:var(--space-3);">
                 <button class="cs-action-btn"><i class="fa-regular fa-heart"></i> <span style="font-size:0.9rem; font-weight:600; margin-left:4px;">1.2K</span></button>
@@ -176,11 +168,6 @@
                 <button class="cs-action-btn"><i class="fa-regular fa-paper-plane"></i></button>
              </div>
           </article>
-       </div>
-
-       <!-- Feed Infinite Scroll Trigger & Loader -->
-       <div id="infinite-scroll-trigger" class="feed-loader" style="text-align:center; padding:16px; display:none;">
-          <i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; color:var(--primary);"></i>
        </div>
     </main>
 
@@ -193,25 +180,25 @@
 
        <div class="cs-module">
           <h3 class="cs-module-title">Trending Now</h3>
-          <div id="trending-widget-list" style="display:flex; flex-direction:column; gap:var(--space-3);">
+          <div style="display:flex; flex-direction:column; gap:var(--space-4);">
              <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">1 &bull; Technology</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="explore.html?q=%23ConnectSphere" class="cs-hashtag">#ConnectSphere</a></div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">1 • Technology</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ConnectSphere</a></div>
                 <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
              </div>
              <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">2 &bull; Tech</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="explore.html?q=%23TechTalk" class="cs-hashtag">#TechTalk</a></div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">2 • Tech</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#TechTalk</a></div>
                 <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
              </div>
              <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">3 &bull; Global</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="explore.html?q=%23ExploreMore" class="cs-hashtag">#ExploreMore</a></div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">3 • Global</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#ExploreMore</a></div>
                 <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
              </div>
              <div>
-                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">4 &bull; AI</div>
-                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="explore.html?q=%23AI" class="cs-hashtag">#AI</a></div>
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">4 • AI</div>
+                <div style="font-weight:700; color:var(--text-main); margin:2px 0;"><a href="#" class="cs-hashtag">#AI</a></div>
                 <div style="font-size:0.8rem; color:var(--text-muted);">Trending</div>
              </div>
           </div>
@@ -219,9 +206,9 @@
 
        <div class="cs-module">
           <h3 class="cs-module-title">Suggested Creators</h3>
-          <div id="suggested-creators-list" style="display:flex; flex-direction:column; gap:var(--space-3);">
+          <div style="display:flex; flex-direction:column; gap:var(--space-4);">
              <div style="display:flex; align-items:center; gap:var(--space-3);">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&amp;auto=format&amp;fit=crop&amp;q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
                 <div style="flex:1;">
                    <div style="font-weight:700; font-size:0.95rem; color:var(--text-main);">David Kim</div>
                    <div style="font-size:0.85rem; color:var(--text-muted);">@davidk</div>
@@ -229,7 +216,7 @@
                 <button class="cs-btn-secondary" style="height:32px; padding:0 16px; font-size:0.85rem;">Follow</button>
              </div>
              <div style="display:flex; align-items:center; gap:var(--space-3);">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&amp;auto=format&amp;fit=crop&amp;q=80" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
                 <div style="flex:1;">
                    <div style="font-weight:700; font-size:0.95rem; color:var(--text-main);">Elena Rostova</div>
                    <div style="font-size:0.85rem; color:var(--text-muted);">@elena_r</div>
@@ -280,7 +267,7 @@
   </div>
 
   <!-- Mobile Bottom Nav -->
-  <nav class="cs-mobile-nav">
+  <nav class="cs-mobile-nav" aria-label="Page navigation">
      <a href="dashboard.html" class="cs-mobile-nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
      <a href="explore.html" class="cs-mobile-nav-item"><i class="fa-solid fa-compass"></i><span>Explore</span></a>
      <a href="reels.html" class="cs-mobile-nav-item"><i class="fa-solid fa-video"></i><span>Reels</span></a>
@@ -313,10 +300,10 @@
       <div class="search-results-list" id="universal-search-results">
         <!-- Default Suggestions -->
         <div class="search-result-item" data-type="people">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;" alt="Elena">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&amp;auto=format&amp;fit=crop&amp;q=80" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;" alt="Elena">
           <div style="flex: 1;">
             <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Elena Rostova <i class="fa-solid fa-circle-check badge-verified"></i></div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">@elena_rostova &bull; Spatial Audio Engineer &bull; 48.9K followers</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">@elena_rostova • Spatial Audio Engineer • 48.9K followers</div>
           </div>
           <button type="button" class="btn-connect-pill">Connect</button>
         </div>
@@ -324,7 +311,7 @@
           <div class="community-icon-box"><i class="fa-solid fa-cubes"></i></div>
           <div style="flex: 1;">
             <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">Spatial Architects Guild</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Community &bull; 48.2K members &bull; Architecture & 3D Spatial</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Community • 48.2K members • Architecture &amp; 3D Spatial</div>
           </div>
           <button type="button" class="btn-join-community">Join</button>
         </div>
@@ -332,7 +319,7 @@
           <div class="community-icon-box"><i class="fa-solid fa-hashtag"></i></div>
           <div style="flex: 1;">
             <div style="font-size: 0.82rem; font-weight: 700; color: #FFFFFF;">#QuantumNetwork</div>
-            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Technology Trend &bull; 48.2K posts today</div>
+            <div style="font-size: 0.68rem; color: rgba(255,255,255,0.5);">Technology Trend • 48.2K posts today</div>
           </div>
           <i class="fa-solid fa-arrow-trend-up" style="color: #10B981; font-size: 13px;"></i>
         </div>
@@ -490,10 +477,22 @@
   <script src="../js/components/callingRenderer.js"></script>
   <script src="../js/components/theaterRenderer.js"></script>
   <script src="../js/components/searchRenderer.js"></script>
-  <script src="../js/components/trendingWidget.js"></script>
   <script src="../js/navigation.js"></script>
   <script src="../js/animations.js"></script>
   <script src="../js/effects.js"></script>
   <script src="../js/app.js"></script>
-</body>
-</html>
+
+
+<div id="cs-page-transition">
+      <div class="cs-transition-streak"></div>
+      <div class="cs-transition-orb">
+        <div class="cs-transition-halo"></div>
+        <svg width="76" height="76" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="44" stroke="rgba(255,255,255,0.14)" stroke-width="1.5" stroke-dasharray="4 6"></circle>
+          <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#00D9FF" stroke-width="3" transform="rotate(32 50 50)" class="spin-orbit-cw"></ellipse>
+          <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#00F5D4" stroke-width="3" transform="rotate(-32 50 50)" class="spin-orbit-ccw"></ellipse>
+          <circle cx="50" cy="50" r="10" fill="#00D9FF" class="core-orb-pulse" filter="drop-shadow(0 0 12px #00D9FF)"></circle>
+        </svg>
+      </div>
+      <div class="cs-transition-label">Connecting Network...</div>
+    </div><div id="scroll-progress-bar"></div></body></html>

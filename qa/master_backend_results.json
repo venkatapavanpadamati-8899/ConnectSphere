@@ -1,0 +1,410 @@
+[
+  {
+    "section": "A. AUTH",
+    "test": "Invalid Login Error Handling",
+    "status": "PASS",
+    "expected": "AuthApiError / Invalid login credentials",
+    "actual": "Invalid login credentials",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH",
+    "test": "User A Login",
+    "status": "PASS",
+    "expected": "Valid session",
+    "actual": "User ID: 92496f7d-3f55-49e8-b03a-ab265628a156",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH",
+    "test": "User B Login",
+    "status": "PASS",
+    "expected": "Valid session",
+    "actual": "User ID: f7e93b34-a1c0-4b2b-b3ed-bf80ea98551c",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH",
+    "test": "Auth Token Hydration",
+    "status": "PASS",
+    "expected": "User ID 92496f7d-3f55-49e8-b03a-ab265628a156",
+    "actual": "Hydrated: 92496f7d-3f55-49e8-b03a-ab265628a156",
+    "evidence": ""
+  },
+  {
+    "section": "I. PROFILE",
+    "test": "Profile Loading (User A)",
+    "status": "PASS",
+    "expected": "Profile record exists",
+    "actual": "Username: qaA_1789569805612, Full Name: ConnectSphere Creator",
+    "evidence": ""
+  },
+  {
+    "section": "I. PROFILE",
+    "test": "Update Bio & Persistence",
+    "status": "PASS",
+    "expected": "E2E QA verified at 2026-09-17T14:20:34.064Z",
+    "actual": "E2E QA verified at 2026-09-17T14:20:34.064Z",
+    "evidence": ""
+  },
+  {
+    "section": "C. FOLLOW",
+    "test": "Follow Action (User A -> User B)",
+    "status": "PASS",
+    "expected": "Follow row inserted in followers",
+    "actual": "Inserted ID: 92496f7d-3f55-49e8-b03a-ab265628a156 -> f7e93b34-a1c0-4b2b-b3ed-bf80ea98551c",
+    "evidence": ""
+  },
+  {
+    "section": "C. FOLLOW",
+    "test": "Follower Persistence Check",
+    "status": "PASS",
+    "expected": "1 row",
+    "actual": "1 rows found",
+    "evidence": ""
+  },
+  {
+    "section": "C. FOLLOW",
+    "test": "Unfollow Action",
+    "status": "PASS",
+    "expected": "0 rows",
+    "actual": "0 rows remaining",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Create Text Post",
+    "status": "PASS",
+    "expected": "Post inserted in DB",
+    "actual": "Post ID: 0b179e45-a963-4cd6-be3e-7aa5e8843351",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Read Post",
+    "status": "PASS",
+    "expected": "E2E Master QA Post #1789654835201 with #trending2026 hashtag for automated verification.",
+    "actual": "E2E Master QA Post #1789654835201 with #trending2026 hashtag for automated verification.",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Like Post",
+    "status": "PASS",
+    "expected": "Like record created",
+    "actual": "Likes count: 1",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Unlike Post",
+    "status": "PASS",
+    "expected": "0 likes",
+    "actual": "0 likes",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Create Comment",
+    "status": "PASS",
+    "expected": "Automated QA Comment from User B",
+    "actual": "Automated QA Comment from User B",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Bookmark Post",
+    "status": "PASS",
+    "expected": "Bookmark saved",
+    "actual": "Bookmarked by f7e93b34-a1c0-4b2b-b3ed-bf80ea98551c",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "RLS Post Protection (Unauthorized Delete Blocked)",
+    "status": "PASS",
+    "expected": "0 rows deleted / RLS denied",
+    "actual": "Deleted rows: 0",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Delete Own Post (Owner Delete)",
+    "status": "PASS",
+    "expected": "Post deleted",
+    "actual": "Deleted ID: 0b179e45-a963-4cd6-be3e-7aa5e8843351",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Create Image Post & post_media relation",
+    "status": "PASS",
+    "expected": "Post + media inserted",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Create Poll Post with Options",
+    "status": "PASS",
+    "expected": "Poll options inserted",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED",
+    "test": "Feed Pagination & Deduplication",
+    "status": "PASS",
+    "expected": "0 overlapping IDs across pages",
+    "actual": "0 overlaps found",
+    "evidence": ""
+  },
+  {
+    "section": "D. STORIES",
+    "test": "Create Story (Parent + Slide Media)",
+    "status": "PASS",
+    "expected": "Story & slide inserted",
+    "actual": "Story: cd3714be-afd1-4276-9f89-a389fa936f95, Slide: e0507390-7e99-4de5-b6f6-1409581bf94a",
+    "evidence": ""
+  },
+  {
+    "section": "D. STORIES",
+    "test": "Story View Tracking",
+    "status": "PASS",
+    "expected": "View recorded in story_views",
+    "actual": "View recorded",
+    "evidence": ""
+  },
+  {
+    "section": "D. STORIES",
+    "test": "Story Reaction",
+    "status": "PASS",
+    "expected": "Reaction recorded",
+    "actual": "Reaction recorded",
+    "evidence": ""
+  },
+  {
+    "section": "D. STORIES",
+    "test": "24-hour Expiry Filter Check",
+    "status": "PASS",
+    "expected": "Queries unexpired stories",
+    "actual": "0 active stories found",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS",
+    "test": "Fetch Real Reels from Database",
+    "status": "PASS",
+    "expected": ">0 reels",
+    "actual": "Found 5 reels in database",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS",
+    "test": "RPC get_trending_hashtags Execution",
+    "status": "PASS",
+    "expected": "Array of trending hashtags",
+    "actual": "Returned 2 trending items: #realtime, #tech",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS",
+    "test": "Like Reel",
+    "status": "PASS",
+    "expected": "Reel like recorded",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS",
+    "test": "Save / Bookmark Reel",
+    "status": "PASS",
+    "expected": "Reel save recorded",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING",
+    "test": "Create Conversation & Add Members",
+    "status": "PASS",
+    "expected": "Conversation room created",
+    "actual": "ID: 17e84189-0344-4021-b72f-db29c0a50cca",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING",
+    "test": "Send Text Message (User A)",
+    "status": "PASS",
+    "expected": "Automated QA Message at 1789654840543",
+    "actual": "Automated QA Message at 1789654840543",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING",
+    "test": "Receive Text Message (User B)",
+    "status": "PASS",
+    "expected": "Automated QA Message at 1789654840543",
+    "actual": "Automated QA Message at 1789654840543",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING",
+    "test": "Message Attachment Record",
+    "status": "PASS",
+    "expected": "Attachment row inserted",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING",
+    "test": "RLS: Other User Delete Blocked",
+    "status": "PASS",
+    "expected": "0 rows updated",
+    "actual": "Rows updated: 0",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING",
+    "test": "Soft-Delete Own Message (is_deleted = true)",
+    "status": "PASS",
+    "expected": "is_deleted = true",
+    "actual": "is_deleted: true",
+    "evidence": ""
+  },
+  {
+    "section": "G. NOTIFICATIONS",
+    "test": "Realtime DB Trigger Generates Notification",
+    "status": "PASS",
+    "expected": "Triggered on Follow",
+    "actual": "Title: \"New Follower\", Message: \"ConnectSphere Creator started following you\"",
+    "evidence": ""
+  },
+  {
+    "section": "G. NOTIFICATIONS",
+    "test": "Read Notification (User B)",
+    "status": "PASS",
+    "expected": "User B sees own notification",
+    "actual": "ID: 13c89587-bc68-48e0-9de5-32f44e83054b",
+    "evidence": ""
+  },
+  {
+    "section": "G. NOTIFICATIONS",
+    "test": "Mark Notification as Read",
+    "status": "PASS",
+    "expected": "is_read = true",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "G. NOTIFICATIONS",
+    "test": "Unread Notifications Count Query",
+    "status": "PASS",
+    "expected": "Accurate unread count",
+    "actual": "Unread count: 3",
+    "evidence": ""
+  },
+  {
+    "section": "G. NOTIFICATIONS",
+    "test": "RLS Notification Isolation (Other User Cannot View)",
+    "status": "PASS",
+    "expected": "0 rows returned",
+    "actual": "Rows returned to User A: 0",
+    "evidence": ""
+  },
+  {
+    "section": "H. SEARCH",
+    "test": "Search Users by Username",
+    "status": "PASS",
+    "expected": ">0 results",
+    "actual": "Found 2 matches",
+    "evidence": ""
+  },
+  {
+    "section": "H. SEARCH",
+    "test": "Search Posts by Caption",
+    "status": "PASS",
+    "expected": "Query executes",
+    "actual": "Found 2 matches",
+    "evidence": ""
+  },
+  {
+    "section": "H. SEARCH",
+    "test": "Search Wildcard Escaping Resilience",
+    "status": "PASS",
+    "expected": "No errors",
+    "actual": "Handled safely with escaping",
+    "evidence": ""
+  },
+  {
+    "section": "J. SETTINGS",
+    "test": "Update Notification Push Setting",
+    "status": "PASS",
+    "expected": "notifications_push = false",
+    "actual": "Value: false",
+    "evidence": ""
+  },
+  {
+    "section": "J. SETTINGS",
+    "test": "Update Account Privacy Setting (is_private)",
+    "status": "PASS",
+    "expected": "is_private = true",
+    "actual": "Value: true",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Bucket Access: posts",
+    "status": "PASS",
+    "expected": "Bucket accessible",
+    "actual": "0 files listed",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Bucket Access: story-media",
+    "status": "PASS",
+    "expected": "Bucket accessible",
+    "actual": "1 files listed",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Bucket Access: reel-media",
+    "status": "PASS",
+    "expected": "Bucket accessible",
+    "actual": "0 files listed",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Bucket Access: avatars",
+    "status": "PASS",
+    "expected": "Bucket accessible",
+    "actual": "1 files listed",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Bucket Access: video-media",
+    "status": "PASS",
+    "expected": "Bucket accessible",
+    "actual": "0 files listed",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Bucket Access: message-media",
+    "status": "PASS",
+    "expected": "Bucket accessible",
+    "actual": "1 files listed",
+    "evidence": ""
+  },
+  {
+    "section": "K. STORAGE",
+    "test": "Upload File to message-media (with RLS user folder & PNG MIME)",
+    "status": "PASS",
+    "expected": "File uploaded",
+    "actual": "92496f7d-3f55-49e8-b03a-ab265628a156/qa_test_1789654845696.png",
+    "evidence": ""
+  }
+]

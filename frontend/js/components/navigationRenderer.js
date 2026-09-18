@@ -4,8 +4,86 @@
  */
 
 const NavigationRenderer = {
-  init: (page) => {
-    // Navigation state initialization if needed
+  init: function(page = 'home') {
+    const container = document.getElementById('standard-navigation-container');
+    if (container) {
+      const user = window.csStore?.get('currentUser') || {};
+      const name = user.name || user.full_name || 'Alex Johnson';
+      const handle = user.handle || (user.username ? (user.username.startsWith('@') ? user.username : '@' + user.username) : '@alexjohnson');
+      const avatar = user.avatar || user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
+
+      container.innerHTML = `
+        <aside class="cs-sidebar-nav">
+           <a href="dashboard.html" class="cs-brand-logo">
+             <i class="fa-solid fa-globe"></i> Connect<span>Sphere</span>
+           </a>
+
+           <div class="cs-nav-links">
+              <a href="dashboard.html" class="cs-nav-link ${page === 'home' ? 'active' : ''}" id="sidebar-link-home"><i class="fa-solid fa-house"></i> Home</a>
+              <a href="explore.html" class="cs-nav-link ${page === 'explore' ? 'active' : ''}" id="sidebar-link-explore"><i class="fa-solid fa-compass"></i> Explore</a>
+              <a href="dashboard.html#stories" class="cs-nav-link ${page === 'stories' ? 'active' : ''}" id="sidebar-link-stories"><i class="fa-solid fa-circle-notch"></i> Stories</a>
+              <a href="reels.html" class="cs-nav-link ${page === 'reels' ? 'active' : ''}" id="sidebar-link-reels"><i class="fa-solid fa-video"></i> Reels</a>
+              <a href="messages.html" class="cs-nav-link ${page === 'messages' ? 'active' : ''}" id="sidebar-link-messages"><i class="fa-solid fa-envelope"></i> Messages</a>
+              <a href="explore.html#communities" class="cs-nav-link ${page === 'communities' ? 'active' : ''}" id="sidebar-link-communities"><i class="fa-solid fa-users"></i> Communities</a>
+              <a href="notifications.html" class="cs-nav-link ${page === 'notifications' ? 'active' : ''}" id="sidebar-link-notifications"><i class="fa-solid fa-bell"></i> Notifications</a>
+              <a href="profile.html" class="cs-nav-link ${page === 'profile' ? 'active' : ''}" id="sidebar-link-profile"><i class="fa-solid fa-user"></i> Profile</a>
+              <a href="settings.html" class="cs-nav-link ${page === 'settings' ? 'active' : ''}" id="sidebar-link-settings"><i class="fa-solid fa-gear"></i> Settings</a>
+           </div>
+           
+           <button class="cs-btn-primary" id="btn-open-create-modal" style="width: 100%; margin-top: 24px;">
+             <i class="fa-solid fa-feather"></i> Post
+           </button>
+           
+           <div id="header-user-capsule" style="margin-top: 32px; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--radius-full); background: var(--bg-surface-elevated); cursor: pointer; transition: var(--transition-fast);">
+              <img id="nav-user-avatar" src="${avatar}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              <div class="info" style="display: flex; flex-direction: column; overflow: hidden;">
+                 <span id="nav-user-name" style="font-weight: 700; font-size: 0.95rem; color: var(--text-main); white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${name}</span>
+                 <span id="nav-user-handle" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">${handle}</span>
+              </div>
+           </div>
+        </aside>
+      `;
+
+      // Bind capsule click -> profile
+      const capsule = container.querySelector('#header-user-capsule');
+      if (capsule) {
+        capsule.addEventListener('click', () => { window.location.href = 'profile.html'; });
+      }
+
+      // Bind post button -> dashboard create modal
+      const postBtn = container.querySelector('#btn-open-create-modal');
+      if (postBtn && page !== 'home') {
+        postBtn.addEventListener('click', () => { window.location.href = 'dashboard.html#compose'; });
+      }
+
+      // Subscribe to store updates for current user
+      if (window.csStore) {
+        window.csStore.subscribe('currentUser', (u) => {
+          if (!u) return;
+          const navAvatar = document.getElementById('nav-user-avatar');
+          const navName = document.getElementById('nav-user-name');
+          const navHandle = document.getElementById('nav-user-handle');
+          if (navAvatar && (u.avatar || u.avatar_url)) navAvatar.src = u.avatar || u.avatar_url;
+          if (navName && (u.name || u.full_name)) navName.textContent = u.name || u.full_name;
+          if (navHandle && (u.handle || u.username)) navHandle.textContent = u.handle || (u.username.startsWith('@') ? u.username : '@' + u.username);
+        });
+      }
+    }
+
+    // Add mobile bottom navigation if not already on the page
+    if (!document.querySelector('.cs-mobile-bottom-nav')) {
+      const bottomNav = document.createElement('nav');
+      bottomNav.className = 'cs-mobile-bottom-nav';
+      bottomNav.innerHTML = `
+        <a href="dashboard.html" class="${page === 'home' ? 'active' : ''}"><i class="fa-solid fa-house"></i></a>
+        <a href="explore.html" class="${page === 'explore' ? 'active' : ''}"><i class="fa-solid fa-compass"></i></a>
+        <a href="reels.html" class="${page === 'reels' ? 'active' : ''}"><i class="fa-solid fa-video"></i></a>
+        <a href="messages.html" class="${page === 'messages' ? 'active' : ''}"><i class="fa-solid fa-envelope"></i></a>
+        <a href="notifications.html" class="${page === 'notifications' ? 'active' : ''}"><i class="fa-solid fa-bell"></i></a>
+        <a href="profile.html" class="${page === 'profile' ? 'active' : ''}"><i class="fa-solid fa-user"></i></a>
+      `;
+      document.body.appendChild(bottomNav);
+    }
   },
   renderMobileSearchOverlay: () => `
     <div class="mobile-search-overlay" id="mobile-search-overlay">

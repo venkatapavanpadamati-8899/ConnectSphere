@@ -1,0 +1,714 @@
+[
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Unauthenticated /dashboard Protection",
+    "status": "PASS",
+    "expected": "Redirect to login",
+    "actual": "URL: http://localhost:3000/login",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Unauthenticated /reels Protection",
+    "status": "PASS",
+    "expected": "Redirect to login",
+    "actual": "URL: http://localhost:3000/login",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Unauthenticated /messages Protection",
+    "status": "PASS",
+    "expected": "Redirect to login",
+    "actual": "URL: http://localhost:3000/login",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Unauthenticated /settings Protection",
+    "status": "PASS",
+    "expected": "Redirect to login",
+    "actual": "URL: http://localhost:3000/login",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Login Form Elements Present",
+    "status": "PASS",
+    "expected": "All elements present",
+    "actual": "Email, Password, Login button, Google OAuth button",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Invalid Credentials Error State",
+    "status": "PASS",
+    "expected": "Error message visible",
+    "actual": "Error text: \"Invalid login credentials\"",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Google OAuth Configuration Status",
+    "status": "BLOCKED",
+    "expected": "External human Google Cloud credentials",
+    "actual": "BLOCKED_EXTERNAL_CONFIGURATION",
+    "evidence": ""
+  },
+  {
+    "section": "A. AUTH LIVE",
+    "test": "Valid User Login & Redirect to Dashboard",
+    "status": "PASS",
+    "expected": "Redirects to /dashboard",
+    "actual": "URL: http://localhost:3000/dashboard.html",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED TABS",
+    "test": "Feed Stream Tabs Container Present",
+    "status": "PASS",
+    "expected": "Container exists",
+    "actual": "Found #feed-category-tabs",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED TABS",
+    "test": "Feed Stream Tabs (For You & Following)",
+    "status": "PASS",
+    "expected": "Contains for-you and following tabs",
+    "actual": "Found tabs: for-you, following",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED TABS",
+    "test": "Switch Tab to Following",
+    "status": "PASS",
+    "expected": "Following tab active",
+    "actual": "Active",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED TABS",
+    "test": "Switch Tab to For You",
+    "status": "PASS",
+    "expected": "For You tab active",
+    "actual": "Active",
+    "evidence": ""
+  },
+  {
+    "section": "B. FEED TABS",
+    "test": "Feed Infinite Scroll Trigger Element Present",
+    "status": "PASS",
+    "expected": "Scroll trigger present",
+    "actual": "Found #infinite-scroll-trigger",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Trending Masterpiece List Container Present",
+    "status": "PASS",
+    "expected": "Container exists",
+    "actual": "Found #trending-masterpiece-list",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Trending Hashtags Rendered (Real DB Data)",
+    "status": "PASS",
+    "expected": "Trending hashtags rendered",
+    "actual": "01 | #realtime | Trending • Score 21 | 02 | #tech | Trending • Score 21",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Trending Score Valid Number (No NaN)",
+    "status": "PASS",
+    "expected": "No NaN in score output",
+    "actual": "Clean valid scores",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Trending Hashtag Row Click Filter",
+    "status": "PASS",
+    "expected": "Hashtag row clicked",
+    "actual": "Clicked row",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Reels Share Button Present in DOM",
+    "status": "PASS",
+    "expected": "Button exists",
+    "actual": "Found #btn-reel-share",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Reels Share Button Click Action",
+    "status": "PASS",
+    "expected": "Click handler triggers without uncaught error",
+    "actual": "Success",
+    "evidence": ""
+  },
+  {
+    "section": "E. REELS UI",
+    "test": "Reels Video Stage Present",
+    "status": "PASS",
+    "expected": ">0 video elements",
+    "actual": "Found 3 video stages",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING UI",
+    "test": "Conversations List Container Present",
+    "status": "PASS",
+    "expected": "Container exists",
+    "actual": "Found #conversations-list-container",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING UI",
+    "test": "Chat Media Upload Trigger Present",
+    "status": "PASS",
+    "expected": "Media trigger exists",
+    "actual": "Found #btn-chat-attach-media & #chat-media-input",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING UI",
+    "test": "Message Input & Send Controls Present",
+    "status": "PASS",
+    "expected": "Input and send button exist",
+    "actual": "Input: true, SendBtn: true",
+    "evidence": ""
+  },
+  {
+    "section": "F. MESSAGING UI",
+    "test": "Message Delete Action Bound in Code",
+    "status": "PASS",
+    "expected": "Delete method or renderer bound",
+    "actual": "Verified delete action",
+    "evidence": ""
+  },
+  {
+    "section": "J. SETTINGS UI",
+    "test": "Settings Privacy & Push Notification Toggles",
+    "status": "PASS",
+    "expected": "Both toggles exist",
+    "actual": "Private: true, Push: true",
+    "evidence": ""
+  },
+  {
+    "section": "J. SETTINGS UI",
+    "test": "Privacy Account Toggle Interactive Response",
+    "status": "PASS",
+    "expected": "Toggle state changes",
+    "actual": "Functional",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /login",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /signup",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /dashboard",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /reels",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /messages",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /notifications",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /profile",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /settings",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /explore",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "320px [Mobile Mini] - /forgot-password",
+    "status": "PASS",
+    "expected": "scrollWidth <= 320 & clipped=0",
+    "actual": "scrollWidth=320, clientWidth=320",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /login",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /signup",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /dashboard",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /reels",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /messages",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /notifications",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /profile",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /settings",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /explore",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "375px [Mobile Standard] - /forgot-password",
+    "status": "PASS",
+    "expected": "scrollWidth <= 375 & clipped=0",
+    "actual": "scrollWidth=375, clientWidth=375",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /login",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /signup",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /dashboard",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /reels",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /messages",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /notifications",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /profile",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /settings",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /explore",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "390px [Mobile Large] - /forgot-password",
+    "status": "PASS",
+    "expected": "scrollWidth <= 390 & clipped=0",
+    "actual": "scrollWidth=390, clientWidth=390",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /login",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /signup",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /dashboard",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /reels",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /messages",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /notifications",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /profile",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /settings",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /explore",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "768px [Tablet] - /forgot-password",
+    "status": "PASS",
+    "expected": "scrollWidth <= 768 & clipped=0",
+    "actual": "scrollWidth=768, clientWidth=768",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /login",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /signup",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /dashboard",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /reels",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /messages",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /notifications",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /profile",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /settings",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /explore",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1366px [Laptop] - /forgot-password",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1366 & clipped=0",
+    "actual": "scrollWidth=1366, clientWidth=1366",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /login",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /signup",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /dashboard",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /reels",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /messages",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /notifications",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /profile",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /settings",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /explore",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "L. RESPONSIVE",
+    "test": "1440px [Desktop] - /forgot-password",
+    "status": "PASS",
+    "expected": "scrollWidth <= 1440 & clipped=0",
+    "actual": "scrollWidth=1440, clientWidth=1440",
+    "evidence": ""
+  },
+  {
+    "section": "N. PERFORMANCE",
+    "test": "First-Party Asset 404 / Failure Count",
+    "status": "PASS",
+    "expected": "0 failed first-party assets",
+    "actual": "0 failures: ",
+    "evidence": ""
+  },
+  {
+    "section": "N. PERFORMANCE",
+    "test": "Critical Console Errors Count",
+    "status": "PASS",
+    "expected": "0 critical console errors",
+    "actual": "0 errors",
+    "evidence": ""
+  },
+  {
+    "section": "PROD. VERCEL",
+    "test": "Production Vercel Login Page Reachable & Responsive",
+    "status": "PASS",
+    "expected": "Login button rendered",
+    "actual": "URL: https://connectsphere2.vercel.app/login",
+    "evidence": ""
+  }
+]

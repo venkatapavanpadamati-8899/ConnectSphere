@@ -1,0 +1,10 @@
+[PASS] 320px QA - login.html responsive layout works without overflow.
+[PASS] 320px QA - signup.html responsive layout works without overflow.
+[PASS] 320px QA - dashboard.html responsive layout works without overflow.
+[PASS] 320px QA - explore.html responsive layout works without overflow.
+[PASS] 320px QA - reels.html responsive layout works without overflow.
+[PASS] 320px QA - messages.html responsive layout works without overflow.
+[PASS] 320px QA - notifications.html responsive layout works without overflow.
+[PASS] 320px QA - profile.html responsive layout works without overflow.
+[PASS] 320px QA - settings.html responsive layout works without overflow.
+[PASS] 320px QA - forgot-password.html responsive layout works without overflow.

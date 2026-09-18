@@ -67,7 +67,7 @@ const PostService = {
           profiles!posts_user_id_fkey ( id, full_name, username, avatar_url, is_verified ),
           post_media ( id, media_url, media_type, aspect_ratio ),
           post_polls ( id, question, total_votes, post_poll_options ( id, option_text, votes_count ) ),
-          post_comments ( id, text, created_at, profiles!post_comments_user_id_fkey ( full_name, username, avatar_url, is_verified ) ),
+          post_comments ( id, user_id, text, created_at, profiles!post_comments_user_id_fkey ( id, full_name, username, avatar_url, is_verified ) ),
           post_likes ( user_id )
         `);
         
@@ -133,6 +133,7 @@ const PostService = {
             commentsCount: p.comments_count || 0,
             comments: (p.post_comments || []).map(c => ({
               id: c.id,
+              authorId: c.profiles?.id || c.user_id,
               author: c.profiles?.full_name || 'Creator',
               handle: c.profiles?.username || '',
               avatar: c.profiles?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100',

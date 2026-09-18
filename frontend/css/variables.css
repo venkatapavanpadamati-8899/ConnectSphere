@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ConnectSphere Unified Design Tokens & Variables - PREMIUM NANO BANANA
+   ConnectSphere Unified Design Tokens & Variables — Premium 4.0
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap');
 
@@ -8,10 +8,12 @@
   --bg-dark: #0A0A0B; /* Deep graphite */
   --bg-surface: #121214; /* Slightly lighter graphite */
   --bg-surface-elevated: #1A1A1D; /* Elevated neutral */
-  --bg-card: rgba(18, 18, 20, 0.7); /* Glassy card */
-  --bg-card-hover: rgba(26, 26, 29, 0.85);
-  --bg-glass-input: rgba(255, 255, 255, 0.04);
-  --bg-overlay: rgba(10, 10, 11, 0.85);
+  --bg-surface-hover: #222225; /* Hover lift */
+  --bg-card: rgba(22, 22, 26, 0.72); /* Glassy card — slightly lifted from bg-dark */
+  --bg-card-solid: #16161A; /* Opaque card for non-glass contexts */
+  --bg-card-hover: rgba(30, 30, 35, 0.88);
+  --bg-glass-input: rgba(255, 255, 255, 0.05);
+  --bg-overlay: rgba(10, 10, 11, 0.88);
   
   /* Text System */
   --text-main: #FDFDFE; /* Soft white */
@@ -22,6 +24,7 @@
   --primary: #4F46E5; /* Indigo */
   --primary-hover: #4338CA;
   --primary-light: #818CF8;
+  --primary-rgb: 79, 70, 229; /* For rgba() usage */
   
   --secondary: #3B82F6; /* Blue */
   --secondary-hover: #2563EB;
@@ -69,12 +72,13 @@
   --space-10: 64px;
   --space-12: 96px;
 
-  /* Refined Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
-  --shadow-depth-1: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
-  --shadow-depth-2: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 4px 20px 0 rgba(79, 70, 229, 0.25);
+  /* Refined Shadows — subtle depth, not heavy */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-depth-1: 0 8px 16px -4px rgba(0, 0, 0, 0.45), 0 4px 6px -4px rgba(0, 0, 0, 0.35);
+  --shadow-depth-2: 0 16px 32px -8px rgba(0, 0, 0, 0.5), 0 8px 12px -6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 4px 20px 0 rgba(79, 70, 229, 0.2);
+  --shadow-card: 0 2px 8px -2px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.04);
   
   /* Standardized Heights */
   --btn-height: 44px;

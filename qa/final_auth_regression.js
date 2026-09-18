@@ -76,7 +76,7 @@ function logReport(test, expected, actual, evidence, result) {
         await page.goto(`${BASE_URL}/signup.html`, { waitUntil: 'networkidle0' });
         
         // Fill step 1
-        await page.type('#username', 'testuser_qa');
+        await page.type('#username', `testuser_${Date.now()}`);
         await page.type('#email', `testqa_${Date.now()}@example.com`);
         await page.type('#password', 'securepass123');
         await page.evaluate(() => nextStep(2));
@@ -109,13 +109,23 @@ function logReport(test, expected, actual, evidence, result) {
                 await page.click('#finalSignupBtn');
                 await new Promise(r => setTimeout(r, 2500));
                 
-                const finalErr = await page.$eval('#general-error', el => el.textContent);
-                if (finalErr && finalErr.includes('rate limit')) {
-                    logReport('Signup - Final Submit', 'Real Supabase signup', '429 Rate Limit hit', finalErr, 'BLOCKED_EXTERNAL_CONFIGURATION');
-                } else if (finalErr) {
-                    logReport('Signup - Final Submit', 'Real Supabase signup', 'Error occurred', finalErr, 'FAIL');
-                } else {
-                    logReport('Signup - Final Submit', 'Real Supabase signup', 'Submitted', 'No visible error', 'PASS');
+                try {
+                    const finalErr = await page.$eval('#general-error', el => el.textContent);
+                    if (finalErr && finalErr.includes('rate limit')) {
+                        logReport('Signup - Final Submit', 'Real Supabase signup', '429 Rate Limit hit', finalErr, 'BLOCKED_EXTERNAL_CONFIGURATION');
+                    } else if (finalErr) {
+                        logReport('Signup - Final Submit', 'Real Supabase signup', 'Error occurred', finalErr, 'FAIL');
+                    } else {
+                        logReport('Signup - Final Submit', 'Real Supabase signup', 'Submitted', 'No visible error', 'PASS');
+                    }
+                } catch (e) {
+                    const currentUrl = page.url();
+                    if (currentUrl.includes('dashboard')) {
+                        logReport('Signup - Final Submit', 'Real Supabase signup', 'Submitted and redirected', 'Navigated to dashboard', 'PASS');
+                    } else {
+                        const bodyHTML = await page.evaluate(() => document.body.innerHTML.substring(0, 200));
+                        logReport('Signup - Final Submit', 'Real Supabase signup', `Unknown outcome at ${currentUrl}`, `Body start: ${bodyHTML}`, 'FAIL');
+                    }
                 }
             }
         }
