@@ -3,355 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Login | ConnectSphere</title>
+  <meta name="description" content="ConnectSphere — Log In">
+  <title>Log In | ConnectSphere</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/auth.css">
   <link rel="stylesheet" href="../css/responsive.css">
-  <link rel="stylesheet" href="../css/backgrounds.css">
-  <link rel="stylesheet" href="../css/premium.css">
-  
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto;
-      overflow-x: hidden;
-      font-family: var(--font-body);
-    }
-
-    /* Fixed background behind everything */
-    .cs-premium-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      max-width: 100%;
-      height: 100%;
-      z-index: -1;
-      background-color: var(--bg-dark);
-      overflow: hidden;
-    }
-    
-    .cs-premium-bg .cs-bg-image {
-      width: 100%;
-      height: 100%;
-      background-image: url('../assets/backgrounds/bg_login.jpg');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.6;
-      animation: slowPan 60s linear infinite alternate;
-    }
-
-    @keyframes slowPan {
-      0% { transform: scale(1.05) translate(0, 0); }
-      100% { transform: scale(1.1) translate(-2%, 2%); }
-    }
-
-    .cs-auth-centered-container {
-      width: 100%;
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    }
-
-    .cs-auth-card {
-      width: min(100% - 32px, 460px);
-      background: var(--bg-card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-xl);
-      padding: var(--space-6);
-      box-shadow: var(--shadow-depth-2), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      margin: var(--space-4) auto;
-      animation: popIn 0.5s var(--transition);
-      z-index: 10;
-    }
-
-    .cs-auth-logo-large {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: var(--space-5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-2);
-    }
-    
-    .cs-auth-logo-large i {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .cs-auth-header {
-      margin-bottom: var(--space-5);
-      text-align: center;
-    }
-
-    .cs-auth-title {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: var(--space-2);
-      color: var(--text-main);
-    }
-
-    .cs-auth-subtitle {
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-
-    .cs-form-group {
-      margin-bottom: var(--space-4);
-      position: relative;
-    }
-
-    .cs-form-label {
-      display: block;
-      margin-bottom: var(--space-2);
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text-main);
-    }
-
-    .cs-input-icon-wrapper {
-      position: relative;
-    }
-
-    .cs-input-icon-wrapper i {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-dim);
-      font-size: 1.1rem;
-      transition: var(--transition-fast);
-    }
-
-    .cs-input {
-      width: 100%;
-      height: var(--input-height);
-      padding: 0 16px 0 44px;
-      background: var(--bg-glass-input);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .cs-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-    }
-
-    .cs-input:focus + i {
-      color: var(--primary-light);
-    }
-
-    .cs-password-toggle {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-dim);
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-      transition: var(--transition-fast);
-    }
-    
-    .cs-password-toggle:hover {
-      color: var(--text-main);
-    }
-
-    .cs-auth-options {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: var(--space-5);
-    }
-
-    .cs-forgot-link {
-      color: var(--primary-light);
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition-fast);
-    }
-
-    .cs-forgot-link:hover {
-      color: var(--text-main);
-      text-decoration: underline;
-    }
-
-    .cs-btn-submit {
-      width: 100%;
-      height: var(--btn-height);
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      border-radius: var(--radius-md);
-      font-weight: 700;
-      font-size: 1.05rem;
-      cursor: pointer;
-      box-shadow: var(--shadow-glow);
-      transition: var(--bounce-transition);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--space-2);
-      font-family: var(--font-body);
-    }
-
-    .cs-btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(79, 70, 229, 0.4);
-    }
-
-    .cs-btn-submit:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .cs-divider {
-      display: flex;
-      align-items: center;
-      margin: var(--space-5) 0;
-      color: var(--text-dim);
-      font-size: 0.9rem;
-    }
-
-    .cs-divider::before, .cs-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border-color);
-    }
-
-    .cs-divider::before { margin-right: var(--space-3); }
-    .cs-divider::after { margin-left: var(--space-3); }
-
-    .cs-btn-google {
-      width: 100%;
-      height: var(--btn-height);
-      background: rgba(255,255,255,0.05);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--space-3);
-      transition: var(--transition);
-    }
-
-    .cs-btn-google:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    .cs-google-icon-wrapper {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      background: #FFFFFF;
-      border-radius: 50%;
-      padding: 3px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-      flex-shrink: 0;
-    }
-
-    .cs-google-icon-wrapper svg {
-      width: 18px;
-      height: 18px;
-      display: block;
-    }
-
-    .cs-btn-google img,
-    .cs-btn-google svg {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
-    .cs-auth-footer {
-      margin-top: var(--space-6);
-      text-align: center;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    .cs-auth-footer a {
-      color: var(--primary-light);
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition-fast);
-    }
-    
-    .cs-auth-footer a:hover {
-      color: var(--text-main);
-      text-decoration: underline;
-    }
-
-    @keyframes popIn {
-      0% { opacity: 0; transform: translateY(15px) scale(0.98); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      .cs-premium-bg .cs-bg-image {
-        animation: none;
-      }
-      .cs-auth-card {
-        animation: none;
-      }
-    }
-  </style>
 </head>
-<body>
-  <div class="cs-premium-bg">
-    <div class="cs-bg-image"></div>
+<body class="cs-auth-body">
+
+  <div class="cs-auth-bg-wrapper">
+    <div class="cs-auth-bg-image"></div>
+    <div class="cs-auth-bg-overlay"></div>
+    <div class="cs-auth-bg-radial"></div>
+    <div class="cs-landing-grid"></div>
   </div>
 
-  <div class="cs-auth-centered-container">
-    <div class="cs-auth-card">
-      
-      <div class="cs-auth-logo-large">
+  <div class="cs-auth-container">
+    <main class="cs-auth-card">
+      <div class="cs-auth-brand">
         <i class="fa-solid fa-earth-americas"></i>
-        <span>ConnectSphere</span>
+        <span>Connect<span class="highlight">Sphere</span></span>
       </div>
 
       <div class="cs-auth-header">
@@ -359,43 +35,43 @@
         <p class="cs-auth-subtitle">Log in to continue your journey</p>
       </div>
 
-      <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius-sm); color: #FCA5A5;"></div>
+      <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: 24px; padding: 12px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; color: #FCA5A5;"></div>
 
-      <form id="loginForm">
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="email">Email address</label>
-          <div class="cs-input-icon-wrapper">
-            <input type="email" id="email" class="cs-input" placeholder="name@example.com" required>
-            <i class="fa-regular fa-envelope"></i>
+      <form id="loginForm" class="cs-auth-form">
+        <div class="cs-auth-form-group">
+          <label class="cs-auth-label" for="email">Email address</label>
+          <div class="cs-auth-input-wrapper">
+            <input type="email" id="email" class="cs-auth-input" placeholder="name@example.com" autocomplete="email" required>
+            <i class="fa-regular fa-envelope cs-auth-input-icon"></i>
           </div>
         </div>
 
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="password">Password</label>
-          <div class="cs-input-icon-wrapper">
-            <input type="password" id="password" class="cs-input" placeholder="Enter your password" required>
-            <i class="fa-solid fa-lock"></i>
-            <button type="button" class="cs-password-toggle" id="togglePassword">
+        <div class="cs-auth-form-group">
+          <label class="cs-auth-label" for="password">Password</label>
+          <div class="cs-auth-input-wrapper">
+            <input type="password" id="password" class="cs-auth-input" placeholder="Enter your password" autocomplete="current-password" required>
+            <i class="fa-solid fa-lock cs-auth-input-icon"></i>
+            <button type="button" class="cs-auth-password-toggle" id="togglePassword">
               <i class="fa-regular fa-eye"></i>
             </button>
           </div>
         </div>
 
-        <div class="cs-auth-options">
-          <a href="forgot-password.html" class="cs-forgot-link">Forgot password?</a>
+        <div class="cs-auth-options" style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+          <a href="forgot-password.html" class="cs-auth-link">Forgot password?</a>
         </div>
 
-        <button type="submit" class="cs-btn-submit" id="loginBtn">
+        <button type="submit" class="cs-auth-btn cs-auth-btn-primary" id="loginBtn">
           <span>Log In</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </form>
 
-      <div class="cs-divider">Or continue with</div>
+      <div class="cs-auth-divider">Or continue with</div>
 
-      <button type="button" class="cs-btn-google" id="googleLoginBtn" aria-label="Continue with Google">
-        <span class="cs-google-icon-wrapper">
-          <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <button type="button" class="cs-auth-btn cs-auth-btn-google" id="googleLoginBtn" aria-label="Continue with Google">
+        <span class="cs-google-icon-wrapper" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: white; border-radius: 50%; padding: 4px;">
+          <svg width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
@@ -406,17 +82,16 @@
       </button>
 
       <div class="cs-auth-footer">
-        Don't have an account? <a href="signup.html">Create account</a>
+        Don't have an account? <a href="signup.html" class="cs-auth-link">Create account</a>
       </div>
       
-    </div>
+    </main>
   </div>
 
   <script src="../js/vendor/supabase.js"></script>
   <script src="../js/config/env.js"></script>
   <script src="../js/lib/supabaseClient.js"></script>
   <script>
-
     // Password Toggle
     document.getElementById('togglePassword').addEventListener('click', function() {
       const passwordInput = document.getElementById('password');
@@ -466,7 +141,7 @@
         const { error } = await window.csSupabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: window.location.origin + '/dashboard.html'
+            redirectTo: window.location.origin + '/pages/dashboard.html'
           }
         });
         if (error) throw error;

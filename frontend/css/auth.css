@@ -1,0 +1,730 @@
+/* ==========================================================================
+   ConnectSphere - Premium Authentication UI
+   (Final Polish Applied)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BASE LAYOUT & BACKGROUND
+   -------------------------------------------------------------------------- */
+.cs-auth-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: clip; /* Fix position sticky globally */
+  font-family: var(--font-body);
+  position: relative;
+}
+
+/* Cinematic Background - Layers 1 to 4 */
+.cs-auth-bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: #050B18; /* Deep midnight navy */
+  overflow: hidden;
+}
+
+.cs-auth-bg-image {
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/backgrounds/bg_index.jpg'); /* Re-using existing abstract bg */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  animation: slowScale 45s linear infinite alternate;
+}
+
+.cs-auth-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(5, 11, 24, 0.8), rgba(8, 18, 38, 0.6));
+  z-index: 1;
+}
+
+.cs-auth-bg-radial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vw;
+  max-width: 1200px;
+  max-height: 1200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(5, 11, 24, 0) 70%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes slowScale {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+/* --------------------------------------------------------------------------
+   PREMIUM AUTH CARD (Layer 5)
+   -------------------------------------------------------------------------- */
+.cs-auth-container {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  z-index: 10;
+}
+
+.cs-auth-card {
+  width: min(100% - 32px, 560px);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  margin: var(--space-4) auto;
+  animation: authSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #1a202c; /* Dark text for light card */
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .cs-auth-card {
+    padding: 32px 24px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
+@keyframes authSlideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Brand Logo inside Card */
+.cs-auth-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+.cs-auth-brand i {
+  color: var(--primary); /* Electric blue */
+  font-size: 2.2rem;
+}
+
+.cs-auth-brand span {
+  color: var(--primary);
+}
+
+.cs-auth-subtitle {
+  color: #4a5568;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   FORM FIELDS
+   -------------------------------------------------------------------------- */
+.cs-auth-form {
+  text-align: left;
+}
+
+.cs-auth-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.cs-auth-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2d3748;
+}
+
+.cs-auth-input-wrapper {
+  position: relative;
+}
+
+.cs-auth-input-wrapper i.icon-left {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+  font-size: 1.1rem;
+  transition: var(--transition-fast);
+}
+
+.cs-auth-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 16px 0 48px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  color: #1a202c;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) inset;
+}
+
+.cs-auth-input::placeholder {
+  color: #a0aec0;
+}
+
+.cs-auth-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15), 0 2px 4px rgba(0, 0, 0, 0.02) inset;
+}
+
+.cs-auth-input:focus + i.icon-left {
+  color: var(--primary);
+}
+
+/* For inputs without icons */
+.cs-auth-input.no-icon {
+  padding-left: 16px;
+}
+
+.cs-password-toggle {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-password-toggle:hover {
+  color: #4a5568;
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS & CTAs
+   -------------------------------------------------------------------------- */
+.cs-auth-btn {
+  width: 100%;
+  height: 56px;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  text-decoration: none;
+}
+
+/* Primary Button (Blue/Violet Gradient) */
+.cs-auth-btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+  margin-top: 12px;
+}
+
+.cs-auth-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+}
+
+.cs-auth-btn-primary:active {
+  transform: translateY(0);
+}
+
+.cs-auth-btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Google OAuth Button (Light Premium Surface) */
+.cs-auth-btn-google {
+  background: #ffffff;
+  color: #2d3748;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.cs-auth-btn-google:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e0;
+}
+
+.cs-auth-btn-google:active {
+  transform: translateY(0);
+}
+
+.cs-auth-btn-google img, .cs-auth-btn-google i {
+  font-size: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   LAYOUT HELPERS & LINKS
+   -------------------------------------------------------------------------- */
+.cs-auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #a0aec0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 24px 0;
+}
+
+.cs-auth-divider::before,
+.cs-auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cs-auth-divider:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.cs-auth-divider:not(:empty)::after {
+  margin-left: .5em;
+}
+
+.cs-auth-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.cs-auth-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.cs-auth-link:hover {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+.cs-auth-footer {
+  margin-top: 32px;
+  color: #4a5568;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Form Validations */
+.cs-error-message {
+  display: none;
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+  animation: authSlideUp 0.3s ease;
+}
+
+.cs-success-message {
+  display: none;
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+  animation: authSlideUp 0.3s ease;
+}
+
+.cs-auth-input.error {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   LANDING PAGE SPLIT LAYOUT
+   -------------------------------------------------------------------------- */
+.cs-landing-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .cs-landing-wrapper {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.cs-landing-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  z-index: 20;
+}
+
+@media (min-width: 768px) {
+  .cs-landing-content {
+    padding: 64px 48px;
+    max-width: 50%;
+    margin: 0;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cs-landing-content {
+    padding: 80px 10%;
+  }
+}
+
+.cs-landing-visual {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .cs-landing-visual {
+    min-height: auto;
+  }
+}
+
+.cs-landing-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 48px;
+  animation: authSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-landing-brand i {
+  color: var(--primary);
+  font-size: 2.2rem;
+}
+
+.cs-landing-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--text-main);
+  animation: authSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1024px) {
+  .cs-landing-title {
+    font-size: 4rem;
+  }
+}
+
+.cs-landing-title span {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cs-landing-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  line-height: 1.6;
+  max-width: 480px;
+  animation: authSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-landing-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+  animation: authSlideUp 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 480px) {
+  .cs-landing-cta-group {
+    flex-direction: row;
+    max-width: none;
+  }
+}
+
+.cs-landing-btn-outline {
+  width: 100%;
+  height: 56px;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  flex: 1;
+  
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.cs-landing-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Grid overlay for Landing Visual */
+.cs-landing-grid {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+  animation: gridMove 20s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes gridMove {
+  0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+  100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
+}
+
+/* ==========================================================================
+   ALIAS & MISSING CLASS FIXES
+   HTML uses these names — map them to styled equivalents
+   ========================================================================== */
+
+/* .cs-auth-form-group is the same as .cs-auth-group */
+.cs-auth-form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* .cs-auth-input-icon — icon placed as sibling AFTER the input in wrapper */
+.cs-auth-input-wrapper .cs-auth-input-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: color 0.25s ease;
+}
+
+/* Password toggle button — same element, placed on right side */
+.cs-auth-input-wrapper .cs-auth-password-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.cs-auth-input-wrapper .cs-auth-password-toggle:hover {
+  color: #4a5568;
+}
+
+/* Since icons are siblings, input keeps left padding for icon space */
+/* (already 48px in .cs-auth-input — correct for left icons) */
+/* For inputs with password toggle: add right padding */
+.cs-auth-input-wrapper:has(.cs-auth-password-toggle) .cs-auth-input {
+  padding-right: 48px;
+}
+
+/* .cs-auth-title — heading inside card */
+.cs-auth-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+/* .cs-auth-header — wraps title + subtitle */
+.cs-auth-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* .cs-auth-btn-secondary — ghost/outline button for "Back" */
+.cs-auth-btn-secondary {
+  background: transparent;
+  color: #4a5568;
+  border: 1.5px solid #e2e8f0;
+  margin-top: 12px;
+  flex: 1;
+}
+
+.cs-auth-btn-secondary:hover {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+  transform: translateY(-1px);
+}
+
+.cs-auth-btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* .highlight — span inside brand name "Sphere" */
+.cs-auth-brand .highlight {
+  color: var(--secondary, #3B82F6);
+}
+
+/* .cs-error-msg — alias for .cs-error-message used inline in HTML */
+.cs-error-msg {
+  display: none;
+  font-size: 0.88rem;
+  color: #dc2626;
+  margin-top: 6px;
+  font-weight: 500;
+  padding: 4px 0;
+}
+
+/* When shown via JS style.display='block' */
+.cs-error-msg[style*="display: block"],
+.cs-error-msg[style*="display:block"] {
+  display: block !important;
+}
+
+/* Reduce left padding on input when inside cs-auth-form-group with no icon wrapper 
+   — handles the select element (phone country code) */
+.cs-auth-form-group select.cs-auth-input {
+  padding-left: 16px;
+  appearance: auto;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* Date input styling */
+.cs-auth-form-group input[type="date"].cs-auth-input {
+  padding-left: 16px;
+  color-scheme: light;
+}
+
+/* OTP inputs in the light card */
+.cs-otp-input {
+  background: #f7fafc;
+  color: #1a202c;
+  border-color: #e2e8f0;
+}
+
+.cs-otp-input:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Demo OTP banner in light card */
+.cs-demo-otp-banner {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed #F59E0B;
+  color: #92400E;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* Progress step dots on light card */
+.cs-progress-step {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #64748b;
+}
+
+.cs-progress-step.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.cs-progress-step.completed {
+  background: rgba(79, 70, 229, 0.1);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+

@@ -11,6 +11,7 @@ async function runAuthTest() {
 
   try {
     const page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 800 });
     const timestamp = Date.now();
     const testEmail = `auth_test_${timestamp}@connectsphere.com`;
     const testUser = `user_${timestamp.toString().slice(-6)}`;
@@ -29,13 +30,27 @@ async function runAuthTest() {
 
     console.log('\n--- 1. SIGNUP ---');
     await page.goto(`${LOCAL_BASE}/pages/signup.html`, { waitUntil: 'networkidle2' });
-    await page.type('#signup-fullname', 'Auth Tester');
-    await page.type('#signup-username', testUser);
-    await page.type('#signup-email', testEmail);
-    await page.type('#signup-mobile', '9876543210');
-    await page.type('#signup-password-input', testPass);
+    await page.type('#username', testUser);
+    await page.type('#email', testEmail);
+    await page.type('#password', testPass);
     
-    await page.click('#btn-goto-step-2');
+    await page.evaluate(() => nextStep(2));
+    await new Promise(r => setTimeout(r, 1000));
+    
+    await page.type('#phone', '9876543210');
+    await page.type('#dob', '2000-01-01');
+    
+    await page.evaluate(() => requestOTP());
+    await new Promise(r => setTimeout(r, 1000));
+    
+    await page.type('.cs-otp-input:nth-child(1)', '1');
+    await page.type('.cs-otp-input:nth-child(2)', '2');
+    await page.type('.cs-otp-input:nth-child(3)', '3');
+    await page.type('.cs-otp-input:nth-child(4)', '4');
+    await page.type('.cs-otp-input:nth-child(5)', '5');
+    await page.type('.cs-otp-input:nth-child(6)', '6');
+    
+    await page.click('#finalSignupBtn');
     
     await new Promise(r => setTimeout(r, 4000));
     console.log('Current URL after Signup:', page.url());
@@ -44,8 +59,8 @@ async function runAuthTest() {
 
     console.log('\n--- 2. LOGIN ---');
     await page.goto(`${LOCAL_BASE}/pages/login.html`, { waitUntil: 'networkidle2' });
-    await page.type('#login-identifier', testEmail);
-    await page.type('#login-password', testPass);
+    await page.type('#email', testEmail);
+    await page.type('#password', testPass);
     await page.click('button[type="submit"]');
     await new Promise(r => setTimeout(r, 5000));
     console.log('Current URL after Login:', page.url());
@@ -60,7 +75,10 @@ async function runAuthTest() {
     }
 
     const sessionState = await page.evaluate(() => {
-        return window.localStorage.getItem('sb-lgsdihyrsbzebdfblpor-auth-token') ? 'Active' : 'Missing';
+        // Scan all localStorage keys for any Supabase auth token
+        const keys = Object.keys(window.localStorage);
+        const authKey = keys.find(k => k.includes('supabase') || k.startsWith('sb-'));
+        return authKey ? 'Active' : 'Missing';
     });
     console.log('Supabase Session State:', sessionState);
 
@@ -76,8 +94,8 @@ async function runAuthTest() {
 
     console.log('\n--- 5. LOGIN AGAIN ---');
     await page.goto(`${LOCAL_BASE}/pages/login.html`, { waitUntil: 'networkidle2' });
-    await page.type('#login-identifier', testEmail);
-    await page.type('#login-password', testPass);
+    await page.type('#email', testEmail);
+    await page.type('#password', testPass);
     await page.click('button[type="submit"]');
     await new Promise(r => setTimeout(r, 5000));
     console.log('Current URL after Login Again:', page.url());

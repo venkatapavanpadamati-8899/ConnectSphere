@@ -3,127 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sign Up | ConnectSphere</title>
+  <meta name="description" content="ConnectSphere — Create Account">
+  <title>Create Account | ConnectSphere</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/auth.css">
   <link rel="stylesheet" href="../css/responsive.css">
-  <link rel="stylesheet" href="../css/backgrounds.css">
-  <link rel="stylesheet" href="../css/premium.css">
-  
+
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto;
-      overflow-x: hidden;
-      font-family: var(--font-body);
-    }
-
-    /* Fixed background behind everything */
-    .cs-premium-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      max-width: 100%;
-      height: 100%;
-      z-index: -1;
-      background-color: var(--bg-dark);
-      overflow: hidden;
-    }
-    
-    .cs-premium-bg .cs-bg-image {
-      width: 100%;
-      height: 100%;
-      background-image: url('../assets/backgrounds/bg_signup.jpg');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.6;
-      animation: slowPan 60s linear infinite alternate;
-    }
-
-    @keyframes slowPan {
-      0% { transform: scale(1.05) translate(0, 0); }
-      100% { transform: scale(1.1) translate(2%, -2%); }
-    }
-
-    .cs-auth-centered-container {
-      width: 100%;
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    }
-
-    .cs-auth-card {
-      width: min(100% - 32px, 480px);
-      background: var(--bg-card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-xl);
-      padding: var(--space-6);
-      box-shadow: var(--shadow-depth-2), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      margin: var(--space-4) auto;
-      animation: popIn 0.5s var(--transition);
-      z-index: 10;
-    }
-
-    .cs-auth-logo-large {
-      font-family: var(--font-heading);
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: var(--space-5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-2);
-    }
-    
-    .cs-auth-logo-large i {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .cs-auth-header {
-      margin-bottom: var(--space-5);
-      text-align: center;
-    }
-
-    .cs-auth-title {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: var(--space-2);
-      color: var(--text-main);
-    }
-
-    .cs-auth-subtitle {
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-
-    /* Progress Indicator */
+    /* Multi-step form specific styles mapped to auth.css variables */
     .cs-progress-bar {
       display: flex;
       justify-content: space-between;
@@ -138,7 +30,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--border-color);
       transform: translateY(-50%);
       z-index: 1;
     }
@@ -157,6 +49,7 @@
       position: relative;
       z-index: 2;
       transition: var(--transition);
+      font-size: 0.9rem;
     }
 
     .cs-progress-step.active {
@@ -172,69 +65,13 @@
       color: var(--primary-light);
     }
 
-    /* Form Steps */
     .cs-form-step {
       display: none;
-      animation: fadeIn 0.4s var(--transition);
+      animation: var(--animation-fade-in);
     }
 
     .cs-form-step.active {
       display: block;
-    }
-
-    .cs-form-group {
-      margin-bottom: var(--space-4);
-      position: relative;
-    }
-
-    .cs-form-label {
-      display: block;
-      margin-bottom: var(--space-2);
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text-main);
-    }
-
-    .cs-input-icon-wrapper {
-      position: relative;
-    }
-
-    .cs-input-icon-wrapper i {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-dim);
-      font-size: 1.1rem;
-      transition: var(--transition-fast);
-    }
-
-    .cs-input {
-      width: 100%;
-      height: var(--input-height);
-      padding: 0 16px 0 44px;
-      background: var(--bg-glass-input);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-    
-    .cs-input.no-icon {
-      padding-left: 16px;
-    }
-
-    .cs-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-    }
-
-    .cs-input:focus + i {
-      color: var(--primary-light);
     }
 
     .cs-phone-input-group {
@@ -253,63 +90,12 @@
       color: var(--text-main);
     }
 
-    /* Buttons */
     .cs-btn-group {
       display: flex;
       gap: var(--space-3);
       margin-top: var(--space-5);
     }
 
-    .cs-btn-primary {
-      flex: 1;
-      height: var(--btn-height);
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      border-radius: var(--radius-md);
-      font-weight: 700;
-      font-size: 1.05rem;
-      cursor: pointer;
-      box-shadow: var(--shadow-glow);
-      transition: var(--bounce-transition);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--space-2);
-      font-family: var(--font-body);
-    }
-
-    .cs-btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(79, 70, 229, 0.4);
-    }
-
-    .cs-btn-secondary {
-      flex: 1;
-      height: var(--btn-height);
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: var(--font-body);
-    }
-
-    .cs-btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-    
-    .cs-btn-primary:disabled, .cs-btn-secondary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* OTP Specific */
     .cs-otp-container {
       display: flex;
       gap: var(--space-2);
@@ -349,65 +135,23 @@
       font-size: 0.9rem;
       font-weight: 600;
     }
-
-    .cs-auth-footer {
-      margin-top: var(--space-6);
-      text-align: center;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-
-    .cs-auth-footer a {
-      color: var(--primary-light);
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition-fast);
-    }
-    
-    .cs-auth-footer a:hover {
-      color: var(--text-main);
-      text-decoration: underline;
-    }
-
-    .cs-error-msg {
-      color: #FCA5A5;
-      font-size: 0.85rem;
-      margin-top: 4px;
-      display: none;
-    }
-
-    @keyframes popIn {
-      0% { opacity: 0; transform: translateY(15px) scale(0.98); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .cs-premium-bg .cs-bg-image {
-        animation: none;
-      }
-      .cs-auth-card {
-        animation: none;
-      }
-    }
   </style>
 </head>
-<body>
+<body class="cs-auth-body">
   
-  <div class="cs-premium-bg">
-    <div class="cs-bg-image"></div>
+  <div class="cs-auth-bg-wrapper">
+    <div class="cs-auth-bg-image"></div>
+    <div class="cs-auth-bg-overlay"></div>
+    <div class="cs-auth-bg-radial"></div>
+    <div class="cs-landing-grid"></div>
   </div>
 
-  <div class="cs-auth-centered-container">
-    <div class="cs-auth-card">
+  <div class="cs-auth-container">
+    <main class="cs-auth-card">
       
-      <div class="cs-auth-logo-large">
+      <div class="cs-auth-brand">
         <i class="fa-solid fa-earth-americas"></i>
-        <span>ConnectSphere</span>
+        <span>Connect<span class="highlight">Sphere</span></span>
       </div>
 
       <div class="cs-auth-header">
@@ -415,7 +159,7 @@
         <p class="cs-auth-subtitle">Join ConnectSphere in just a few steps</p>
       </div>
       
-      <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: var(--space-4); padding: 10px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius-sm); color: #FCA5A5;"></div>
+      <div id="general-error" class="cs-error-msg" style="display:none; text-align:center; margin-bottom: 24px; padding: 12px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; color: #FCA5A5;"></div>
 
       <!-- Progress Indicator -->
       <div class="cs-progress-bar">
@@ -424,107 +168,109 @@
         <div class="cs-progress-step" id="indicator-3">3</div>
       </div>
 
-      <!-- STEP 1: Account Details -->
-      <div class="cs-form-step active" id="step1">
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="username">Username</label>
-          <div class="cs-input-icon-wrapper">
-            <input type="text" id="username" class="cs-input" placeholder="e.g. john_doe" required>
-            <i class="fa-regular fa-user"></i>
+      <form id="signupForm" class="cs-auth-form">
+        <!-- STEP 1: Account Details -->
+        <div class="cs-form-step active" id="step1">
+          <div class="cs-auth-form-group">
+            <label class="cs-auth-label" for="username">Username</label>
+            <div class="cs-auth-input-wrapper">
+              <input type="text" id="username" class="cs-auth-input" placeholder="e.g. john_doe" autocomplete="username" required>
+              <i class="fa-regular fa-user cs-auth-input-icon"></i>
+            </div>
+            <div class="cs-error-msg" id="err-username">Username is required</div>
           </div>
-          <div class="cs-error-msg" id="err-username">Username is required</div>
-        </div>
 
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="email">Email address</label>
-          <div class="cs-input-icon-wrapper">
-            <input type="email" id="email" class="cs-input" placeholder="name@example.com" required>
-            <i class="fa-regular fa-envelope"></i>
+          <div class="cs-auth-form-group">
+            <label class="cs-auth-label" for="email">Email address</label>
+            <div class="cs-auth-input-wrapper">
+              <input type="email" id="email" class="cs-auth-input" placeholder="name@example.com" autocomplete="email" required>
+              <i class="fa-regular fa-envelope cs-auth-input-icon"></i>
+            </div>
+            <div class="cs-error-msg" id="err-email">Valid email is required</div>
           </div>
-          <div class="cs-error-msg" id="err-email">Valid email is required</div>
-        </div>
 
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="password">Password</label>
-          <div class="cs-input-icon-wrapper">
-            <input type="password" id="password" class="cs-input" placeholder="Create a strong password" required minlength="6">
-            <i class="fa-solid fa-lock"></i>
+          <div class="cs-auth-form-group">
+            <label class="cs-auth-label" for="password">Password</label>
+            <div class="cs-auth-input-wrapper">
+              <input type="password" id="password" class="cs-auth-input" placeholder="Create a strong password" autocomplete="new-password" required minlength="6">
+              <i class="fa-solid fa-lock cs-auth-input-icon"></i>
+            </div>
+            <div class="cs-error-msg" id="err-password">Password must be at least 6 characters</div>
           </div>
-          <div class="cs-error-msg" id="err-password">Password must be at least 6 characters</div>
-        </div>
 
-        <div class="cs-btn-group">
-          <button type="button" class="cs-btn-primary" onclick="nextStep(2)">
-            Continue <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- STEP 2: Personal Details -->
-      <div class="cs-form-step" id="step2">
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="phone">Phone Number</label>
-          <div class="cs-phone-input-group">
-            <select class="cs-input cs-country-code no-icon" id="countryCode">
-              <option value="+1">+1 (US)</option>
-              <option value="+44">+44 (UK)</option>
-              <option value="+91">+91 (IN)</option>
-              <option value="+61">+61 (AU)</option>
-            </select>
-            <input type="tel" id="phone" class="cs-input no-icon" placeholder="Phone number" style="flex: 1;" required>
-          </div>
-          <div class="cs-error-msg" id="err-phone">Valid phone number is required</div>
-        </div>
-
-        <div class="cs-form-group">
-          <label class="cs-form-label" for="dob">Date of Birth</label>
-          <div class="cs-input-icon-wrapper">
-            <input type="date" id="dob" class="cs-input no-icon" required>
-          </div>
-          <div class="cs-error-msg" id="err-dob">Date of Birth is required</div>
-        </div>
-
-        <div class="cs-btn-group">
-          <button type="button" class="cs-btn-secondary" onclick="prevStep(1)">Back</button>
-          <button type="button" class="cs-btn-primary" onclick="requestOTP()">
-            Send OTP <i class="fa-solid fa-comment-sms"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- STEP 3: OTP Verification (Demo) -->
-      <div class="cs-form-step" id="step3">
-        <div class="cs-demo-otp-banner">
-          <i class="fa-solid fa-flask"></i> DEMO / TEST OTP<br>
-          <span style="font-size: 1.1rem; letter-spacing: 2px; margin-top: 4px; display: block;">123456</span>
-          <small style="font-weight: 400;">(No actual SMS is sent in this development flow)</small>
-        </div>
-
-        <div class="cs-form-group">
-          <label class="cs-form-label" style="text-align: center;">Enter 6-digit code</label>
-          <div class="cs-otp-container">
-            <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 1)">
-            <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 2)">
-            <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 3)">
-            <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 4)">
-            <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 5)">
-            <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, null)">
+          <div class="cs-btn-group">
+            <button type="button" class="cs-auth-btn cs-auth-btn-primary" onclick="nextStep(2)" style="margin-bottom: 0;">
+              Continue <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
         </div>
 
-        <div class="cs-btn-group">
-          <button type="button" class="cs-btn-secondary" onclick="prevStep(2)">Back</button>
-          <button type="button" class="cs-btn-primary" id="finalSignupBtn" onclick="submitSignup()">
-            Create Account <i class="fa-solid fa-check"></i>
-          </button>
+        <!-- STEP 2: Personal Details -->
+        <div class="cs-form-step" id="step2">
+          <div class="cs-auth-form-group">
+            <label class="cs-auth-label" for="phone">Phone Number</label>
+            <div class="cs-phone-input-group">
+              <select class="cs-auth-input cs-country-code" id="countryCode" style="padding-left: 16px;">
+                <option value="+1">+1 (US)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+91">+91 (IN)</option>
+                <option value="+61">+61 (AU)</option>
+              </select>
+              <input type="tel" id="phone" class="cs-auth-input" placeholder="Phone number" style="flex: 1; padding-left: 16px;" required>
+            </div>
+            <div class="cs-error-msg" id="err-phone">Valid phone number is required</div>
+          </div>
+
+          <div class="cs-auth-form-group">
+            <label class="cs-auth-label" for="dob">Date of Birth</label>
+            <div class="cs-auth-input-wrapper">
+              <input type="date" id="dob" class="cs-auth-input" style="padding-left: 16px;" required>
+            </div>
+            <div class="cs-error-msg" id="err-dob">Date of Birth is required</div>
+          </div>
+
+          <div class="cs-btn-group">
+            <button type="button" class="cs-auth-btn cs-auth-btn-secondary" onclick="prevStep(1)" style="margin-bottom: 0;">Back</button>
+            <button type="button" class="cs-auth-btn cs-auth-btn-primary" onclick="requestOTP()" style="margin-bottom: 0;">
+              Send OTP <i class="fa-solid fa-comment-sms"></i>
+            </button>
+          </div>
         </div>
-      </div>
+
+        <!-- STEP 3: OTP Verification (Demo) -->
+        <div class="cs-form-step" id="step3">
+          <div class="cs-demo-otp-banner">
+            <i class="fa-solid fa-flask"></i> DEMO / TEST OTP<br>
+            <span style="font-size: 1.1rem; letter-spacing: 2px; margin-top: 4px; display: block;">123456</span>
+            <small style="font-weight: 400;">(No actual SMS is sent in this development flow)</small>
+          </div>
+
+          <div class="cs-auth-form-group">
+            <label class="cs-auth-label" style="text-align: center; margin-bottom: 12px;">Enter 6-digit code</label>
+            <div class="cs-otp-container">
+              <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 1)">
+              <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 2)">
+              <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 3)">
+              <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 4)">
+              <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, 5)">
+              <input type="text" class="cs-otp-input" maxlength="1" oninput="moveToNext(this, null)">
+            </div>
+          </div>
+
+          <div class="cs-btn-group">
+            <button type="button" class="cs-auth-btn cs-auth-btn-secondary" onclick="prevStep(2)" style="margin-bottom: 0;">Back</button>
+            <button type="button" class="cs-auth-btn cs-auth-btn-primary" id="finalSignupBtn" onclick="submitSignup()" style="margin-bottom: 0;">
+              Create Account <i class="fa-solid fa-check"></i>
+            </button>
+          </div>
+        </div>
+      </form>
 
       <div class="cs-auth-footer">
-        Already have an account? <a href="login.html">Log in</a>
+        Already have an account? <a href="login.html" class="cs-auth-link">Log in</a>
       </div>
       
-    </div>
+    </main>
   </div>
 
   <script src="../js/vendor/supabase.js"></script>
